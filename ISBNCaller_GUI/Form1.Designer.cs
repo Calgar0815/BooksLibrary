@@ -60,7 +60,7 @@
             SearchTab_btnSearch = new System.Windows.Forms.Button();
             SearchTab_btnCorrection = new System.Windows.Forms.Button();
             tabPageWrite = new System.Windows.Forms.TabPage();
-            WorkInProgressLabel = new System.Windows.Forms.Label();
+            WriteTab_WorkInProgressLabel = new System.Windows.Forms.Label();
             WriteTab_txtBoxISBN_1 = new System.Windows.Forms.TextBox();
             WriteTab_groupBoxAuthor = new System.Windows.Forms.GroupBox();
             WriteTab_Author_dataGridViewAuthor = new System.Windows.Forms.DataGridView();
@@ -511,7 +511,7 @@
             // 
             // tabPageWrite
             // 
-            tabPageWrite.Controls.Add(WorkInProgressLabel);
+            tabPageWrite.Controls.Add(WriteTab_WorkInProgressLabel);
             tabPageWrite.Controls.Add(WriteTab_txtBoxISBN_1);
             tabPageWrite.Controls.Add(WriteTab_groupBoxAuthor);
             tabPageWrite.Controls.Add(WriteTab_btnRegisterWOutISBN);
@@ -525,15 +525,15 @@
             tabPageWrite.Text = "Eintragen";
             tabPageWrite.UseVisualStyleBackColor = true;
             // 
-            // WorkInProgressLabel
+            // WriteTab_WorkInProgressLabel
             // 
-            WorkInProgressLabel.AutoSize = true;
-            WorkInProgressLabel.Location = new System.Drawing.Point(330, 8);
-            WorkInProgressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            WorkInProgressLabel.Name = "WorkInProgressLabel";
-            WorkInProgressLabel.Size = new System.Drawing.Size(105, 15);
-            WorkInProgressLabel.TabIndex = 6;
-            WorkInProgressLabel.Text = "Work in progress...";
+            WriteTab_WorkInProgressLabel.AutoSize = true;
+            WriteTab_WorkInProgressLabel.Location = new System.Drawing.Point(330, 8);
+            WriteTab_WorkInProgressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_WorkInProgressLabel.Name = "WriteTab_WorkInProgressLabel";
+            WriteTab_WorkInProgressLabel.Size = new System.Drawing.Size(105, 15);
+            WriteTab_WorkInProgressLabel.TabIndex = 6;
+            WriteTab_WorkInProgressLabel.Text = "Work in progress...";
             // 
             // WriteTab_txtBoxISBN_1
             // 
@@ -1478,7 +1478,7 @@
         private System.Windows.Forms.DataGridView SearchTab_dataGridViewSearch;
         private System.Windows.Forms.CheckBox SearchTab_chkBoxOnlyShowFirstAuthor;
         private System.Windows.Forms.ComboBox SearchTab_cmbBoxSeries;
-        private System.Windows.Forms.Label WorkInProgressLabel;
+        private System.Windows.Forms.Label WriteTab_WorkInProgressLabel;
         private System.Windows.Forms.ComboBox WriteTab_Book_cmbBoxFormat;
         private System.Windows.Forms.ComboBox cmbBoxLanguage;
         private System.Windows.Forms.ComboBox cmbBoxColorMode;

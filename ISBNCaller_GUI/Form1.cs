@@ -30,7 +30,7 @@ namespace ISBNCaller_GUI
             mWriteTab.DisableTxtBoxes();
             this.AcceptButton = SearchTab_btnSearch;
             SearchTab_txtBoxISBN.Focus();
-            WorkInProgressLabel.Visible = false;
+            WriteTab_WorkInProgressLabel.Visible = false;
         }
 
         #region Overall Settings
@@ -60,7 +60,7 @@ namespace ISBNCaller_GUI
 
             XmlReader reader = new XmlReader(cSettingsPath);
             mLanguage = reader.Read("Language");
-            
+
             foreach (var lang in GetLanguagesEnumList<mLanguagesEnum>())
             {
                 cmbBoxLanguage.Items.Add(lang.ToString());
@@ -236,6 +236,7 @@ namespace ISBNCaller_GUI
             ChangeLabelColors(SearchTab_radioBtnWSeries);
             ChangeLabelColors(SearchTab_chkBoxOnlyShowFirstAuthor);
             ChangeLabelColors(SearchTab_chkBoxShowLent);
+            ChangeLabelColors(WriteTab_WorkInProgressLabel);
             ChangeLabelColors(WriteTab_Book_labelFormat);
             ChangeLabelColors(WriteTab_Book_labelISBN10);
             ChangeLabelColors(WriteTab_Book_labelISBN13);
@@ -292,6 +293,41 @@ namespace ISBNCaller_GUI
             ChangeTextBoxColors(ReturnTab_txtBoxPreName);
             ChangeTextBoxColors(ReturnTab_txtBoxSurName);
             #endregion
+
+            #region DataGridView
+            ChangeDataGridViewColors();
+            #endregion
+        }
+
+        private void ChangeDataGridViewColors()
+        {
+            ChangeDataGridViewColors(SearchTab_dataGridViewSearch);
+            ChangeDataGridViewColors(WriteTab_Author_dataGridViewAuthor);
+            ChangeDataGridViewColors(LentTab_dataGridViewLent);
+            ChangeDataGridViewColors(LentTab_dataGridViewSearch);
+            ChangeDataGridViewColors(ReturnTab_dataGridViewReturn);
+        }
+
+        private void ChangeDataGridViewColors(DataGridView dgv)
+        {
+            Color backColor = Color.White;
+            Color foreColor = Color.Black;
+            if (mColorMode == mColorModesEnum.Dark.ToString())
+            {
+                backColor = Color.DarkGray;
+                foreColor = Color.White;
+            } // if
+            else if (mColorMode == mColorModesEnum.System.ToString())
+            {
+                backColor = Color.White;
+                foreColor = Color.Black;
+            } // else if
+
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                row.DefaultCellStyle.BackColor = backColor;
+                row.DefaultCellStyle.ForeColor = foreColor;
+            }
         }
 
         private void ChangeTextBoxColors(Control control)
@@ -380,12 +416,13 @@ namespace ISBNCaller_GUI
             mWriteTab.mBtnCalculateISBN13 = WriteTab_Book_btnCalculateISBN13;
             mWriteTab.mBtnRegisterWOutISBN = WriteTab_btnRegisterWOutISBN;
             mWriteTab.mLabelMaxNoCount = WriteTab_Book_labelMaxNoCount;
-            mWriteTab.mWorkInProgressLabel = WorkInProgressLabel;
+            mWriteTab.mWorkInProgressLabel = WriteTab_WorkInProgressLabel;
         }
 
         private void WriteTab_btnOK_Click(object sender, EventArgs e)
         {
             mWriteTab.btnOK_Click();
+            ChangeDataGridViewColors();
         }
 
         private void WriteTab_btnCancel_Click(object sender, EventArgs e)
@@ -435,6 +472,7 @@ namespace ISBNCaller_GUI
         private void WriteTab_btnRegisterWOutISBN_Click(object sender, EventArgs e)
         {
             mWriteTab.btnRegisterWOutISBN_Click();
+            ChangeDataGridViewColors();
         }
 
         private void WriteTab_Book_txtBoxISBN10_TextChanged(object sender, EventArgs e)
@@ -483,11 +521,13 @@ namespace ISBNCaller_GUI
         private void LentTab_btnSearch_Click(object sender, EventArgs e)
         {
             mLentTab.btnSearch_Click();
+            ChangeDataGridViewColors();
         }
 
         private void LentTab_btnPull_Click(object sender, EventArgs e)
         {
             mLentTab.btnPull_Click();
+            ChangeDataGridViewColors();
         }
 
         private void LentTab_btnLent_Click(object sender, EventArgs e)
@@ -545,11 +585,13 @@ namespace ISBNCaller_GUI
         private void ReturnTab_btnShowAll_Click(object sender, EventArgs e)
         {
             mReturnTab.btnShowAllClick();
+            ChangeDataGridViewColors();
         }
 
         private void ReturnTab_btnSearch_Click(object sender, EventArgs e)
         {
             mReturnTab.btnSearch_Click();
+            ChangeDataGridViewColors();
         }
 
         private void ReturnTab_btnReturn_Click(object sender, EventArgs e)
@@ -583,13 +625,14 @@ namespace ISBNCaller_GUI
             FillCmbBoxSeries(SearchTab_cmbBoxSeries);
         }
 
-#if DEBUG
         private void SearchTab_btnSearch_Click(object sender, EventArgs e)
         {
             mSearchTab.btnSearchClick();
             SearchTab_btnCorrection.Enabled = true;
+            ChangeDataGridViewColors();
         }
 
+#if DEBUG
         private void SearchTab_btnCorrection_Click(object sender, EventArgs e)
         {
             mSearchTab.btnCorrectionClick();
