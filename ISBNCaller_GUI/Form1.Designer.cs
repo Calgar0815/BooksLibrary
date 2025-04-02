@@ -131,7 +131,6 @@
             ReturnTab_btnShowAll = new System.Windows.Forms.Button();
             cmbBoxLanguage = new System.Windows.Forms.ComboBox();
             cmbBoxColorMode = new System.Windows.Forms.ComboBox();
-            toolStripOptions = new System.Windows.Forms.ToolStrip();
             TabControl.SuspendLayout();
             tabPageSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)SearchTab_dataGridViewSearch).BeginInit();
@@ -1337,23 +1336,11 @@
             cmbBoxColorMode.TabIndex = 2;
             cmbBoxColorMode.SelectedIndexChanged += ColorModeChanged;
             // 
-            // toolStripOptions
-            // 
-            toolStripOptions.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            toolStripOptions.AutoSize = false;
-            toolStripOptions.Dock = System.Windows.Forms.DockStyle.None;
-            toolStripOptions.Location = new System.Drawing.Point(650, 0);
-            toolStripOptions.Name = "toolStripOptions";
-            toolStripOptions.Size = new System.Drawing.Size(120, 23);
-            toolStripOptions.TabIndex = 3;
-            toolStripOptions.Text = "Optionen";
-            // 
             // Form1
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(933, 519);
-            Controls.Add(toolStripOptions);
             Controls.Add(cmbBoxColorMode);
             Controls.Add(cmbBoxLanguage);
             Controls.Add(TabControl);
@@ -1495,7 +1482,6 @@
         private System.Windows.Forms.ComboBox WriteTab_Book_cmbBoxFormat;
         private System.Windows.Forms.ComboBox cmbBoxLanguage;
         private System.Windows.Forms.ComboBox cmbBoxColorMode;
-        private System.Windows.Forms.ToolStrip toolStripOptions;
     }
 }
 

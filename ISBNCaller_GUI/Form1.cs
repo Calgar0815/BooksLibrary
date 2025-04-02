@@ -53,22 +53,16 @@ namespace ISBNCaller_GUI
             if (!File.Exists(cSettingsPath))
             {
                 XmlWriter writer = new XmlWriter(cSettingsPath);
-                writer.CreateSettingsXML(cSettingsPath, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Settings>\r\n\t<Language>de</Language>\r\n\t<LanguageName>Sprache</LanguageName>\r\n\t<ColorMode>Dark</ColorMode>\r\n</Settings>");
+                writer.CreateSettingsXML(cSettingsPath, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Settings>\r\n\t<Language>de</Language>\r\n\t<ColorMode>Dark</ColorMode>\r\n</Settings>");
             } // if
 
             XmlReader reader = new XmlReader(cSettingsPath);
             mLanguage = reader.Read("Language");
-            string languageName = reader.Read("LanguageName");
-            ToolStripDropDownButton toolStripDropDownButtonLanguages = new ToolStripDropDownButton(languageName);
-            toolStripOptions.Items.Add(toolStripDropDownButtonLanguages);
-            ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
+            
             foreach (var lang in GetLanguagesEnumList<mLanguagesEnum>())
             {
-                contextMenuStrip.Items.Add(lang.ToString());
                 cmbBoxLanguage.Items.Add(lang.ToString());
             }
-
-            toolStripDropDownButtonLanguages.DropDown = contextMenuStrip;
 
             int index = cmbBoxLanguage.FindString(mLanguage);
             if (index > -1)
@@ -102,17 +96,10 @@ namespace ISBNCaller_GUI
                 mColorMode = "Dark";
             }
 
-            ToolStripDropDownButton toolStripDropDownButtonColorMode = new ToolStripDropDownButton("Color Mode");
-            toolStripOptions.Items.Add(toolStripDropDownButtonColorMode);
-            ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
-            
             foreach (var cm in GetColorModesEnumList<mColorModesEnum>())
             {
-                contextMenuStrip.Items.Add(cm.ToString());
                 cmbBoxColorMode.Items.Add(cm.ToString());
             }
-
-            toolStripDropDownButtonColorMode.DropDown = contextMenuStrip;
 
             int index = cmbBoxColorMode.FindString(mColorMode);
             if (index > -1)
