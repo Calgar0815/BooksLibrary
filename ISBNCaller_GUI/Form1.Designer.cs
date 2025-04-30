@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             WriteTab_btnOK = new System.Windows.Forms.Button();
             WriteTab_btnCancel = new System.Windows.Forms.Button();
-            TabControl = new System.Windows.Forms.TabControl();
+            tabControl = new System.Windows.Forms.TabControl();
             tabPageSearch = new System.Windows.Forms.TabPage();
             SearchTab_dataGridViewSearch = new System.Windows.Forms.DataGridView();
             SearchTab_groupBoxInput = new System.Windows.Forms.GroupBox();
@@ -60,7 +60,7 @@
             SearchTab_btnSearch = new System.Windows.Forms.Button();
             SearchTab_btnCorrection = new System.Windows.Forms.Button();
             tabPageWrite = new System.Windows.Forms.TabPage();
-            WorkInProgressLabel = new System.Windows.Forms.Label();
+            WriteTab_WorkInProgressLabel = new System.Windows.Forms.Label();
             WriteTab_txtBoxISBN_1 = new System.Windows.Forms.TextBox();
             WriteTab_groupBoxAuthor = new System.Windows.Forms.GroupBox();
             WriteTab_Author_dataGridViewAuthor = new System.Windows.Forms.DataGridView();
@@ -131,7 +131,7 @@
             ReturnTab_btnShowAll = new System.Windows.Forms.Button();
             cmbBoxLanguage = new System.Windows.Forms.ComboBox();
             cmbBoxColorMode = new System.Windows.Forms.ComboBox();
-            TabControl.SuspendLayout();
+            tabControl.SuspendLayout();
             tabPageSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)SearchTab_dataGridViewSearch).BeginInit();
             SearchTab_groupBoxInput.SuspendLayout();
@@ -175,20 +175,20 @@
             WriteTab_btnCancel.UseVisualStyleBackColor = true;
             WriteTab_btnCancel.Click += WriteTab_btnCancel_Click;
             // 
-            // TabControl
+            // tabControl
             // 
-            TabControl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            TabControl.Controls.Add(tabPageSearch);
-            TabControl.Controls.Add(tabPageWrite);
-            TabControl.Controls.Add(tabPageLent);
-            TabControl.Controls.Add(tabPageReturn);
-            TabControl.Location = new System.Drawing.Point(1, -1);
-            TabControl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            TabControl.Name = "TabControl";
-            TabControl.SelectedIndex = 0;
-            TabControl.Size = new System.Drawing.Size(933, 516);
-            TabControl.TabIndex = 0;
-            TabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
+            tabControl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tabControl.Controls.Add(tabPageSearch);
+            tabControl.Controls.Add(tabPageWrite);
+            tabControl.Controls.Add(tabPageLent);
+            tabControl.Controls.Add(tabPageReturn);
+            tabControl.Location = new System.Drawing.Point(1, -1);
+            tabControl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabControl.Name = "tabControl";
+            tabControl.SelectedIndex = 0;
+            tabControl.Size = new System.Drawing.Size(933, 516);
+            tabControl.TabIndex = 0;
+            tabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
             // 
             // tabPageSearch
             // 
@@ -511,7 +511,7 @@
             // 
             // tabPageWrite
             // 
-            tabPageWrite.Controls.Add(WorkInProgressLabel);
+            tabPageWrite.Controls.Add(WriteTab_WorkInProgressLabel);
             tabPageWrite.Controls.Add(WriteTab_txtBoxISBN_1);
             tabPageWrite.Controls.Add(WriteTab_groupBoxAuthor);
             tabPageWrite.Controls.Add(WriteTab_btnRegisterWOutISBN);
@@ -525,15 +525,15 @@
             tabPageWrite.Text = "Eintragen";
             tabPageWrite.UseVisualStyleBackColor = true;
             // 
-            // WorkInProgressLabel
+            // WriteTab_WorkInProgressLabel
             // 
-            WorkInProgressLabel.AutoSize = true;
-            WorkInProgressLabel.Location = new System.Drawing.Point(330, 8);
-            WorkInProgressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            WorkInProgressLabel.Name = "WorkInProgressLabel";
-            WorkInProgressLabel.Size = new System.Drawing.Size(105, 15);
-            WorkInProgressLabel.TabIndex = 6;
-            WorkInProgressLabel.Text = "Work in progress...";
+            WriteTab_WorkInProgressLabel.AutoSize = true;
+            WriteTab_WorkInProgressLabel.Location = new System.Drawing.Point(330, 8);
+            WriteTab_WorkInProgressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_WorkInProgressLabel.Name = "WriteTab_WorkInProgressLabel";
+            WriteTab_WorkInProgressLabel.Size = new System.Drawing.Size(105, 15);
+            WriteTab_WorkInProgressLabel.TabIndex = 6;
+            WriteTab_WorkInProgressLabel.Text = "Work in progress...";
             // 
             // WriteTab_txtBoxISBN_1
             // 
@@ -1343,14 +1343,14 @@
             ClientSize = new System.Drawing.Size(933, 519);
             Controls.Add(cmbBoxColorMode);
             Controls.Add(cmbBoxLanguage);
-            Controls.Add(TabControl);
+            Controls.Add(tabControl);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(949, 558);
             Name = "Form1";
             Text = "ISBN Caller";
             Load += Form1_Load;
-            TabControl.ResumeLayout(false);
+            tabControl.ResumeLayout(false);
             tabPageSearch.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)SearchTab_dataGridViewSearch).EndInit();
             SearchTab_groupBoxInput.ResumeLayout(false);
@@ -1380,7 +1380,7 @@
         #endregion
         private System.Windows.Forms.Button WriteTab_btnOK;
         private System.Windows.Forms.Button WriteTab_btnCancel;
-        private System.Windows.Forms.TabControl TabControl;
+        private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPageWrite;
         private System.Windows.Forms.TextBox WriteTab_txtBoxISBN_1;
         private System.Windows.Forms.GroupBox WriteTab_groupBoxAuthor;
@@ -1478,7 +1478,7 @@
         private System.Windows.Forms.DataGridView SearchTab_dataGridViewSearch;
         private System.Windows.Forms.CheckBox SearchTab_chkBoxOnlyShowFirstAuthor;
         private System.Windows.Forms.ComboBox SearchTab_cmbBoxSeries;
-        private System.Windows.Forms.Label WorkInProgressLabel;
+        private System.Windows.Forms.Label WriteTab_WorkInProgressLabel;
         private System.Windows.Forms.ComboBox WriteTab_Book_cmbBoxFormat;
         private System.Windows.Forms.ComboBox cmbBoxLanguage;
         private System.Windows.Forms.ComboBox cmbBoxColorMode;
