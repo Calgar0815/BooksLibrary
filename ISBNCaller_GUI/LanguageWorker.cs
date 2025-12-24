@@ -127,6 +127,7 @@ namespace ISBNCaller_GUI
             "\r\n\t<SearchTab_chkBoxOnlyShowFirstAuthor>\r\n\t\t<de>Nur erste_n Autor_in anzeigen</de>\r\n\t\t<en>Only show first author</en>\r\n\t</SearchTab_chkBoxOnlyShowFirstAuthor>" +
             "\r\n\t<SearchTab_btnCorrection>\r\n\t\t<de>Korrigieren</de>\r\n\t\t<en>Correct</en>\r\n\t</SearchTab_btnCorrection>" +
             "\r\n\t<SearchTab_btnSearch>\r\n\t\t<de>Suchen</de>\r\n\t\t<en>Search</en>\r\n\t</SearchTab_btnSearch>" +
+            "\r\n\t<SearchTab_chkBoxUseDates>\r\n\t\t<de>Daten nutzen</de>\r\n\t\t<en>Use Dates</en>\r\n\t</SearchTab_chkBoxUseDates>" +
             "\r\n\t<SearchTab_dataGridViewSearch_Col0>\r\n\t\t<de>Titel</de>\r\n\t\t<en>Title</en>\r\n\t</SearchTab_dataGridViewSearch_Col0>" +
             "\r\n\t<SearchTab_dataGridViewSearch_Col1>\r\n\t\t<de>Untertitel</de>\r\n\t\t<en>Subtitle</en>\r\n\t</SearchTab_dataGridViewSearch_Col1>" +
             "\r\n\t<SearchTab_dataGridViewSearch_Col2>\r\n\t\t<de>Serie</de>\r\n\t\t<en>Series</en>\r\n\t</SearchTab_dataGridViewSearch_Col2>" +

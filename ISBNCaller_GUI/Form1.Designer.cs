@@ -1,4 +1,6 @@
-﻿namespace ISBNCaller_GUI
+﻿using System.Windows.Forms;
+
+namespace ISBNCaller_GUI
 {
     partial class Form1
     {
@@ -29,108 +31,109 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            WriteTab_btnOK = new System.Windows.Forms.Button();
-            WriteTab_btnCancel = new System.Windows.Forms.Button();
-            tabControl = new System.Windows.Forms.TabControl();
-            tabPageSearch = new System.Windows.Forms.TabPage();
-            SearchTab_dataGridViewSearch = new System.Windows.Forms.DataGridView();
-            SearchTab_groupBoxInput = new System.Windows.Forms.GroupBox();
-            SearchTab_cmbBoxSeries = new System.Windows.Forms.ComboBox();
-            SearchTab_chkBoxOnlyShowFirstAuthor = new System.Windows.Forms.CheckBox();
-            SearchTab_chkBoxShowLent = new System.Windows.Forms.CheckBox();
-            SearchTab_dtpTo = new System.Windows.Forms.DateTimePicker();
-            SearchTab_labelPublishedTo = new System.Windows.Forms.Label();
-            SearchTab_dtpFrom = new System.Windows.Forms.DateTimePicker();
-            SearchTab_labelPublishedFrom = new System.Windows.Forms.Label();
-            SearchTab_labelFormat = new System.Windows.Forms.Label();
-            SearchTab_cmbBoxFormat = new System.Windows.Forms.ComboBox();
-            SearchTab_labelSeries = new System.Windows.Forms.Label();
-            SearchTab_radioBtnWOutSeries = new System.Windows.Forms.RadioButton();
-            SearchTab_radioBtnWSeries = new System.Windows.Forms.RadioButton();
-            SearchTab_txtBoxSubTitle = new System.Windows.Forms.TextBox();
-            SearchTab_labelSubTitle = new System.Windows.Forms.Label();
-            SearchTab_txtBoxAuthorSurName = new System.Windows.Forms.TextBox();
-            SearchTab_labelAuthorSurName = new System.Windows.Forms.Label();
-            SearchTab_labelAuthorPreName = new System.Windows.Forms.Label();
-            SearchTab_txtBoxAuthorPreName = new System.Windows.Forms.TextBox();
-            SearchTab_txtBoxTitle = new System.Windows.Forms.TextBox();
-            SearchTab_labelTitle = new System.Windows.Forms.Label();
-            SearchTab_txtBoxISBN = new System.Windows.Forms.TextBox();
-            SearchTab_labelISBN = new System.Windows.Forms.Label();
-            SearchTab_btnSearch = new System.Windows.Forms.Button();
-            SearchTab_btnCorrection = new System.Windows.Forms.Button();
-            tabPageWrite = new System.Windows.Forms.TabPage();
-            WriteTab_WorkInProgressLabel = new System.Windows.Forms.Label();
-            WriteTab_txtBoxISBN_1 = new System.Windows.Forms.TextBox();
-            WriteTab_groupBoxAuthor = new System.Windows.Forms.GroupBox();
-            WriteTab_Author_dataGridViewAuthor = new System.Windows.Forms.DataGridView();
-            WriteTab_btnRegisterWOutISBN = new System.Windows.Forms.Button();
-            WriteTab_groupBoxBook = new System.Windows.Forms.GroupBox();
-            WriteTab_Book_cmbBoxFormat = new System.Windows.Forms.ComboBox();
-            WriteTab_Book_btnCalculateISBN13 = new System.Windows.Forms.Button();
-            WriteTab_Book_btnCalculateISBN10 = new System.Windows.Forms.Button();
-            WriteTab_Book_labelMaxNoCount = new System.Windows.Forms.Label();
-            WriteTab_Book_labelMaxNo = new System.Windows.Forms.Label();
-            WriteTab_Book_txtBoxNoInSeries = new System.Windows.Forms.TextBox();
-            WriteTab_Book_labelNoInSeries = new System.Windows.Forms.Label();
-            WriteTab_Book_cmbBoxSeries = new System.Windows.Forms.ComboBox();
-            WriteTab_Book_txtBoxNewSeriesName = new System.Windows.Forms.TextBox();
-            WriteTab_Book_chkBoxIsNewSeries = new System.Windows.Forms.CheckBox();
-            WriteTab_Book_chkBoxIsPartOfSeries = new System.Windows.Forms.CheckBox();
-            WriteTab_Book_labelISBN13 = new System.Windows.Forms.Label();
-            WriteTab_Book_txtBoxISBN13 = new System.Windows.Forms.TextBox();
-            WriteTab_Book_labelISBN10 = new System.Windows.Forms.Label();
-            WriteTab_Book_txtBoxISBN10 = new System.Windows.Forms.TextBox();
-            WriteTab_Book_labelFormat = new System.Windows.Forms.Label();
-            WriteTab_Book_labelPublishingDate = new System.Windows.Forms.Label();
-            WriteTab_Book_txtBoxPublishingDate = new System.Windows.Forms.TextBox();
-            WriteTab_Book_labelSubTitle = new System.Windows.Forms.Label();
-            WriteTab_Book_txtBoxSubTitle = new System.Windows.Forms.TextBox();
-            WriteTab_Book_txtBoxTitle = new System.Windows.Forms.TextBox();
-            WriteTab_Book_labelTitle = new System.Windows.Forms.Label();
-            WriteTab_ISBNLabel_1 = new System.Windows.Forms.Label();
-            tabPageLent = new System.Windows.Forms.TabPage();
-            LentTab_groupBoxVerleihen = new System.Windows.Forms.GroupBox();
-            LentTab_btnRemove = new System.Windows.Forms.Button();
-            LentTab_btnLent = new System.Windows.Forms.Button();
-            LentTab_dataGridViewLent = new System.Windows.Forms.DataGridView();
-            LentTab_groupBoxSuchen = new System.Windows.Forms.GroupBox();
-            LentTab_cmbBoxSubTitle = new System.Windows.Forms.ComboBox();
-            LentTab_cmbBoxTitle = new System.Windows.Forms.ComboBox();
-            LentTab_cmbBoxISBN = new System.Windows.Forms.ComboBox();
-            LentTab_btnPull = new System.Windows.Forms.Button();
-            LentTab_btnSearch = new System.Windows.Forms.Button();
-            LentTab_dataGridViewSearch = new System.Windows.Forms.DataGridView();
-            LentTab_txtBoxAuthorSurName = new System.Windows.Forms.TextBox();
-            LentTab_txtBoxAuthorPreName = new System.Windows.Forms.TextBox();
-            LentTab_txtBoxSubTitle = new System.Windows.Forms.TextBox();
-            LentTab_txtBoxTitle = new System.Windows.Forms.TextBox();
-            LentTab_txtBoxISBN = new System.Windows.Forms.TextBox();
-            LentTab_labelAuthorSurName = new System.Windows.Forms.Label();
-            LentTab_labelAuthorPreName = new System.Windows.Forms.Label();
-            LentTab_labelSubTitle = new System.Windows.Forms.Label();
-            LentTab_labelTitle = new System.Windows.Forms.Label();
-            LentTab_labelISBN = new System.Windows.Forms.Label();
-            tabPageReturn = new System.Windows.Forms.TabPage();
-            ReturnTab_GroupBoxGetBack = new System.Windows.Forms.GroupBox();
-            ReturnTab_btnReturn = new System.Windows.Forms.Button();
-            ReturnTab_dataGridViewReturn = new System.Windows.Forms.DataGridView();
-            ReturnTab_GroupBoxSearch = new System.Windows.Forms.GroupBox();
-            ReturnTab_txtBoxBookTitle = new System.Windows.Forms.TextBox();
-            ReturnTab_labelBookTitle = new System.Windows.Forms.Label();
-            ReturnTab_btnSearch = new System.Windows.Forms.Button();
-            ReturnTab_txtBoxSurName = new System.Windows.Forms.TextBox();
-            ReturnTab_txtBoxPreName = new System.Windows.Forms.TextBox();
-            ReturnTab_txtBoxISBN = new System.Windows.Forms.TextBox();
-            ReturnTab_labelOptional = new System.Windows.Forms.Label();
-            ReturnTab_labelSurName = new System.Windows.Forms.Label();
-            ReturnTab_labelPreName = new System.Windows.Forms.Label();
-            ReturnTab_labelLentTo = new System.Windows.Forms.Label();
-            ReturnTab_labelISBN = new System.Windows.Forms.Label();
-            ReturnTab_chkBoxIgnoreIsActive = new System.Windows.Forms.CheckBox();
-            ReturnTab_btnShowAll = new System.Windows.Forms.Button();
-            cmbBoxLanguage = new System.Windows.Forms.ComboBox();
-            cmbBoxColorMode = new System.Windows.Forms.ComboBox();
+            WriteTab_btnOK = new Button();
+            WriteTab_btnCancel = new Button();
+            tabControl = new TabControl();
+            tabPageSearch = new TabPage();
+            SearchTab_dataGridViewSearch = new DataGridView();
+            SearchTab_groupBoxInput = new GroupBox();
+            SearchTab_chkBoxUseDates = new CheckBox();
+            SearchTab_cmbBoxSeries = new ComboBox();
+            SearchTab_chkBoxOnlyShowFirstAuthor = new CheckBox();
+            SearchTab_chkBoxShowLent = new CheckBox();
+            SearchTab_dtpTo = new DateTimePicker();
+            SearchTab_labelPublishedTo = new Label();
+            SearchTab_dtpFrom = new DateTimePicker();
+            SearchTab_labelPublishedFrom = new Label();
+            SearchTab_labelFormat = new Label();
+            SearchTab_cmbBoxFormat = new ComboBox();
+            SearchTab_labelSeries = new Label();
+            SearchTab_radioBtnWOutSeries = new RadioButton();
+            SearchTab_radioBtnWSeries = new RadioButton();
+            SearchTab_txtBoxSubTitle = new TextBox();
+            SearchTab_labelSubTitle = new Label();
+            SearchTab_txtBoxAuthorSurName = new TextBox();
+            SearchTab_labelAuthorSurName = new Label();
+            SearchTab_labelAuthorPreName = new Label();
+            SearchTab_txtBoxAuthorPreName = new TextBox();
+            SearchTab_txtBoxTitle = new TextBox();
+            SearchTab_labelTitle = new Label();
+            SearchTab_txtBoxISBN = new TextBox();
+            SearchTab_labelISBN = new Label();
+            SearchTab_btnSearch = new Button();
+            SearchTab_btnCorrection = new Button();
+            tabPageWrite = new TabPage();
+            WriteTab_WorkInProgressLabel = new Label();
+            WriteTab_txtBoxISBN_1 = new TextBox();
+            WriteTab_groupBoxAuthor = new GroupBox();
+            WriteTab_Author_dataGridViewAuthor = new DataGridView();
+            WriteTab_btnRegisterWOutISBN = new Button();
+            WriteTab_groupBoxBook = new GroupBox();
+            WriteTab_Book_cmbBoxFormat = new ComboBox();
+            WriteTab_Book_btnCalculateISBN13 = new Button();
+            WriteTab_Book_btnCalculateISBN10 = new Button();
+            WriteTab_Book_labelMaxNoCount = new Label();
+            WriteTab_Book_labelMaxNo = new Label();
+            WriteTab_Book_txtBoxNoInSeries = new TextBox();
+            WriteTab_Book_labelNoInSeries = new Label();
+            WriteTab_Book_cmbBoxSeries = new ComboBox();
+            WriteTab_Book_txtBoxNewSeriesName = new TextBox();
+            WriteTab_Book_chkBoxIsNewSeries = new CheckBox();
+            WriteTab_Book_chkBoxIsPartOfSeries = new CheckBox();
+            WriteTab_Book_labelISBN13 = new Label();
+            WriteTab_Book_txtBoxISBN13 = new TextBox();
+            WriteTab_Book_labelISBN10 = new Label();
+            WriteTab_Book_txtBoxISBN10 = new TextBox();
+            WriteTab_Book_labelFormat = new Label();
+            WriteTab_Book_labelPublishingDate = new Label();
+            WriteTab_Book_txtBoxPublishingDate = new TextBox();
+            WriteTab_Book_labelSubTitle = new Label();
+            WriteTab_Book_txtBoxSubTitle = new TextBox();
+            WriteTab_Book_txtBoxTitle = new TextBox();
+            WriteTab_Book_labelTitle = new Label();
+            WriteTab_ISBNLabel_1 = new Label();
+            tabPageLent = new TabPage();
+            LentTab_groupBoxVerleihen = new GroupBox();
+            LentTab_btnRemove = new Button();
+            LentTab_btnLent = new Button();
+            LentTab_dataGridViewLent = new DataGridView();
+            LentTab_groupBoxSuchen = new GroupBox();
+            LentTab_cmbBoxSubTitle = new ComboBox();
+            LentTab_cmbBoxTitle = new ComboBox();
+            LentTab_cmbBoxISBN = new ComboBox();
+            LentTab_btnPull = new Button();
+            LentTab_btnSearch = new Button();
+            LentTab_dataGridViewSearch = new DataGridView();
+            LentTab_txtBoxAuthorSurName = new TextBox();
+            LentTab_txtBoxAuthorPreName = new TextBox();
+            LentTab_txtBoxSubTitle = new TextBox();
+            LentTab_txtBoxTitle = new TextBox();
+            LentTab_txtBoxISBN = new TextBox();
+            LentTab_labelAuthorSurName = new Label();
+            LentTab_labelAuthorPreName = new Label();
+            LentTab_labelSubTitle = new Label();
+            LentTab_labelTitle = new Label();
+            LentTab_labelISBN = new Label();
+            tabPageReturn = new TabPage();
+            ReturnTab_GroupBoxGetBack = new GroupBox();
+            ReturnTab_btnReturn = new Button();
+            ReturnTab_dataGridViewReturn = new DataGridView();
+            ReturnTab_GroupBoxSearch = new GroupBox();
+            ReturnTab_txtBoxBookTitle = new TextBox();
+            ReturnTab_labelBookTitle = new Label();
+            ReturnTab_btnSearch = new Button();
+            ReturnTab_txtBoxSurName = new TextBox();
+            ReturnTab_txtBoxPreName = new TextBox();
+            ReturnTab_txtBoxISBN = new TextBox();
+            ReturnTab_labelOptional = new Label();
+            ReturnTab_labelSurName = new Label();
+            ReturnTab_labelPreName = new Label();
+            ReturnTab_labelLentTo = new Label();
+            ReturnTab_labelISBN = new Label();
+            ReturnTab_chkBoxIgnoreIsActive = new CheckBox();
+            ReturnTab_btnShowAll = new Button();
+            cmbBoxLanguage = new ComboBox();
+            cmbBoxColorMode = new ComboBox();
             tabControl.SuspendLayout();
             tabPageSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)SearchTab_dataGridViewSearch).BeginInit();
@@ -152,9 +155,9 @@
             // 
             // WriteTab_btnOK
             // 
-            WriteTab_btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            WriteTab_btnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             WriteTab_btnOK.Location = new System.Drawing.Point(716, 203);
-            WriteTab_btnOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_btnOK.Margin = new Padding(4, 3, 4, 3);
             WriteTab_btnOK.Name = "WriteTab_btnOK";
             WriteTab_btnOK.Size = new System.Drawing.Size(88, 27);
             WriteTab_btnOK.TabIndex = 17;
@@ -164,10 +167,10 @@
             // 
             // WriteTab_btnCancel
             // 
-            WriteTab_btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            WriteTab_btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             WriteTab_btnCancel.Enabled = false;
             WriteTab_btnCancel.Location = new System.Drawing.Point(811, 203);
-            WriteTab_btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_btnCancel.Margin = new Padding(4, 3, 4, 3);
             WriteTab_btnCancel.Name = "WriteTab_btnCancel";
             WriteTab_btnCancel.Size = new System.Drawing.Size(88, 27);
             WriteTab_btnCancel.TabIndex = 18;
@@ -177,13 +180,13 @@
             // 
             // tabControl
             // 
-            tabControl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl.Controls.Add(tabPageSearch);
             tabControl.Controls.Add(tabPageWrite);
             tabControl.Controls.Add(tabPageLent);
             tabControl.Controls.Add(tabPageReturn);
             tabControl.Location = new System.Drawing.Point(1, -1);
-            tabControl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabControl.Margin = new Padding(4, 3, 4, 3);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
             tabControl.Size = new System.Drawing.Size(933, 516);
@@ -197,7 +200,7 @@
             tabPageSearch.Controls.Add(SearchTab_btnSearch);
             tabPageSearch.Controls.Add(SearchTab_btnCorrection);
             tabPageSearch.Location = new System.Drawing.Point(4, 24);
-            tabPageSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageSearch.Margin = new Padding(4, 3, 4, 3);
             tabPageSearch.Name = "tabPageSearch";
             tabPageSearch.Size = new System.Drawing.Size(925, 488);
             tabPageSearch.TabIndex = 2;
@@ -208,10 +211,10 @@
             // 
             SearchTab_dataGridViewSearch.AllowUserToAddRows = false;
             SearchTab_dataGridViewSearch.AllowUserToDeleteRows = false;
-            SearchTab_dataGridViewSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            SearchTab_dataGridViewSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            SearchTab_dataGridViewSearch.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            SearchTab_dataGridViewSearch.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             SearchTab_dataGridViewSearch.Location = new System.Drawing.Point(12, 168);
-            SearchTab_dataGridViewSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_dataGridViewSearch.Margin = new Padding(4, 3, 4, 3);
             SearchTab_dataGridViewSearch.Name = "SearchTab_dataGridViewSearch";
             SearchTab_dataGridViewSearch.ReadOnly = true;
             SearchTab_dataGridViewSearch.Size = new System.Drawing.Size(898, 268);
@@ -219,7 +222,8 @@
             // 
             // SearchTab_groupBoxInput
             // 
-            SearchTab_groupBoxInput.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_groupBoxInput.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            SearchTab_groupBoxInput.Controls.Add(SearchTab_chkBoxUseDates);
             SearchTab_groupBoxInput.Controls.Add(SearchTab_cmbBoxSeries);
             SearchTab_groupBoxInput.Controls.Add(SearchTab_chkBoxOnlyShowFirstAuthor);
             SearchTab_groupBoxInput.Controls.Add(SearchTab_chkBoxShowLent);
@@ -243,31 +247,42 @@
             SearchTab_groupBoxInput.Controls.Add(SearchTab_txtBoxISBN);
             SearchTab_groupBoxInput.Controls.Add(SearchTab_labelISBN);
             SearchTab_groupBoxInput.Location = new System.Drawing.Point(12, 3);
-            SearchTab_groupBoxInput.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_groupBoxInput.Margin = new Padding(4, 3, 4, 3);
             SearchTab_groupBoxInput.Name = "SearchTab_groupBoxInput";
-            SearchTab_groupBoxInput.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_groupBoxInput.Padding = new Padding(4, 3, 4, 3);
             SearchTab_groupBoxInput.Size = new System.Drawing.Size(898, 158);
             SearchTab_groupBoxInput.TabIndex = 1;
             SearchTab_groupBoxInput.TabStop = false;
             // 
+            // SearchTab_chkBoxUseDates
+            // 
+            SearchTab_chkBoxUseDates.AutoSize = true;
+            SearchTab_chkBoxUseDates.Location = new System.Drawing.Point(758, 102);
+            SearchTab_chkBoxUseDates.Name = "SearchTab_chkBoxUseDates";
+            SearchTab_chkBoxUseDates.Size = new System.Drawing.Size(96, 19);
+            SearchTab_chkBoxUseDates.TabIndex = 23;
+            SearchTab_chkBoxUseDates.Text = "Daten nutzen";
+            SearchTab_chkBoxUseDates.UseVisualStyleBackColor = true;
+            SearchTab_chkBoxUseDates.CheckedChanged += SearchTab_chkBoxUseDates_CheckedChanged;
+            // 
             // SearchTab_cmbBoxSeries
             // 
-            SearchTab_cmbBoxSeries.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_cmbBoxSeries.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_cmbBoxSeries.FormattingEnabled = true;
             SearchTab_cmbBoxSeries.Location = new System.Drawing.Point(434, 40);
-            SearchTab_cmbBoxSeries.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_cmbBoxSeries.Margin = new Padding(4, 3, 4, 3);
             SearchTab_cmbBoxSeries.Name = "SearchTab_cmbBoxSeries";
             SearchTab_cmbBoxSeries.Size = new System.Drawing.Size(317, 23);
             SearchTab_cmbBoxSeries.TabIndex = 22;
             // 
             // SearchTab_chkBoxOnlyShowFirstAuthor
             // 
-            SearchTab_chkBoxOnlyShowFirstAuthor.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_chkBoxOnlyShowFirstAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_chkBoxOnlyShowFirstAuthor.AutoSize = true;
             SearchTab_chkBoxOnlyShowFirstAuthor.Checked = true;
-            SearchTab_chkBoxOnlyShowFirstAuthor.CheckState = System.Windows.Forms.CheckState.Checked;
+            SearchTab_chkBoxOnlyShowFirstAuthor.CheckState = CheckState.Checked;
             SearchTab_chkBoxOnlyShowFirstAuthor.Location = new System.Drawing.Point(556, 133);
-            SearchTab_chkBoxOnlyShowFirstAuthor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_chkBoxOnlyShowFirstAuthor.Margin = new Padding(4, 3, 4, 3);
             SearchTab_chkBoxOnlyShowFirstAuthor.Name = "SearchTab_chkBoxOnlyShowFirstAuthor";
             SearchTab_chkBoxOnlyShowFirstAuthor.Size = new System.Drawing.Size(184, 19);
             SearchTab_chkBoxOnlyShowFirstAuthor.TabIndex = 21;
@@ -276,12 +291,12 @@
             // 
             // SearchTab_chkBoxShowLent
             // 
-            SearchTab_chkBoxShowLent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_chkBoxShowLent.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_chkBoxShowLent.AutoSize = true;
             SearchTab_chkBoxShowLent.Checked = true;
-            SearchTab_chkBoxShowLent.CheckState = System.Windows.Forms.CheckState.Checked;
+            SearchTab_chkBoxShowLent.CheckState = CheckState.Checked;
             SearchTab_chkBoxShowLent.Location = new System.Drawing.Point(391, 133);
-            SearchTab_chkBoxShowLent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_chkBoxShowLent.Margin = new Padding(4, 3, 4, 3);
             SearchTab_chkBoxShowLent.Name = "SearchTab_chkBoxShowLent";
             SearchTab_chkBoxShowLent.Size = new System.Drawing.Size(151, 19);
             SearchTab_chkBoxShowLent.TabIndex = 20;
@@ -290,20 +305,23 @@
             // 
             // SearchTab_dtpTo
             // 
-            SearchTab_dtpTo.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            SearchTab_dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            SearchTab_dtpTo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SearchTab_dtpTo.CustomFormat = "yyyy";
+            SearchTab_dtpTo.Format = DateTimePickerFormat.Custom;
             SearchTab_dtpTo.Location = new System.Drawing.Point(643, 100);
-            SearchTab_dtpTo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_dtpTo.Margin = new Padding(4, 3, 4, 3);
             SearchTab_dtpTo.Name = "SearchTab_dtpTo";
+            SearchTab_dtpTo.ShowUpDown = true;
             SearchTab_dtpTo.Size = new System.Drawing.Size(108, 23);
             SearchTab_dtpTo.TabIndex = 19;
+            SearchTab_dtpTo.Enabled = false;
             // 
             // SearchTab_labelPublishedTo
             // 
-            SearchTab_labelPublishedTo.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_labelPublishedTo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_labelPublishedTo.AutoSize = true;
             SearchTab_labelPublishedTo.Location = new System.Drawing.Point(609, 104);
-            SearchTab_labelPublishedTo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            SearchTab_labelPublishedTo.Margin = new Padding(4, 0, 4, 0);
             SearchTab_labelPublishedTo.Name = "SearchTab_labelPublishedTo";
             SearchTab_labelPublishedTo.Size = new System.Drawing.Size(25, 15);
             SearchTab_labelPublishedTo.TabIndex = 18;
@@ -311,21 +329,23 @@
             // 
             // SearchTab_dtpFrom
             // 
-            SearchTab_dtpFrom.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            SearchTab_dtpFrom.CustomFormat = "dd.MM.yyyy";
-            SearchTab_dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            SearchTab_dtpFrom.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SearchTab_dtpFrom.CustomFormat = "yyyy";
+            SearchTab_dtpFrom.Format = DateTimePickerFormat.Custom;
             SearchTab_dtpFrom.Location = new System.Drawing.Point(493, 100);
-            SearchTab_dtpFrom.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_dtpFrom.Margin = new Padding(4, 3, 4, 3);
             SearchTab_dtpFrom.Name = "SearchTab_dtpFrom";
+            SearchTab_dtpFrom.ShowUpDown = true;
             SearchTab_dtpFrom.Size = new System.Drawing.Size(108, 23);
             SearchTab_dtpFrom.TabIndex = 17;
+            SearchTab_dtpFrom.Enabled = false;
             // 
             // SearchTab_labelPublishedFrom
             // 
-            SearchTab_labelPublishedFrom.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_labelPublishedFrom.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_labelPublishedFrom.AutoSize = true;
             SearchTab_labelPublishedFrom.Location = new System.Drawing.Point(378, 104);
-            SearchTab_labelPublishedFrom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            SearchTab_labelPublishedFrom.Margin = new Padding(4, 0, 4, 0);
             SearchTab_labelPublishedFrom.Name = "SearchTab_labelPublishedFrom";
             SearchTab_labelPublishedFrom.Size = new System.Drawing.Size(104, 15);
             SearchTab_labelPublishedFrom.TabIndex = 16;
@@ -333,10 +353,10 @@
             // 
             // SearchTab_labelFormat
             // 
-            SearchTab_labelFormat.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_labelFormat.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_labelFormat.AutoSize = true;
             SearchTab_labelFormat.Location = new System.Drawing.Point(378, 74);
-            SearchTab_labelFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            SearchTab_labelFormat.Margin = new Padding(4, 0, 4, 0);
             SearchTab_labelFormat.Name = "SearchTab_labelFormat";
             SearchTab_labelFormat.Size = new System.Drawing.Size(48, 15);
             SearchTab_labelFormat.TabIndex = 14;
@@ -344,20 +364,20 @@
             // 
             // SearchTab_cmbBoxFormat
             // 
-            SearchTab_cmbBoxFormat.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_cmbBoxFormat.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_cmbBoxFormat.FormattingEnabled = true;
             SearchTab_cmbBoxFormat.Location = new System.Drawing.Point(434, 70);
-            SearchTab_cmbBoxFormat.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_cmbBoxFormat.Margin = new Padding(4, 3, 4, 3);
             SearchTab_cmbBoxFormat.Name = "SearchTab_cmbBoxFormat";
             SearchTab_cmbBoxFormat.Size = new System.Drawing.Size(317, 23);
             SearchTab_cmbBoxFormat.TabIndex = 15;
             // 
             // SearchTab_labelSeries
             // 
-            SearchTab_labelSeries.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_labelSeries.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_labelSeries.AutoSize = true;
             SearchTab_labelSeries.Location = new System.Drawing.Point(378, 44);
-            SearchTab_labelSeries.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            SearchTab_labelSeries.Margin = new Padding(4, 0, 4, 0);
             SearchTab_labelSeries.Name = "SearchTab_labelSeries";
             SearchTab_labelSeries.Size = new System.Drawing.Size(35, 15);
             SearchTab_labelSeries.TabIndex = 12;
@@ -365,10 +385,10 @@
             // 
             // SearchTab_radioBtnWOutSeries
             // 
-            SearchTab_radioBtnWOutSeries.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_radioBtnWOutSeries.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_radioBtnWOutSeries.AutoSize = true;
             SearchTab_radioBtnWOutSeries.Location = new System.Drawing.Point(482, 12);
-            SearchTab_radioBtnWOutSeries.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_radioBtnWOutSeries.Margin = new Padding(4, 3, 4, 3);
             SearchTab_radioBtnWOutSeries.Name = "SearchTab_radioBtnWOutSeries";
             SearchTab_radioBtnWOutSeries.Size = new System.Drawing.Size(89, 19);
             SearchTab_radioBtnWOutSeries.TabIndex = 11;
@@ -377,11 +397,11 @@
             // 
             // SearchTab_radioBtnWSeries
             // 
-            SearchTab_radioBtnWSeries.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_radioBtnWSeries.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_radioBtnWSeries.AutoSize = true;
             SearchTab_radioBtnWSeries.Checked = true;
             SearchTab_radioBtnWSeries.Location = new System.Drawing.Point(387, 12);
-            SearchTab_radioBtnWSeries.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_radioBtnWSeries.Margin = new Padding(4, 3, 4, 3);
             SearchTab_radioBtnWSeries.Name = "SearchTab_radioBtnWSeries";
             SearchTab_radioBtnWSeries.Size = new System.Drawing.Size(78, 19);
             SearchTab_radioBtnWSeries.TabIndex = 10;
@@ -391,9 +411,9 @@
             // 
             // SearchTab_txtBoxSubTitle
             // 
-            SearchTab_txtBoxSubTitle.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_txtBoxSubTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             SearchTab_txtBoxSubTitle.Location = new System.Drawing.Point(135, 70);
-            SearchTab_txtBoxSubTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_txtBoxSubTitle.Margin = new Padding(4, 3, 4, 3);
             SearchTab_txtBoxSubTitle.Name = "SearchTab_txtBoxSubTitle";
             SearchTab_txtBoxSubTitle.Size = new System.Drawing.Size(214, 23);
             SearchTab_txtBoxSubTitle.TabIndex = 5;
@@ -402,7 +422,7 @@
             // 
             SearchTab_labelSubTitle.AutoSize = true;
             SearchTab_labelSubTitle.Location = new System.Drawing.Point(7, 74);
-            SearchTab_labelSubTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            SearchTab_labelSubTitle.Margin = new Padding(4, 0, 4, 0);
             SearchTab_labelSubTitle.Name = "SearchTab_labelSubTitle";
             SearchTab_labelSubTitle.Size = new System.Drawing.Size(59, 15);
             SearchTab_labelSubTitle.TabIndex = 4;
@@ -410,9 +430,9 @@
             // 
             // SearchTab_txtBoxAuthorSurName
             // 
-            SearchTab_txtBoxAuthorSurName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_txtBoxAuthorSurName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             SearchTab_txtBoxAuthorSurName.Location = new System.Drawing.Point(135, 130);
-            SearchTab_txtBoxAuthorSurName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_txtBoxAuthorSurName.Margin = new Padding(4, 3, 4, 3);
             SearchTab_txtBoxAuthorSurName.Name = "SearchTab_txtBoxAuthorSurName";
             SearchTab_txtBoxAuthorSurName.Size = new System.Drawing.Size(214, 23);
             SearchTab_txtBoxAuthorSurName.TabIndex = 9;
@@ -421,7 +441,7 @@
             // 
             SearchTab_labelAuthorSurName.AutoSize = true;
             SearchTab_labelAuthorSurName.Location = new System.Drawing.Point(7, 134);
-            SearchTab_labelAuthorSurName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            SearchTab_labelAuthorSurName.Margin = new Padding(4, 0, 4, 0);
             SearchTab_labelAuthorSurName.Name = "SearchTab_labelAuthorSurName";
             SearchTab_labelAuthorSurName.Size = new System.Drawing.Size(116, 15);
             SearchTab_labelAuthorSurName.TabIndex = 8;
@@ -431,7 +451,7 @@
             // 
             SearchTab_labelAuthorPreName.AutoSize = true;
             SearchTab_labelAuthorPreName.Location = new System.Drawing.Point(7, 104);
-            SearchTab_labelAuthorPreName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            SearchTab_labelAuthorPreName.Margin = new Padding(4, 0, 4, 0);
             SearchTab_labelAuthorPreName.Name = "SearchTab_labelAuthorPreName";
             SearchTab_labelAuthorPreName.Size = new System.Drawing.Size(105, 15);
             SearchTab_labelAuthorPreName.TabIndex = 6;
@@ -439,18 +459,18 @@
             // 
             // SearchTab_txtBoxAuthorPreName
             // 
-            SearchTab_txtBoxAuthorPreName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_txtBoxAuthorPreName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             SearchTab_txtBoxAuthorPreName.Location = new System.Drawing.Point(135, 100);
-            SearchTab_txtBoxAuthorPreName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_txtBoxAuthorPreName.Margin = new Padding(4, 3, 4, 3);
             SearchTab_txtBoxAuthorPreName.Name = "SearchTab_txtBoxAuthorPreName";
             SearchTab_txtBoxAuthorPreName.Size = new System.Drawing.Size(214, 23);
             SearchTab_txtBoxAuthorPreName.TabIndex = 7;
             // 
             // SearchTab_txtBoxTitle
             // 
-            SearchTab_txtBoxTitle.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_txtBoxTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             SearchTab_txtBoxTitle.Location = new System.Drawing.Point(135, 40);
-            SearchTab_txtBoxTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_txtBoxTitle.Margin = new Padding(4, 3, 4, 3);
             SearchTab_txtBoxTitle.Name = "SearchTab_txtBoxTitle";
             SearchTab_txtBoxTitle.Size = new System.Drawing.Size(214, 23);
             SearchTab_txtBoxTitle.TabIndex = 3;
@@ -459,7 +479,7 @@
             // 
             SearchTab_labelTitle.AutoSize = true;
             SearchTab_labelTitle.Location = new System.Drawing.Point(7, 44);
-            SearchTab_labelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            SearchTab_labelTitle.Margin = new Padding(4, 0, 4, 0);
             SearchTab_labelTitle.Name = "SearchTab_labelTitle";
             SearchTab_labelTitle.Size = new System.Drawing.Size(32, 15);
             SearchTab_labelTitle.TabIndex = 2;
@@ -467,9 +487,9 @@
             // 
             // SearchTab_txtBoxISBN
             // 
-            SearchTab_txtBoxISBN.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_txtBoxISBN.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             SearchTab_txtBoxISBN.Location = new System.Drawing.Point(135, 10);
-            SearchTab_txtBoxISBN.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_txtBoxISBN.Margin = new Padding(4, 3, 4, 3);
             SearchTab_txtBoxISBN.Name = "SearchTab_txtBoxISBN";
             SearchTab_txtBoxISBN.Size = new System.Drawing.Size(214, 23);
             SearchTab_txtBoxISBN.TabIndex = 1;
@@ -478,7 +498,7 @@
             // 
             SearchTab_labelISBN.AutoSize = true;
             SearchTab_labelISBN.Location = new System.Drawing.Point(7, 14);
-            SearchTab_labelISBN.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            SearchTab_labelISBN.Margin = new Padding(4, 0, 4, 0);
             SearchTab_labelISBN.Name = "SearchTab_labelISBN";
             SearchTab_labelISBN.Size = new System.Drawing.Size(35, 15);
             SearchTab_labelISBN.TabIndex = 0;
@@ -486,9 +506,9 @@
             // 
             // SearchTab_btnSearch
             // 
-            SearchTab_btnSearch.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_btnSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             SearchTab_btnSearch.Location = new System.Drawing.Point(826, 455);
-            SearchTab_btnSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_btnSearch.Margin = new Padding(4, 3, 4, 3);
             SearchTab_btnSearch.Name = "SearchTab_btnSearch";
             SearchTab_btnSearch.Size = new System.Drawing.Size(88, 27);
             SearchTab_btnSearch.TabIndex = 0;
@@ -498,10 +518,10 @@
             // 
             // SearchTab_btnCorrection
             // 
-            SearchTab_btnCorrection.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            SearchTab_btnCorrection.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             SearchTab_btnCorrection.Enabled = false;
             SearchTab_btnCorrection.Location = new System.Drawing.Point(732, 455);
-            SearchTab_btnCorrection.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SearchTab_btnCorrection.Margin = new Padding(4, 3, 4, 3);
             SearchTab_btnCorrection.Name = "SearchTab_btnCorrection";
             SearchTab_btnCorrection.Size = new System.Drawing.Size(88, 27);
             SearchTab_btnCorrection.TabIndex = 0;
@@ -518,7 +538,7 @@
             tabPageWrite.Controls.Add(WriteTab_groupBoxBook);
             tabPageWrite.Controls.Add(WriteTab_ISBNLabel_1);
             tabPageWrite.Location = new System.Drawing.Point(4, 24);
-            tabPageWrite.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageWrite.Margin = new Padding(4, 3, 4, 3);
             tabPageWrite.Name = "tabPageWrite";
             tabPageWrite.Size = new System.Drawing.Size(925, 488);
             tabPageWrite.TabIndex = 3;
@@ -529,7 +549,7 @@
             // 
             WriteTab_WorkInProgressLabel.AutoSize = true;
             WriteTab_WorkInProgressLabel.Location = new System.Drawing.Point(330, 8);
-            WriteTab_WorkInProgressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_WorkInProgressLabel.Margin = new Padding(4, 0, 4, 0);
             WriteTab_WorkInProgressLabel.Name = "WriteTab_WorkInProgressLabel";
             WriteTab_WorkInProgressLabel.Size = new System.Drawing.Size(105, 15);
             WriteTab_WorkInProgressLabel.TabIndex = 6;
@@ -538,7 +558,7 @@
             // WriteTab_txtBoxISBN_1
             // 
             WriteTab_txtBoxISBN_1.Location = new System.Drawing.Point(61, 5);
-            WriteTab_txtBoxISBN_1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_txtBoxISBN_1.Margin = new Padding(4, 3, 4, 3);
             WriteTab_txtBoxISBN_1.Name = "WriteTab_txtBoxISBN_1";
             WriteTab_txtBoxISBN_1.Size = new System.Drawing.Size(116, 23);
             WriteTab_txtBoxISBN_1.TabIndex = 1;
@@ -546,14 +566,14 @@
             // 
             // WriteTab_groupBoxAuthor
             // 
-            WriteTab_groupBoxAuthor.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            WriteTab_groupBoxAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             WriteTab_groupBoxAuthor.Controls.Add(WriteTab_Author_dataGridViewAuthor);
             WriteTab_groupBoxAuthor.Controls.Add(WriteTab_btnOK);
             WriteTab_groupBoxAuthor.Controls.Add(WriteTab_btnCancel);
             WriteTab_groupBoxAuthor.Location = new System.Drawing.Point(6, 245);
-            WriteTab_groupBoxAuthor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_groupBoxAuthor.Margin = new Padding(4, 3, 4, 3);
             WriteTab_groupBoxAuthor.Name = "WriteTab_groupBoxAuthor";
-            WriteTab_groupBoxAuthor.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_groupBoxAuthor.Padding = new Padding(4, 3, 4, 3);
             WriteTab_groupBoxAuthor.Size = new System.Drawing.Size(912, 237);
             WriteTab_groupBoxAuthor.TabIndex = 5;
             WriteTab_groupBoxAuthor.TabStop = false;
@@ -561,11 +581,11 @@
             // 
             // WriteTab_Author_dataGridViewAuthor
             // 
-            WriteTab_Author_dataGridViewAuthor.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            WriteTab_Author_dataGridViewAuthor.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            WriteTab_Author_dataGridViewAuthor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            WriteTab_Author_dataGridViewAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            WriteTab_Author_dataGridViewAuthor.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            WriteTab_Author_dataGridViewAuthor.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             WriteTab_Author_dataGridViewAuthor.Location = new System.Drawing.Point(7, 22);
-            WriteTab_Author_dataGridViewAuthor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Author_dataGridViewAuthor.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Author_dataGridViewAuthor.MultiSelect = false;
             WriteTab_Author_dataGridViewAuthor.Name = "WriteTab_Author_dataGridViewAuthor";
             WriteTab_Author_dataGridViewAuthor.Size = new System.Drawing.Size(891, 174);
@@ -575,7 +595,7 @@
             // WriteTab_btnRegisterWOutISBN
             // 
             WriteTab_btnRegisterWOutISBN.Location = new System.Drawing.Point(184, 2);
-            WriteTab_btnRegisterWOutISBN.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_btnRegisterWOutISBN.Margin = new Padding(4, 3, 4, 3);
             WriteTab_btnRegisterWOutISBN.Name = "WriteTab_btnRegisterWOutISBN";
             WriteTab_btnRegisterWOutISBN.Size = new System.Drawing.Size(139, 27);
             WriteTab_btnRegisterWOutISBN.TabIndex = 2;
@@ -585,7 +605,7 @@
             // 
             // WriteTab_groupBoxBook
             // 
-            WriteTab_groupBoxBook.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            WriteTab_groupBoxBook.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             WriteTab_groupBoxBook.Controls.Add(WriteTab_Book_cmbBoxFormat);
             WriteTab_groupBoxBook.Controls.Add(WriteTab_Book_btnCalculateISBN13);
             WriteTab_groupBoxBook.Controls.Add(WriteTab_Book_btnCalculateISBN10);
@@ -609,9 +629,9 @@
             WriteTab_groupBoxBook.Controls.Add(WriteTab_Book_txtBoxTitle);
             WriteTab_groupBoxBook.Controls.Add(WriteTab_Book_labelTitle);
             WriteTab_groupBoxBook.Location = new System.Drawing.Point(6, 31);
-            WriteTab_groupBoxBook.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_groupBoxBook.Margin = new Padding(4, 3, 4, 3);
             WriteTab_groupBoxBook.Name = "WriteTab_groupBoxBook";
-            WriteTab_groupBoxBook.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_groupBoxBook.Padding = new Padding(4, 3, 4, 3);
             WriteTab_groupBoxBook.Size = new System.Drawing.Size(912, 210);
             WriteTab_groupBoxBook.TabIndex = 4;
             WriteTab_groupBoxBook.TabStop = false;
@@ -621,7 +641,7 @@
             // 
             WriteTab_Book_cmbBoxFormat.FormattingEnabled = true;
             WriteTab_Book_cmbBoxFormat.Location = new System.Drawing.Point(98, 112);
-            WriteTab_Book_cmbBoxFormat.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_cmbBoxFormat.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_cmbBoxFormat.Name = "WriteTab_Book_cmbBoxFormat";
             WriteTab_Book_cmbBoxFormat.Size = new System.Drawing.Size(258, 23);
             WriteTab_Book_cmbBoxFormat.TabIndex = 6;
@@ -630,7 +650,7 @@
             // WriteTab_Book_btnCalculateISBN13
             // 
             WriteTab_Book_btnCalculateISBN13.Location = new System.Drawing.Point(270, 170);
-            WriteTab_Book_btnCalculateISBN13.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_btnCalculateISBN13.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_btnCalculateISBN13.Name = "WriteTab_Book_btnCalculateISBN13";
             WriteTab_Book_btnCalculateISBN13.Size = new System.Drawing.Size(88, 27);
             WriteTab_Book_btnCalculateISBN13.TabIndex = 10;
@@ -641,7 +661,7 @@
             // WriteTab_Book_btnCalculateISBN10
             // 
             WriteTab_Book_btnCalculateISBN10.Location = new System.Drawing.Point(270, 140);
-            WriteTab_Book_btnCalculateISBN10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_btnCalculateISBN10.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_btnCalculateISBN10.Name = "WriteTab_Book_btnCalculateISBN10";
             WriteTab_Book_btnCalculateISBN10.Size = new System.Drawing.Size(88, 27);
             WriteTab_Book_btnCalculateISBN10.TabIndex = 9;
@@ -653,7 +673,7 @@
             // 
             WriteTab_Book_labelMaxNoCount.AutoSize = true;
             WriteTab_Book_labelMaxNoCount.Location = new System.Drawing.Point(785, 85);
-            WriteTab_Book_labelMaxNoCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_Book_labelMaxNoCount.Margin = new Padding(4, 0, 4, 0);
             WriteTab_Book_labelMaxNoCount.Name = "WriteTab_Book_labelMaxNoCount";
             WriteTab_Book_labelMaxNoCount.Size = new System.Drawing.Size(0, 15);
             WriteTab_Book_labelMaxNoCount.TabIndex = 18;
@@ -662,7 +682,7 @@
             // 
             WriteTab_Book_labelMaxNo.AutoSize = true;
             WriteTab_Book_labelMaxNo.Location = new System.Drawing.Point(720, 85);
-            WriteTab_Book_labelMaxNo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_Book_labelMaxNo.Margin = new Padding(4, 0, 4, 0);
             WriteTab_Book_labelMaxNo.Name = "WriteTab_Book_labelMaxNo";
             WriteTab_Book_labelMaxNo.Size = new System.Drawing.Size(55, 15);
             WriteTab_Book_labelMaxNo.TabIndex = 17;
@@ -671,7 +691,7 @@
             // WriteTab_Book_txtBoxNoInSeries
             // 
             WriteTab_Book_txtBoxNoInSeries.Location = new System.Drawing.Point(596, 82);
-            WriteTab_Book_txtBoxNoInSeries.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_txtBoxNoInSeries.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_txtBoxNoInSeries.Name = "WriteTab_Book_txtBoxNoInSeries";
             WriteTab_Book_txtBoxNoInSeries.Size = new System.Drawing.Size(116, 23);
             WriteTab_Book_txtBoxNoInSeries.TabIndex = 13;
@@ -680,7 +700,7 @@
             // 
             WriteTab_Book_labelNoInSeries.AutoSize = true;
             WriteTab_Book_labelNoInSeries.Location = new System.Drawing.Point(488, 85);
-            WriteTab_Book_labelNoInSeries.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_Book_labelNoInSeries.Margin = new Padding(4, 0, 4, 0);
             WriteTab_Book_labelNoInSeries.Name = "WriteTab_Book_labelNoInSeries";
             WriteTab_Book_labelNoInSeries.Size = new System.Drawing.Size(99, 15);
             WriteTab_Book_labelNoInSeries.TabIndex = 16;
@@ -688,11 +708,11 @@
             // 
             // WriteTab_Book_cmbBoxSeries
             // 
-            WriteTab_Book_cmbBoxSeries.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            WriteTab_Book_cmbBoxSeries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            WriteTab_Book_cmbBoxSeries.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            WriteTab_Book_cmbBoxSeries.DropDownStyle = ComboBoxStyle.DropDownList;
             WriteTab_Book_cmbBoxSeries.FormattingEnabled = true;
             WriteTab_Book_cmbBoxSeries.Location = new System.Drawing.Point(365, 112);
-            WriteTab_Book_cmbBoxSeries.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_cmbBoxSeries.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_cmbBoxSeries.Name = "WriteTab_Book_cmbBoxSeries";
             WriteTab_Book_cmbBoxSeries.Size = new System.Drawing.Size(532, 23);
             WriteTab_Book_cmbBoxSeries.TabIndex = 12;
@@ -700,9 +720,9 @@
             // 
             // WriteTab_Book_txtBoxNewSeriesName
             // 
-            WriteTab_Book_txtBoxNewSeriesName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            WriteTab_Book_txtBoxNewSeriesName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             WriteTab_Book_txtBoxNewSeriesName.Location = new System.Drawing.Point(365, 172);
-            WriteTab_Book_txtBoxNewSeriesName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_txtBoxNewSeriesName.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_txtBoxNewSeriesName.Name = "WriteTab_Book_txtBoxNewSeriesName";
             WriteTab_Book_txtBoxNewSeriesName.Size = new System.Drawing.Size(532, 23);
             WriteTab_Book_txtBoxNewSeriesName.TabIndex = 15;
@@ -711,7 +731,7 @@
             // 
             WriteTab_Book_chkBoxIsNewSeries.AutoSize = true;
             WriteTab_Book_chkBoxIsNewSeries.Location = new System.Drawing.Point(365, 144);
-            WriteTab_Book_chkBoxIsNewSeries.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_chkBoxIsNewSeries.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_chkBoxIsNewSeries.Name = "WriteTab_Book_chkBoxIsNewSeries";
             WriteTab_Book_chkBoxIsNewSeries.Size = new System.Drawing.Size(82, 19);
             WriteTab_Book_chkBoxIsNewSeries.TabIndex = 14;
@@ -723,7 +743,7 @@
             // 
             WriteTab_Book_chkBoxIsPartOfSeries.AutoSize = true;
             WriteTab_Book_chkBoxIsPartOfSeries.Location = new System.Drawing.Point(365, 84);
-            WriteTab_Book_chkBoxIsPartOfSeries.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_chkBoxIsPartOfSeries.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_chkBoxIsPartOfSeries.Name = "WriteTab_Book_chkBoxIsPartOfSeries";
             WriteTab_Book_chkBoxIsPartOfSeries.Size = new System.Drawing.Size(105, 19);
             WriteTab_Book_chkBoxIsPartOfSeries.TabIndex = 11;
@@ -735,7 +755,7 @@
             // 
             WriteTab_Book_labelISBN13.AutoSize = true;
             WriteTab_Book_labelISBN13.Location = new System.Drawing.Point(7, 175);
-            WriteTab_Book_labelISBN13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_Book_labelISBN13.Margin = new Padding(4, 0, 4, 0);
             WriteTab_Book_labelISBN13.Name = "WriteTab_Book_labelISBN13";
             WriteTab_Book_labelISBN13.Size = new System.Drawing.Size(50, 15);
             WriteTab_Book_labelISBN13.TabIndex = 11;
@@ -744,7 +764,7 @@
             // WriteTab_Book_txtBoxISBN13
             // 
             WriteTab_Book_txtBoxISBN13.Location = new System.Drawing.Point(98, 172);
-            WriteTab_Book_txtBoxISBN13.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_txtBoxISBN13.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_txtBoxISBN13.Name = "WriteTab_Book_txtBoxISBN13";
             WriteTab_Book_txtBoxISBN13.Size = new System.Drawing.Size(164, 23);
             WriteTab_Book_txtBoxISBN13.TabIndex = 8;
@@ -754,7 +774,7 @@
             // 
             WriteTab_Book_labelISBN10.AutoSize = true;
             WriteTab_Book_labelISBN10.Location = new System.Drawing.Point(7, 145);
-            WriteTab_Book_labelISBN10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_Book_labelISBN10.Margin = new Padding(4, 0, 4, 0);
             WriteTab_Book_labelISBN10.Name = "WriteTab_Book_labelISBN10";
             WriteTab_Book_labelISBN10.Size = new System.Drawing.Size(50, 15);
             WriteTab_Book_labelISBN10.TabIndex = 9;
@@ -763,7 +783,7 @@
             // WriteTab_Book_txtBoxISBN10
             // 
             WriteTab_Book_txtBoxISBN10.Location = new System.Drawing.Point(98, 142);
-            WriteTab_Book_txtBoxISBN10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_txtBoxISBN10.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_txtBoxISBN10.Name = "WriteTab_Book_txtBoxISBN10";
             WriteTab_Book_txtBoxISBN10.Size = new System.Drawing.Size(164, 23);
             WriteTab_Book_txtBoxISBN10.TabIndex = 7;
@@ -773,7 +793,7 @@
             // 
             WriteTab_Book_labelFormat.AutoSize = true;
             WriteTab_Book_labelFormat.Location = new System.Drawing.Point(7, 115);
-            WriteTab_Book_labelFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_Book_labelFormat.Margin = new Padding(4, 0, 4, 0);
             WriteTab_Book_labelFormat.Name = "WriteTab_Book_labelFormat";
             WriteTab_Book_labelFormat.Size = new System.Drawing.Size(48, 15);
             WriteTab_Book_labelFormat.TabIndex = 7;
@@ -783,7 +803,7 @@
             // 
             WriteTab_Book_labelPublishingDate.AutoSize = true;
             WriteTab_Book_labelPublishingDate.Location = new System.Drawing.Point(7, 85);
-            WriteTab_Book_labelPublishingDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_Book_labelPublishingDate.Margin = new Padding(4, 0, 4, 0);
             WriteTab_Book_labelPublishingDate.Name = "WriteTab_Book_labelPublishingDate";
             WriteTab_Book_labelPublishingDate.Size = new System.Drawing.Size(81, 15);
             WriteTab_Book_labelPublishingDate.TabIndex = 5;
@@ -792,7 +812,7 @@
             // WriteTab_Book_txtBoxPublishingDate
             // 
             WriteTab_Book_txtBoxPublishingDate.Location = new System.Drawing.Point(98, 82);
-            WriteTab_Book_txtBoxPublishingDate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_txtBoxPublishingDate.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_txtBoxPublishingDate.Name = "WriteTab_Book_txtBoxPublishingDate";
             WriteTab_Book_txtBoxPublishingDate.Size = new System.Drawing.Size(258, 23);
             WriteTab_Book_txtBoxPublishingDate.TabIndex = 5;
@@ -801,7 +821,7 @@
             // 
             WriteTab_Book_labelSubTitle.AutoSize = true;
             WriteTab_Book_labelSubTitle.Location = new System.Drawing.Point(7, 55);
-            WriteTab_Book_labelSubTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_Book_labelSubTitle.Margin = new Padding(4, 0, 4, 0);
             WriteTab_Book_labelSubTitle.Name = "WriteTab_Book_labelSubTitle";
             WriteTab_Book_labelSubTitle.Size = new System.Drawing.Size(59, 15);
             WriteTab_Book_labelSubTitle.TabIndex = 3;
@@ -809,18 +829,18 @@
             // 
             // WriteTab_Book_txtBoxSubTitle
             // 
-            WriteTab_Book_txtBoxSubTitle.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            WriteTab_Book_txtBoxSubTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             WriteTab_Book_txtBoxSubTitle.Location = new System.Drawing.Point(98, 47);
-            WriteTab_Book_txtBoxSubTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_txtBoxSubTitle.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_txtBoxSubTitle.Name = "WriteTab_Book_txtBoxSubTitle";
             WriteTab_Book_txtBoxSubTitle.Size = new System.Drawing.Size(807, 23);
             WriteTab_Book_txtBoxSubTitle.TabIndex = 4;
             // 
             // WriteTab_Book_txtBoxTitle
             // 
-            WriteTab_Book_txtBoxTitle.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            WriteTab_Book_txtBoxTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             WriteTab_Book_txtBoxTitle.Location = new System.Drawing.Point(98, 17);
-            WriteTab_Book_txtBoxTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            WriteTab_Book_txtBoxTitle.Margin = new Padding(4, 3, 4, 3);
             WriteTab_Book_txtBoxTitle.Name = "WriteTab_Book_txtBoxTitle";
             WriteTab_Book_txtBoxTitle.Size = new System.Drawing.Size(807, 23);
             WriteTab_Book_txtBoxTitle.TabIndex = 3;
@@ -829,7 +849,7 @@
             // 
             WriteTab_Book_labelTitle.AutoSize = true;
             WriteTab_Book_labelTitle.Location = new System.Drawing.Point(7, 25);
-            WriteTab_Book_labelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_Book_labelTitle.Margin = new Padding(4, 0, 4, 0);
             WriteTab_Book_labelTitle.Name = "WriteTab_Book_labelTitle";
             WriteTab_Book_labelTitle.Size = new System.Drawing.Size(32, 15);
             WriteTab_Book_labelTitle.TabIndex = 0;
@@ -839,7 +859,7 @@
             // 
             WriteTab_ISBNLabel_1.AutoSize = true;
             WriteTab_ISBNLabel_1.Location = new System.Drawing.Point(6, 9);
-            WriteTab_ISBNLabel_1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            WriteTab_ISBNLabel_1.Margin = new Padding(4, 0, 4, 0);
             WriteTab_ISBNLabel_1.Name = "WriteTab_ISBNLabel_1";
             WriteTab_ISBNLabel_1.Size = new System.Drawing.Size(35, 15);
             WriteTab_ISBNLabel_1.TabIndex = 0;
@@ -850,9 +870,9 @@
             tabPageLent.Controls.Add(LentTab_groupBoxVerleihen);
             tabPageLent.Controls.Add(LentTab_groupBoxSuchen);
             tabPageLent.Location = new System.Drawing.Point(4, 24);
-            tabPageLent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageLent.Margin = new Padding(4, 3, 4, 3);
             tabPageLent.Name = "tabPageLent";
-            tabPageLent.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageLent.Padding = new Padding(4, 3, 4, 3);
             tabPageLent.Size = new System.Drawing.Size(925, 488);
             tabPageLent.TabIndex = 0;
             tabPageLent.Text = "Verleihen";
@@ -860,14 +880,14 @@
             // 
             // LentTab_groupBoxVerleihen
             // 
-            LentTab_groupBoxVerleihen.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            LentTab_groupBoxVerleihen.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             LentTab_groupBoxVerleihen.Controls.Add(LentTab_btnRemove);
             LentTab_groupBoxVerleihen.Controls.Add(LentTab_btnLent);
             LentTab_groupBoxVerleihen.Controls.Add(LentTab_dataGridViewLent);
             LentTab_groupBoxVerleihen.Location = new System.Drawing.Point(6, 263);
-            LentTab_groupBoxVerleihen.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_groupBoxVerleihen.Margin = new Padding(4, 3, 4, 3);
             LentTab_groupBoxVerleihen.Name = "LentTab_groupBoxVerleihen";
-            LentTab_groupBoxVerleihen.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_groupBoxVerleihen.Padding = new Padding(4, 3, 4, 3);
             LentTab_groupBoxVerleihen.Size = new System.Drawing.Size(905, 217);
             LentTab_groupBoxVerleihen.TabIndex = 1;
             LentTab_groupBoxVerleihen.TabStop = false;
@@ -875,10 +895,10 @@
             // 
             // LentTab_btnRemove
             // 
-            LentTab_btnRemove.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            LentTab_btnRemove.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             LentTab_btnRemove.Enabled = false;
             LentTab_btnRemove.Location = new System.Drawing.Point(799, 181);
-            LentTab_btnRemove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_btnRemove.Margin = new Padding(4, 3, 4, 3);
             LentTab_btnRemove.Name = "LentTab_btnRemove";
             LentTab_btnRemove.Size = new System.Drawing.Size(99, 27);
             LentTab_btnRemove.TabIndex = 18;
@@ -888,10 +908,10 @@
             // 
             // LentTab_btnLent
             // 
-            LentTab_btnLent.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            LentTab_btnLent.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             LentTab_btnLent.Enabled = false;
             LentTab_btnLent.Location = new System.Drawing.Point(693, 181);
-            LentTab_btnLent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_btnLent.Margin = new Padding(4, 3, 4, 3);
             LentTab_btnLent.Name = "LentTab_btnLent";
             LentTab_btnLent.Size = new System.Drawing.Size(99, 27);
             LentTab_btnLent.TabIndex = 17;
@@ -905,17 +925,17 @@
             LentTab_dataGridViewLent.AllowUserToDeleteRows = false;
             LentTab_dataGridViewLent.AllowUserToResizeColumns = false;
             LentTab_dataGridViewLent.AllowUserToResizeRows = false;
-            LentTab_dataGridViewLent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            LentTab_dataGridViewLent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            LentTab_dataGridViewLent.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            LentTab_dataGridViewLent.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             LentTab_dataGridViewLent.Location = new System.Drawing.Point(10, 22);
-            LentTab_dataGridViewLent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_dataGridViewLent.Margin = new Padding(4, 3, 4, 3);
             LentTab_dataGridViewLent.Name = "LentTab_dataGridViewLent";
             LentTab_dataGridViewLent.Size = new System.Drawing.Size(888, 152);
             LentTab_dataGridViewLent.TabIndex = 16;
             // 
             // LentTab_groupBoxSuchen
             // 
-            LentTab_groupBoxSuchen.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            LentTab_groupBoxSuchen.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             LentTab_groupBoxSuchen.Controls.Add(LentTab_cmbBoxSubTitle);
             LentTab_groupBoxSuchen.Controls.Add(LentTab_cmbBoxTitle);
             LentTab_groupBoxSuchen.Controls.Add(LentTab_cmbBoxISBN);
@@ -933,9 +953,9 @@
             LentTab_groupBoxSuchen.Controls.Add(LentTab_labelTitle);
             LentTab_groupBoxSuchen.Controls.Add(LentTab_labelISBN);
             LentTab_groupBoxSuchen.Location = new System.Drawing.Point(7, 7);
-            LentTab_groupBoxSuchen.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_groupBoxSuchen.Margin = new Padding(4, 3, 4, 3);
             LentTab_groupBoxSuchen.Name = "LentTab_groupBoxSuchen";
-            LentTab_groupBoxSuchen.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_groupBoxSuchen.Padding = new Padding(4, 3, 4, 3);
             LentTab_groupBoxSuchen.Size = new System.Drawing.Size(904, 249);
             LentTab_groupBoxSuchen.TabIndex = 0;
             LentTab_groupBoxSuchen.TabStop = false;
@@ -943,44 +963,44 @@
             // 
             // LentTab_cmbBoxSubTitle
             // 
-            LentTab_cmbBoxSubTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            LentTab_cmbBoxSubTitle.DropDownStyle = ComboBoxStyle.DropDownList;
             LentTab_cmbBoxSubTitle.FormattingEnabled = true;
             LentTab_cmbBoxSubTitle.Items.AddRange(new object[] { "und", "oder" });
             LentTab_cmbBoxSubTitle.Location = new System.Drawing.Point(320, 50);
-            LentTab_cmbBoxSubTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_cmbBoxSubTitle.Margin = new Padding(4, 3, 4, 3);
             LentTab_cmbBoxSubTitle.Name = "LentTab_cmbBoxSubTitle";
             LentTab_cmbBoxSubTitle.Size = new System.Drawing.Size(89, 23);
             LentTab_cmbBoxSubTitle.TabIndex = 10;
             // 
             // LentTab_cmbBoxTitle
             // 
-            LentTab_cmbBoxTitle.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            LentTab_cmbBoxTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            LentTab_cmbBoxTitle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            LentTab_cmbBoxTitle.DropDownStyle = ComboBoxStyle.DropDownList;
             LentTab_cmbBoxTitle.FormattingEnabled = true;
             LentTab_cmbBoxTitle.Items.AddRange(new object[] { "und", "oder" });
             LentTab_cmbBoxTitle.Location = new System.Drawing.Point(705, 18);
-            LentTab_cmbBoxTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_cmbBoxTitle.Margin = new Padding(4, 3, 4, 3);
             LentTab_cmbBoxTitle.Name = "LentTab_cmbBoxTitle";
             LentTab_cmbBoxTitle.Size = new System.Drawing.Size(89, 23);
             LentTab_cmbBoxTitle.TabIndex = 8;
             // 
             // LentTab_cmbBoxISBN
             // 
-            LentTab_cmbBoxISBN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            LentTab_cmbBoxISBN.DropDownStyle = ComboBoxStyle.DropDownList;
             LentTab_cmbBoxISBN.FormattingEnabled = true;
             LentTab_cmbBoxISBN.Items.AddRange(new object[] { "und", "oder" });
             LentTab_cmbBoxISBN.Location = new System.Drawing.Point(320, 18);
-            LentTab_cmbBoxISBN.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_cmbBoxISBN.Margin = new Padding(4, 3, 4, 3);
             LentTab_cmbBoxISBN.Name = "LentTab_cmbBoxISBN";
             LentTab_cmbBoxISBN.Size = new System.Drawing.Size(89, 23);
             LentTab_cmbBoxISBN.TabIndex = 6;
             // 
             // LentTab_btnPull
             // 
-            LentTab_btnPull.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            LentTab_btnPull.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             LentTab_btnPull.Enabled = false;
             LentTab_btnPull.Location = new System.Drawing.Point(798, 216);
-            LentTab_btnPull.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_btnPull.Margin = new Padding(4, 3, 4, 3);
             LentTab_btnPull.Name = "LentTab_btnPull";
             LentTab_btnPull.Size = new System.Drawing.Size(99, 27);
             LentTab_btnPull.TabIndex = 15;
@@ -990,9 +1010,9 @@
             // 
             // LentTab_btnSearch
             // 
-            LentTab_btnSearch.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            LentTab_btnSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             LentTab_btnSearch.Location = new System.Drawing.Point(798, 182);
-            LentTab_btnSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_btnSearch.Margin = new Padding(4, 3, 4, 3);
             LentTab_btnSearch.Name = "LentTab_btnSearch";
             LentTab_btnSearch.Size = new System.Drawing.Size(99, 27);
             LentTab_btnSearch.TabIndex = 14;
@@ -1004,19 +1024,19 @@
             // 
             LentTab_dataGridViewSearch.AllowUserToAddRows = false;
             LentTab_dataGridViewSearch.AllowUserToDeleteRows = false;
-            LentTab_dataGridViewSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            LentTab_dataGridViewSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            LentTab_dataGridViewSearch.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            LentTab_dataGridViewSearch.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             LentTab_dataGridViewSearch.Location = new System.Drawing.Point(9, 110);
-            LentTab_dataGridViewSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_dataGridViewSearch.Margin = new Padding(4, 3, 4, 3);
             LentTab_dataGridViewSearch.Name = "LentTab_dataGridViewSearch";
-            LentTab_dataGridViewSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            LentTab_dataGridViewSearch.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             LentTab_dataGridViewSearch.Size = new System.Drawing.Size(782, 133);
             LentTab_dataGridViewSearch.TabIndex = 13;
             // 
             // LentTab_txtBoxAuthorSurName
             // 
             LentTab_txtBoxAuthorSurName.Location = new System.Drawing.Point(450, 80);
-            LentTab_txtBoxAuthorSurName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_txtBoxAuthorSurName.Margin = new Padding(4, 3, 4, 3);
             LentTab_txtBoxAuthorSurName.Name = "LentTab_txtBoxAuthorSurName";
             LentTab_txtBoxAuthorSurName.Size = new System.Drawing.Size(238, 23);
             LentTab_txtBoxAuthorSurName.TabIndex = 12;
@@ -1024,7 +1044,7 @@
             // LentTab_txtBoxAuthorPreName
             // 
             LentTab_txtBoxAuthorPreName.Location = new System.Drawing.Point(125, 80);
-            LentTab_txtBoxAuthorPreName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_txtBoxAuthorPreName.Margin = new Padding(4, 3, 4, 3);
             LentTab_txtBoxAuthorPreName.Name = "LentTab_txtBoxAuthorPreName";
             LentTab_txtBoxAuthorPreName.Size = new System.Drawing.Size(238, 23);
             LentTab_txtBoxAuthorPreName.TabIndex = 11;
@@ -1032,16 +1052,16 @@
             // LentTab_txtBoxSubTitle
             // 
             LentTab_txtBoxSubTitle.Location = new System.Drawing.Point(74, 50);
-            LentTab_txtBoxSubTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_txtBoxSubTitle.Margin = new Padding(4, 3, 4, 3);
             LentTab_txtBoxSubTitle.Name = "LentTab_txtBoxSubTitle";
             LentTab_txtBoxSubTitle.Size = new System.Drawing.Size(238, 23);
             LentTab_txtBoxSubTitle.TabIndex = 9;
             // 
             // LentTab_txtBoxTitle
             // 
-            LentTab_txtBoxTitle.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            LentTab_txtBoxTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             LentTab_txtBoxTitle.Location = new System.Drawing.Point(458, 20);
-            LentTab_txtBoxTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_txtBoxTitle.Margin = new Padding(4, 3, 4, 3);
             LentTab_txtBoxTitle.Name = "LentTab_txtBoxTitle";
             LentTab_txtBoxTitle.Size = new System.Drawing.Size(238, 23);
             LentTab_txtBoxTitle.TabIndex = 7;
@@ -1049,7 +1069,7 @@
             // LentTab_txtBoxISBN
             // 
             LentTab_txtBoxISBN.Location = new System.Drawing.Point(74, 20);
-            LentTab_txtBoxISBN.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LentTab_txtBoxISBN.Margin = new Padding(4, 3, 4, 3);
             LentTab_txtBoxISBN.Name = "LentTab_txtBoxISBN";
             LentTab_txtBoxISBN.Size = new System.Drawing.Size(238, 23);
             LentTab_txtBoxISBN.TabIndex = 5;
@@ -1058,7 +1078,7 @@
             // 
             LentTab_labelAuthorSurName.AutoSize = true;
             LentTab_labelAuthorSurName.Location = new System.Drawing.Point(371, 83);
-            LentTab_labelAuthorSurName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LentTab_labelAuthorSurName.Margin = new Padding(4, 0, 4, 0);
             LentTab_labelAuthorSurName.Name = "LentTab_labelAuthorSurName";
             LentTab_labelAuthorSurName.Size = new System.Drawing.Size(68, 15);
             LentTab_labelAuthorSurName.TabIndex = 4;
@@ -1068,7 +1088,7 @@
             // 
             LentTab_labelAuthorPreName.AutoSize = true;
             LentTab_labelAuthorPreName.Location = new System.Drawing.Point(8, 83);
-            LentTab_labelAuthorPreName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LentTab_labelAuthorPreName.Margin = new Padding(4, 0, 4, 0);
             LentTab_labelAuthorPreName.Name = "LentTab_labelAuthorPreName";
             LentTab_labelAuthorPreName.Size = new System.Drawing.Size(105, 15);
             LentTab_labelAuthorPreName.TabIndex = 3;
@@ -1078,7 +1098,7 @@
             // 
             LentTab_labelSubTitle.AutoSize = true;
             LentTab_labelSubTitle.Location = new System.Drawing.Point(8, 53);
-            LentTab_labelSubTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LentTab_labelSubTitle.Margin = new Padding(4, 0, 4, 0);
             LentTab_labelSubTitle.Name = "LentTab_labelSubTitle";
             LentTab_labelSubTitle.Size = new System.Drawing.Size(59, 15);
             LentTab_labelSubTitle.TabIndex = 2;
@@ -1088,7 +1108,7 @@
             // 
             LentTab_labelTitle.AutoSize = true;
             LentTab_labelTitle.Location = new System.Drawing.Point(416, 22);
-            LentTab_labelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LentTab_labelTitle.Margin = new Padding(4, 0, 4, 0);
             LentTab_labelTitle.Name = "LentTab_labelTitle";
             LentTab_labelTitle.Size = new System.Drawing.Size(32, 15);
             LentTab_labelTitle.TabIndex = 1;
@@ -1098,7 +1118,7 @@
             // 
             LentTab_labelISBN.AutoSize = true;
             LentTab_labelISBN.Location = new System.Drawing.Point(8, 23);
-            LentTab_labelISBN.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LentTab_labelISBN.Margin = new Padding(4, 0, 4, 0);
             LentTab_labelISBN.Name = "LentTab_labelISBN";
             LentTab_labelISBN.Size = new System.Drawing.Size(35, 15);
             LentTab_labelISBN.TabIndex = 0;
@@ -1111,9 +1131,9 @@
             tabPageReturn.Controls.Add(ReturnTab_chkBoxIgnoreIsActive);
             tabPageReturn.Controls.Add(ReturnTab_btnShowAll);
             tabPageReturn.Location = new System.Drawing.Point(4, 24);
-            tabPageReturn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageReturn.Margin = new Padding(4, 3, 4, 3);
             tabPageReturn.Name = "tabPageReturn";
-            tabPageReturn.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageReturn.Padding = new Padding(4, 3, 4, 3);
             tabPageReturn.Size = new System.Drawing.Size(925, 488);
             tabPageReturn.TabIndex = 1;
             tabPageReturn.Text = "Zurücknehmen";
@@ -1121,13 +1141,13 @@
             // 
             // ReturnTab_GroupBoxGetBack
             // 
-            ReturnTab_GroupBoxGetBack.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            ReturnTab_GroupBoxGetBack.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             ReturnTab_GroupBoxGetBack.Controls.Add(ReturnTab_btnReturn);
             ReturnTab_GroupBoxGetBack.Controls.Add(ReturnTab_dataGridViewReturn);
             ReturnTab_GroupBoxGetBack.Location = new System.Drawing.Point(12, 168);
-            ReturnTab_GroupBoxGetBack.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_GroupBoxGetBack.Margin = new Padding(4, 3, 4, 3);
             ReturnTab_GroupBoxGetBack.Name = "ReturnTab_GroupBoxGetBack";
-            ReturnTab_GroupBoxGetBack.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_GroupBoxGetBack.Padding = new Padding(4, 3, 4, 3);
             ReturnTab_GroupBoxGetBack.Size = new System.Drawing.Size(898, 310);
             ReturnTab_GroupBoxGetBack.TabIndex = 0;
             ReturnTab_GroupBoxGetBack.TabStop = false;
@@ -1135,9 +1155,9 @@
             // 
             // ReturnTab_btnReturn
             // 
-            ReturnTab_btnReturn.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            ReturnTab_btnReturn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             ReturnTab_btnReturn.Location = new System.Drawing.Point(789, 277);
-            ReturnTab_btnReturn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_btnReturn.Margin = new Padding(4, 3, 4, 3);
             ReturnTab_btnReturn.Name = "ReturnTab_btnReturn";
             ReturnTab_btnReturn.Size = new System.Drawing.Size(103, 27);
             ReturnTab_btnReturn.TabIndex = 1;
@@ -1149,18 +1169,18 @@
             // 
             ReturnTab_dataGridViewReturn.AllowUserToAddRows = false;
             ReturnTab_dataGridViewReturn.AllowUserToDeleteRows = false;
-            ReturnTab_dataGridViewReturn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            ReturnTab_dataGridViewReturn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ReturnTab_dataGridViewReturn.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ReturnTab_dataGridViewReturn.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ReturnTab_dataGridViewReturn.Location = new System.Drawing.Point(7, 22);
-            ReturnTab_dataGridViewReturn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_dataGridViewReturn.Margin = new Padding(4, 3, 4, 3);
             ReturnTab_dataGridViewReturn.Name = "ReturnTab_dataGridViewReturn";
-            ReturnTab_dataGridViewReturn.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            ReturnTab_dataGridViewReturn.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ReturnTab_dataGridViewReturn.Size = new System.Drawing.Size(884, 248);
             ReturnTab_dataGridViewReturn.TabIndex = 0;
             // 
             // ReturnTab_GroupBoxSearch
             // 
-            ReturnTab_GroupBoxSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            ReturnTab_GroupBoxSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             ReturnTab_GroupBoxSearch.Controls.Add(ReturnTab_txtBoxBookTitle);
             ReturnTab_GroupBoxSearch.Controls.Add(ReturnTab_labelBookTitle);
             ReturnTab_GroupBoxSearch.Controls.Add(ReturnTab_btnSearch);
@@ -1173,9 +1193,9 @@
             ReturnTab_GroupBoxSearch.Controls.Add(ReturnTab_labelLentTo);
             ReturnTab_GroupBoxSearch.Controls.Add(ReturnTab_labelISBN);
             ReturnTab_GroupBoxSearch.Location = new System.Drawing.Point(12, 40);
-            ReturnTab_GroupBoxSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_GroupBoxSearch.Margin = new Padding(4, 3, 4, 3);
             ReturnTab_GroupBoxSearch.Name = "ReturnTab_GroupBoxSearch";
-            ReturnTab_GroupBoxSearch.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_GroupBoxSearch.Padding = new Padding(4, 3, 4, 3);
             ReturnTab_GroupBoxSearch.Size = new System.Drawing.Size(898, 121);
             ReturnTab_GroupBoxSearch.TabIndex = 0;
             ReturnTab_GroupBoxSearch.TabStop = false;
@@ -1183,9 +1203,9 @@
             // 
             // ReturnTab_txtBoxBookTitle
             // 
-            ReturnTab_txtBoxBookTitle.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            ReturnTab_txtBoxBookTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             ReturnTab_txtBoxBookTitle.Location = new System.Drawing.Point(264, 22);
-            ReturnTab_txtBoxBookTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_txtBoxBookTitle.Margin = new Padding(4, 3, 4, 3);
             ReturnTab_txtBoxBookTitle.Name = "ReturnTab_txtBoxBookTitle";
             ReturnTab_txtBoxBookTitle.Size = new System.Drawing.Size(116, 23);
             ReturnTab_txtBoxBookTitle.TabIndex = 6;
@@ -1194,7 +1214,7 @@
             // 
             ReturnTab_labelBookTitle.AutoSize = true;
             ReturnTab_labelBookTitle.Location = new System.Drawing.Point(191, 25);
-            ReturnTab_labelBookTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ReturnTab_labelBookTitle.Margin = new Padding(4, 0, 4, 0);
             ReturnTab_labelBookTitle.Name = "ReturnTab_labelBookTitle";
             ReturnTab_labelBookTitle.Size = new System.Drawing.Size(57, 15);
             ReturnTab_labelBookTitle.TabIndex = 9;
@@ -1202,9 +1222,9 @@
             // 
             // ReturnTab_btnSearch
             // 
-            ReturnTab_btnSearch.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            ReturnTab_btnSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             ReturnTab_btnSearch.Location = new System.Drawing.Point(804, 88);
-            ReturnTab_btnSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_btnSearch.Margin = new Padding(4, 3, 4, 3);
             ReturnTab_btnSearch.Name = "ReturnTab_btnSearch";
             ReturnTab_btnSearch.Size = new System.Drawing.Size(88, 27);
             ReturnTab_btnSearch.TabIndex = 9;
@@ -1214,18 +1234,18 @@
             // 
             // ReturnTab_txtBoxSurName
             // 
-            ReturnTab_txtBoxSurName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            ReturnTab_txtBoxSurName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ReturnTab_txtBoxSurName.Location = new System.Drawing.Point(264, 82);
-            ReturnTab_txtBoxSurName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_txtBoxSurName.Margin = new Padding(4, 3, 4, 3);
             ReturnTab_txtBoxSurName.Name = "ReturnTab_txtBoxSurName";
             ReturnTab_txtBoxSurName.Size = new System.Drawing.Size(116, 23);
             ReturnTab_txtBoxSurName.TabIndex = 8;
             // 
             // ReturnTab_txtBoxPreName
             // 
-            ReturnTab_txtBoxPreName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            ReturnTab_txtBoxPreName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             ReturnTab_txtBoxPreName.Location = new System.Drawing.Point(68, 82);
-            ReturnTab_txtBoxPreName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_txtBoxPreName.Margin = new Padding(4, 3, 4, 3);
             ReturnTab_txtBoxPreName.Name = "ReturnTab_txtBoxPreName";
             ReturnTab_txtBoxPreName.Size = new System.Drawing.Size(116, 23);
             ReturnTab_txtBoxPreName.TabIndex = 7;
@@ -1233,17 +1253,17 @@
             // ReturnTab_txtBoxISBN
             // 
             ReturnTab_txtBoxISBN.Location = new System.Drawing.Point(68, 22);
-            ReturnTab_txtBoxISBN.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_txtBoxISBN.Margin = new Padding(4, 3, 4, 3);
             ReturnTab_txtBoxISBN.Name = "ReturnTab_txtBoxISBN";
             ReturnTab_txtBoxISBN.Size = new System.Drawing.Size(116, 23);
             ReturnTab_txtBoxISBN.TabIndex = 5;
             // 
             // ReturnTab_labelOptional
             // 
-            ReturnTab_labelOptional.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            ReturnTab_labelOptional.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ReturnTab_labelOptional.AutoSize = true;
             ReturnTab_labelOptional.Location = new System.Drawing.Point(379, 85);
-            ReturnTab_labelOptional.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ReturnTab_labelOptional.Margin = new Padding(4, 0, 4, 0);
             ReturnTab_labelOptional.Name = "ReturnTab_labelOptional";
             ReturnTab_labelOptional.Size = new System.Drawing.Size(59, 15);
             ReturnTab_labelOptional.TabIndex = 4;
@@ -1251,10 +1271,10 @@
             // 
             // ReturnTab_labelSurName
             // 
-            ReturnTab_labelSurName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            ReturnTab_labelSurName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ReturnTab_labelSurName.AutoSize = true;
             ReturnTab_labelSurName.Location = new System.Drawing.Point(191, 85);
-            ReturnTab_labelSurName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ReturnTab_labelSurName.Margin = new Padding(4, 0, 4, 0);
             ReturnTab_labelSurName.Name = "ReturnTab_labelSurName";
             ReturnTab_labelSurName.Size = new System.Drawing.Size(68, 15);
             ReturnTab_labelSurName.TabIndex = 3;
@@ -1264,7 +1284,7 @@
             // 
             ReturnTab_labelPreName.AutoSize = true;
             ReturnTab_labelPreName.Location = new System.Drawing.Point(7, 85);
-            ReturnTab_labelPreName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ReturnTab_labelPreName.Margin = new Padding(4, 0, 4, 0);
             ReturnTab_labelPreName.Name = "ReturnTab_labelPreName";
             ReturnTab_labelPreName.Size = new System.Drawing.Size(57, 15);
             ReturnTab_labelPreName.TabIndex = 2;
@@ -1274,7 +1294,7 @@
             // 
             ReturnTab_labelLentTo.AutoSize = true;
             ReturnTab_labelLentTo.Location = new System.Drawing.Point(7, 60);
-            ReturnTab_labelLentTo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ReturnTab_labelLentTo.Margin = new Padding(4, 0, 4, 0);
             ReturnTab_labelLentTo.Name = "ReturnTab_labelLentTo";
             ReturnTab_labelLentTo.Size = new System.Drawing.Size(74, 15);
             ReturnTab_labelLentTo.TabIndex = 1;
@@ -1284,7 +1304,7 @@
             // 
             ReturnTab_labelISBN.AutoSize = true;
             ReturnTab_labelISBN.Location = new System.Drawing.Point(7, 25);
-            ReturnTab_labelISBN.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ReturnTab_labelISBN.Margin = new Padding(4, 0, 4, 0);
             ReturnTab_labelISBN.Name = "ReturnTab_labelISBN";
             ReturnTab_labelISBN.Size = new System.Drawing.Size(35, 15);
             ReturnTab_labelISBN.TabIndex = 0;
@@ -1294,7 +1314,7 @@
             // 
             ReturnTab_chkBoxIgnoreIsActive.AutoSize = true;
             ReturnTab_chkBoxIgnoreIsActive.Location = new System.Drawing.Point(108, 12);
-            ReturnTab_chkBoxIgnoreIsActive.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_chkBoxIgnoreIsActive.Margin = new Padding(4, 3, 4, 3);
             ReturnTab_chkBoxIgnoreIsActive.Name = "ReturnTab_chkBoxIgnoreIsActive";
             ReturnTab_chkBoxIgnoreIsActive.Size = new System.Drawing.Size(116, 19);
             ReturnTab_chkBoxIgnoreIsActive.TabIndex = 2;
@@ -1304,7 +1324,7 @@
             // ReturnTab_btnShowAll
             // 
             ReturnTab_btnShowAll.Location = new System.Drawing.Point(8, 7);
-            ReturnTab_btnShowAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ReturnTab_btnShowAll.Margin = new Padding(4, 3, 4, 3);
             ReturnTab_btnShowAll.Name = "ReturnTab_btnShowAll";
             ReturnTab_btnShowAll.Size = new System.Drawing.Size(93, 27);
             ReturnTab_btnShowAll.TabIndex = 0;
@@ -1314,11 +1334,11 @@
             // 
             // cmbBoxLanguage
             // 
-            cmbBoxLanguage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            cmbBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbBoxLanguage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbBoxLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBoxLanguage.FormattingEnabled = true;
             cmbBoxLanguage.Location = new System.Drawing.Point(869, -1);
-            cmbBoxLanguage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cmbBoxLanguage.Margin = new Padding(4, 3, 4, 3);
             cmbBoxLanguage.Name = "cmbBoxLanguage";
             cmbBoxLanguage.Size = new System.Drawing.Size(65, 23);
             cmbBoxLanguage.TabIndex = 1;
@@ -1326,11 +1346,11 @@
             // 
             // cmbBoxColorMode
             // 
-            cmbBoxColorMode.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            cmbBoxColorMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbBoxColorMode.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbBoxColorMode.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBoxColorMode.FormattingEnabled = true;
             cmbBoxColorMode.Location = new System.Drawing.Point(779, -1);
-            cmbBoxColorMode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cmbBoxColorMode.Margin = new Padding(4, 3, 4, 3);
             cmbBoxColorMode.Name = "cmbBoxColorMode";
             cmbBoxColorMode.Size = new System.Drawing.Size(82, 23);
             cmbBoxColorMode.TabIndex = 2;
@@ -1339,13 +1359,13 @@
             // Form1
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(933, 519);
             Controls.Add(cmbBoxColorMode);
             Controls.Add(cmbBoxLanguage);
             Controls.Add(tabControl);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Margin = new Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(949, 558);
             Name = "Form1";
             Text = "ISBN Caller";
@@ -1482,6 +1502,7 @@
         private System.Windows.Forms.ComboBox WriteTab_Book_cmbBoxFormat;
         private System.Windows.Forms.ComboBox cmbBoxLanguage;
         private System.Windows.Forms.ComboBox cmbBoxColorMode;
+        private CheckBox SearchTab_chkBoxUseDates;
     }
 }
 

@@ -60,7 +60,7 @@ namespace ISBNCaller_GUI
 
             XmlReader reader = new XmlReader(cSettingsPath);
             mLanguage = reader.Read($"/Settings/Language");
-            
+
             foreach (var lang in GetLanguagesEnumList<mLanguagesEnum>())
             {
                 cmbBoxLanguage.Items.Add(lang.ToString());
@@ -622,6 +622,7 @@ namespace ISBNCaller_GUI
             mSearchTab.mChkBoxShowLent = SearchTab_chkBoxShowLent;
             mSearchTab.mChkBoxOnlyShowFirstAuthor = SearchTab_chkBoxOnlyShowFirstAuthor;
             mSearchTab.mDataGridViewSearch = SearchTab_dataGridViewSearch;
+            mSearchTab.mChkBoxUseDates = SearchTab_chkBoxUseDates;
             mSearchTab.InitializeDGV();
             mSearchTab.InitializeCmbBoxFormat();
             FillCmbBoxSeries(SearchTab_cmbBoxSeries);
@@ -632,6 +633,20 @@ namespace ISBNCaller_GUI
             mSearchTab.btnSearchClick();
             SearchTab_btnCorrection.Enabled = true;
             ChangeDataGridViewColors();
+        }
+
+        private void SearchTab_chkBoxUseDates_CheckedChanged(object sender, EventArgs e)
+        {
+            if (SearchTab_chkBoxUseDates.Checked)
+            {
+                SearchTab_dtpFrom.Enabled = true;
+                SearchTab_dtpTo.Enabled = true;
+            }
+            else
+            {
+                SearchTab_dtpFrom.Enabled = false;
+                SearchTab_dtpTo.Enabled = false;
+            }
         }
 
 #if DEBUG
