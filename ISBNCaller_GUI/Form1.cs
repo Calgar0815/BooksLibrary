@@ -1,12 +1,10 @@
 ﻿using ISBNCaller_Lib;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Drawing;
-using System.Collections;
 
 namespace ISBNCaller_GUI
 {
@@ -72,100 +70,8 @@ namespace ISBNCaller_GUI
                 cmbBoxLanguage.SelectedIndex = index;
             }
 
-            LoadTexts();
-        }
-
-        private void LoadTexts()
-        {
-            List<KeyValuePair<string, string>> allTexts = LoadTextsFromXML();
-            SetTexts(allTexts);
-        }
-
-        private void SetTexts(List<KeyValuePair<string, string>> allTexts)
-        {
-            List<Control> controlsList = GetControls(this);
-            foreach(Control control in controlsList)
-            {
-                var matches = from val in allTexts where val.Key == control.Name select val.Value;
-                foreach(var match in matches)
-                {
-                    control.Text = match.ToString();
-                }
-            } // foreach
-        }
-
-        private List<Control> GetControls(Control form)
-        {
-            var controlsList = new List<Control>();
-            foreach (Control childControl in form.Controls)
-            {
-                // Recurse child controls.
-                controlsList.AddRange(GetControls(childControl));
-                controlsList.Add(childControl);
-            } // foreach
-
-            return controlsList;
-        }
-
-        private List<KeyValuePair<string, string>> LoadTextsFromXML()
-        {
-            if (!File.Exists(cLanguagesFilePath))
-            {
-                CreateLanguagesXML();
-            } // if
-
-            XmlReader reader = new XmlReader(cLanguagesFilePath);
-            System.Xml.XmlNodeList childNodes = reader.ReadChildNodes($"/Languages");
-            List<KeyValuePair<string, string>> loadedTexts = new List<KeyValuePair<string, string>>();
-            foreach(System.Xml.XmlNode node in childNodes)
-            {
-                string text = "xxxx";
-                bool found = false;
-                for(int index = 0; index < node.ChildNodes.Count && !found; index++)
-                {
-                    if(node.ChildNodes[index].Name == mLanguage)
-                    {
-                        text = node.ChildNodes[index].InnerText;
-                        found = true;
-                    }
-                } // foreach
-
-                KeyValuePair<string, string> kvp = new KeyValuePair<string, string>(node.Name, text);
-                loadedTexts.Add(kvp);
-            } // foreach
-
-            return loadedTexts;
-        }
-
-        private void CreateLanguagesXML()
-        {
-            string xmlText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Languages>";
-            // SearchTab -->
-            xmlText += "\r\n\t<tabPageSearch>\r\n\t\t<de>Suchen</de>\r\n\t\t<en>Search</en>\r\n\t</tabPageSearch>";
-            xmlText += "\r\n\t<SearchTab_labelISBN>\r\n\t\t<de>ISBN:</de>\r\n\t\t<en>ISBN:</en>\r\n\t</SearchTab_labelISBN>";
-            xmlText += "\r\n\t<SearchTab_labelTitle>\r\n\t\t<de>Titel:</de>\r\n\t\t<en>Title:</en>\r\n\t</SearchTab_labelTitle>";
-            xmlText += "\r\n\t<SearchTab_labelSubTitle>\r\n\t\t<de>Untertitel:</de>\r\n\t\t<en>Subtitle:</en>\r\n\t</SearchTab_labelSubTitle>";
-            xmlText += "\r\n\t<SearchTab_labelAuthorPreName>\r\n\t\t<de>Autor_in Vorname:</de>\r\n\t\t<en>Authors first name:</en>\r\n\t</SearchTab_labelAuthorPreName>";
-            xmlText += "\r\n\t<SearchTab_labelAuthorSurName>\r\n\t\t<de>Autor_in Nachname:</de>\r\n\t\t<en>Authors surname:</en>\r\n\t</SearchTab_labelAuthorSurName>";
-            xmlText += "\r\n\t<SearchTab_radioBtnWSeries>\r\n\t\t<de>Mit Serien</de>\r\n\t\t<en>Series included</en>\r\n\t</SearchTab_radioBtnWSeries>";
-            xmlText += "\r\n\t<SearchTab_radioBtnWOutSeries>\r\n\t\t<de>Ohne Serien</de>\r\n\t\t<en>Without series</en>\r\n\t</SearchTab_radioBtnWOutSeries>";
-            xmlText += "\r\n\t<SearchTab_labelSeries>\r\n\t\t<de>Serie:</de>\r\n\t\t<en>Series:</en>\r\n\t</SearchTab_labelSeries>";
-            xmlText += "\r\n\t<SearchTab_labelFormat>\r\n\t\t<de>Format:</de>\r\n\t\t<en>Format:</en>\r\n\t</SearchTab_labelFormat>";
-            xmlText += "\r\n\t<SearchTab_labelPublishedFrom>\r\n\t\t<de>Veröffentlicht von:</de>\r\n\t\t<en>Published from:</en>\r\n\t</SearchTab_labelPublishedFrom>";
-            xmlText += "\r\n\t<SearchTab_labelPublishedTo>\r\n\t\t<de>bis:</de>\r\n\t\t<en>to:</en>\r\n\t</SearchTab_labelPublishedTo>";
-            xmlText += "\r\n\t<SearchTab_chkBoxShowLent>\r\n\t\t<de>Verliehene mit anzeigen</de>\r\n\t\t<en>Show including lent</en>\r\n\t</SearchTab_chkBoxShowLent>";
-            xmlText += "\r\n\t<SearchTab_chkBoxOnlyShowFirstAuthor>\r\n\t\t<de>Nur erste_n Autor_in anzeigen</de>\r\n\t\t<en>Only show first author</en>\r\n\t</SearchTab_chkBoxOnlyShowFirstAuthor>";
-            xmlText += "\r\n\t<SearchTab_btnCorrection>\r\n\t\t<de>Korrigieren</de>\r\n\t\t<en>Correct</en>\r\n\t</SearchTab_btnCorrection>";
-            xmlText += "\r\n\t<SearchTab_btnSearch>\r\n\t\t<de>Suchen</de>\r\n\t\t<en>Search</en>\r\n\t</SearchTab_btnSearch>";
-            // <--
-            // WriteTab -->
-            xmlText += "\r\n\t<tabPageWrite>\r\n\t\t<de>Eintragen</de>\r\n\t\t<en>New entry</en>\r\n\t</tabPageWrite>";
-            // <--
-
-            // xmlText += "\r\n\t<>\r\n\t\t<de></de>\r\n\t\t<en></en>\r\n\t</>";
-            xmlText += "\r\n</Languages>";
-            XmlWriter writer = new XmlWriter(cLanguagesFilePath);
-            writer.CreateSettingsXML(cLanguagesFilePath, xmlText);
+            LanguageWorker languageWorker = new LanguageWorker(mLanguage, cLanguagesFilePath, this);
+            languageWorker.LoadTexts();
         }
 
         enum mColorModesEnum
@@ -279,7 +185,8 @@ namespace ISBNCaller_GUI
                     return;
                 }
 
-                LoadTexts();
+                LanguageWorker languageWorker = new LanguageWorker(mLanguage, cLanguagesFilePath, this);
+                languageWorker.LoadTexts();
             } // if
         }
 
