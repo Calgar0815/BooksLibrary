@@ -25,6 +25,7 @@ namespace ISBNCaller_GUI
         internal CheckBox mChkBoxShowLent { get; set; }
         internal CheckBox mChkBoxOnlyShowFirstAuthor { get; set; }
         internal DataGridView mDataGridViewSearch { get; set; }
+        internal CheckBox mChkBoxUseDates { get; set; }
         private Form1 mForm1 { get; set; }
         private List<DBReader.SearchStruct> mSearched { get; set; }
 
@@ -146,20 +147,13 @@ namespace ISBNCaller_GUI
             }
 
             DBReader dbReader = new DBReader();
-            if ((mDtpFrom.Value.Year != DateTime.Now.Year && mDtpTo.Value.Year != DateTime.Now.Year) || (mDtpFrom.Value.Year != DateTime.Now.Year))
+            if (mChkBoxUseDates.Checked)
             {
                 string from = $"{mDtpFrom.Value.Year}";
                 string to = $"{mDtpTo.Value.Year}";
                 List<string> bookIDs = dbReader.GetBooksFromDateRange(from, to);
                 wheres2.Add($"b.BookID IN ({string.Join(", ", bookIDs)})");
             } // if
-            else if (mDtpTo.Value.Year != DateTime.Now.Year)
-            {
-                string from = $"1900";
-                string to = $"{mDtpTo.Value.Year}";
-                List<string> bookIDs = dbReader.GetBooksFromDateRange(from, to);
-                wheres2.Add($"b.BookID IN ({string.Join(", ", bookIDs)})");
-            } // else if
 
             if (!mChkBoxShowLent.Checked)
             {
@@ -183,7 +177,15 @@ namespace ISBNCaller_GUI
                 whereClause = $"WHERE {whereClause}";
             }
 
-            string cmd = $"SELECT b.Title, b.SubTitle, bs.NoInSeries, s.Name, a.PreName, a.Name, b.PublishingDate, b.Format, b.ISBN10, b.ISBN13, l.Active, b.BookID FROM Books b LEFT JOIN BookAuthor ba ON b.BookID = ba.BookID LEFT JOIN Authors a ON ba.AuthorID = a.AuthorID LEFT JOIN BookSeries bs ON b.BookID = bs.BookID LEFT JOIN Series s ON bs.SeriesID = s.SeriesID LEFT JOIN Lent l ON b.BookID = l.BookID {whereClause} ORDER BY s.Name ASC, bs.NoInSeries ASC, b.Title ASC";
+            string cmd = $"SELECT b.Title, b.SubTitle, bs.NoInSeries, s.Name, a.PreName, a.Name, b.PublishingDate, b.Format, b.ISBN10, b.ISBN13, l.Active, b.BookID " +
+                $"FROM Books b " +
+                $"LEFT JOIN BookAuthor ba ON b.BookID = ba.BookID " +
+                $"LEFT JOIN Authors a ON ba.AuthorID = a.AuthorID " +
+                $"LEFT JOIN BookSeries bs ON b.BookID = bs.BookID " +
+                $"LEFT JOIN Series s ON bs.SeriesID = s.SeriesID " +
+                $"LEFT JOIN Lent l ON b.BookID = l.BookID " +
+                $"{whereClause} " +
+                $"ORDER BY s.Name ASC, bs.NoInSeries ASC, b.Title ASC";
 
             return cmd;
         }

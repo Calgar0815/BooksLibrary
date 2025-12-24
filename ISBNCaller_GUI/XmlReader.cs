@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Xml;
 
 namespace ISBNCaller_GUI
@@ -19,10 +15,18 @@ namespace ISBNCaller_GUI
 
         public string Read(string nodeName)
         {
-            XmlNode node = mXmlDocument.DocumentElement.SelectSingleNode($"/Settings/{nodeName}");
+            XmlNode node = mXmlDocument.DocumentElement.SelectSingleNode($"{nodeName}");
             string text = node.InnerText;
 
             return text;
+        }
+
+        public XmlNodeList ReadChildNodes(string nodeName)
+        {
+            XmlNode node = mXmlDocument.DocumentElement.SelectSingleNode($"{nodeName}");
+            XmlNodeList childNodes = node.ChildNodes;
+
+            return childNodes;
         }
     }
 }

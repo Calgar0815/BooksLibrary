@@ -1,23 +1,22 @@
 ﻿using ISBNCaller_Lib;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace ISBNCaller_GUI
 {
     public partial class Form1 : Form
     {
         const string cSettingsPath = @"..\Settings.xml";
+        const string cLanguagesFilePath = @"..\LabelTexts.xml";
         internal string mLanguage { get; private set; }
         internal string mColorMode { get; private set; }
         public Form1()
         {
             InitializeComponent();
-            LoadLanguage();
             LoadColorMode();
             mWriteTab = new WriteTab(this);
             mLentTab = new LentTab();
@@ -27,6 +26,7 @@ namespace ISBNCaller_GUI
             InitializeLentTabObjects();
             InitializeReturnTabObjects();
             InitializeSearchTabObjects();
+            LoadLanguage();
             mWriteTab.DisableTxtBoxes();
             this.AcceptButton = SearchTab_btnSearch;
             SearchTab_txtBoxISBN.Focus();
@@ -59,7 +59,7 @@ namespace ISBNCaller_GUI
             } // if
 
             XmlReader reader = new XmlReader(cSettingsPath);
-            mLanguage = reader.Read("Language");
+            mLanguage = reader.Read($"/Settings/Language");
 
             foreach (var lang in GetLanguagesEnumList<mLanguagesEnum>())
             {
@@ -72,7 +72,8 @@ namespace ISBNCaller_GUI
                 cmbBoxLanguage.SelectedIndex = index;
             }
 
-
+            LanguageWorker languageWorker = new LanguageWorker(mLanguage, cLanguagesFilePath, this);
+            languageWorker.LoadTexts();
         }
 
         enum mColorModesEnum
@@ -89,7 +90,7 @@ namespace ISBNCaller_GUI
             XmlReader reader = new XmlReader(cSettingsPath);
             try
             {
-                mColorMode = reader.Read("ColorMode");
+                mColorMode = reader.Read($"/Settings/ColorMode");
             } // try
             catch (Exception ex)
             {
@@ -147,7 +148,7 @@ namespace ISBNCaller_GUI
 
             mLanguage = cmbBoxLanguage.Text;
             XmlReader reader = new XmlReader(cSettingsPath);
-            string language = reader.Read("Language");
+            string language = reader.Read($"/Settings/Language");
             if (language != mLanguage)
             {
                 XmlWriter writer = new XmlWriter(cSettingsPath);
@@ -158,8 +159,8 @@ namespace ISBNCaller_GUI
                     return;
                 }
 
-                // Sprache ändern
-
+                LanguageWorker languageWorker = new LanguageWorker(mLanguage, cLanguagesFilePath, this);
+                languageWorker.LoadTexts();
             } // if
         }
 
@@ -169,7 +170,7 @@ namespace ISBNCaller_GUI
 
             mColorMode = cmbBoxColorMode.Text;
             XmlReader reader = new XmlReader(cSettingsPath);
-            string colorMode = reader.Read("ColorMode");
+            string colorMode = reader.Read($"/Settings/ColorMode");
             if (colorMode != mColorMode)
             {
                 XmlWriter writer = new XmlWriter(cSettingsPath);
@@ -417,6 +418,7 @@ namespace ISBNCaller_GUI
             mWriteTab.mBtnRegisterWOutISBN = WriteTab_btnRegisterWOutISBN;
             mWriteTab.mLabelMaxNoCount = WriteTab_Book_labelMaxNoCount;
             mWriteTab.mWorkInProgressLabel = WriteTab_WorkInProgressLabel;
+            mWriteTab.InitializeDGV();
         }
 
         private void WriteTab_btnOK_Click(object sender, EventArgs e)
@@ -620,6 +622,7 @@ namespace ISBNCaller_GUI
             mSearchTab.mChkBoxShowLent = SearchTab_chkBoxShowLent;
             mSearchTab.mChkBoxOnlyShowFirstAuthor = SearchTab_chkBoxOnlyShowFirstAuthor;
             mSearchTab.mDataGridViewSearch = SearchTab_dataGridViewSearch;
+            mSearchTab.mChkBoxUseDates = SearchTab_chkBoxUseDates;
             mSearchTab.InitializeDGV();
             mSearchTab.InitializeCmbBoxFormat();
             FillCmbBoxSeries(SearchTab_cmbBoxSeries);
@@ -630,6 +633,20 @@ namespace ISBNCaller_GUI
             mSearchTab.btnSearchClick();
             SearchTab_btnCorrection.Enabled = true;
             ChangeDataGridViewColors();
+        }
+
+        private void SearchTab_chkBoxUseDates_CheckedChanged(object sender, EventArgs e)
+        {
+            if (SearchTab_chkBoxUseDates.Checked)
+            {
+                SearchTab_dtpFrom.Enabled = true;
+                SearchTab_dtpTo.Enabled = true;
+            }
+            else
+            {
+                SearchTab_dtpFrom.Enabled = false;
+                SearchTab_dtpTo.Enabled = false;
+            }
         }
 
 #if DEBUG

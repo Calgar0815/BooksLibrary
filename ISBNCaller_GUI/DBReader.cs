@@ -6,6 +6,12 @@ namespace ISBNCaller_Lib
 {
     public class DBReader
     {
+#if DEBUG
+        private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB_Test";
+#else
+        private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
+#endif
+
         #region Search
 
         public struct SearchStruct
@@ -44,8 +50,7 @@ namespace ISBNCaller_Lib
             List<SearchStruct> searchStructs = new List<SearchStruct>();
             try
             {
-                string connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
-                using (NpgsqlConnection conn = new NpgsqlConnection(connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -74,8 +79,7 @@ namespace ISBNCaller_Lib
             List<string> bookIDs = new List<string>();
             try
             {
-                string connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
-                using (NpgsqlConnection conn = new NpgsqlConnection(connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -219,8 +223,7 @@ namespace ISBNCaller_Lib
             List<ISBNWorker.DBAuthorStruct> authorStructs = new List<ISBNWorker.DBAuthorStruct>();
             try
             {
-                string connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
-                using (NpgsqlConnection conn = new NpgsqlConnection(connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -345,8 +348,7 @@ namespace ISBNCaller_Lib
             List<ISBNWorker.DBBookStruct> bookStructs = new List<ISBNWorker.DBBookStruct>();
             try
             {
-                string connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
-                using (NpgsqlConnection conn = new NpgsqlConnection(connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -375,8 +377,7 @@ namespace ISBNCaller_Lib
             List<string> books = new List<string>();
             try
             {
-                string connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
-                using (NpgsqlConnection conn = new NpgsqlConnection(connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -472,8 +473,7 @@ namespace ISBNCaller_Lib
             List<ISBNWorker.DBLentStruct> lentStructs = new List<ISBNWorker.DBLentStruct>();
             try
             {
-                string connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
-                using (NpgsqlConnection conn = new NpgsqlConnection(connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -546,8 +546,7 @@ namespace ISBNCaller_Lib
             int maxNoInSeries = -1;
             try
             {
-                string connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
-                using (NpgsqlConnection conn = new NpgsqlConnection(connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -580,8 +579,7 @@ namespace ISBNCaller_Lib
 
             try
             {
-                string connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
-                using (NpgsqlConnection conn = new NpgsqlConnection(connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
