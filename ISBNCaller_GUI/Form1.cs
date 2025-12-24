@@ -30,8 +30,10 @@ namespace ISBNCaller_GUI
             mWriteTab.DisableTxtBoxes();
             this.AcceptButton = SearchTab_btnSearch;
             SearchTab_txtBoxISBN.Focus();
-            WorkInProgressLabel.Visible = false;
+            WriteTab_WorkInProgressLabel.Visible = false;
         }
+
+        #region Overall Settings
 
         enum mLanguagesEnum
         {
@@ -140,34 +142,6 @@ namespace ISBNCaller_GUI
             } // if
         }
 
-        #region WriteTab
-
-        WriteTab mWriteTab;
-
-        private void InitializeWriteTabObjects()
-        {
-            mWriteTab.mTxtBoxISBN_1 = WriteTab_txtBoxISBN_1;
-            mWriteTab.mBtnOK = WriteTab_btnOK;
-            mWriteTab.mBtnCancel = WriteTab_btnCancel;
-            mWriteTab.mDataGridViewAuthor = WriteTab_Author_dataGridViewAuthor;
-            mWriteTab.mCmbBoxFormat = WriteTab_Book_cmbBoxFormat;
-            mWriteTab.mTxtBoxISBN10 = WriteTab_Book_txtBoxISBN10;
-            mWriteTab.mTxtBoxISBN13 = WriteTab_Book_txtBoxISBN13;
-            mWriteTab.mTxtBoxPublishingDate = WriteTab_Book_txtBoxPublishingDate;
-            mWriteTab.mTxtBoxSubTitle = WriteTab_Book_txtBoxSubTitle;
-            mWriteTab.mTxtBoxTitle = WriteTab_Book_txtBoxTitle;
-            mWriteTab.mChkBoxIsPartOfSeries = WriteTab_Book_chkBoxIsPartOfSeries;
-            mWriteTab.mTxtBoxNoInSeries = WriteTab_Book_txtBoxNoInSeries;
-            mWriteTab.mCmbBoxSeries = WriteTab_Book_cmbBoxSeries;
-            mWriteTab.mChkBoxIsNewSeries = WriteTab_Book_chkBoxIsNewSeries;
-            mWriteTab.mTxtBoxNewSeriesName = WriteTab_Book_txtBoxNewSeriesName;
-            mWriteTab.mBtnCalculateISBN10 = WriteTab_Book_btnCalculateISBN10;
-            mWriteTab.mBtnCalculateISBN13 = WriteTab_Book_btnCalculateISBN13;
-            mWriteTab.mBtnRegisterWOutISBN = WriteTab_btnRegisterWOutISBN;
-            mWriteTab.mLabelMaxNoCount = WriteTab_Book_labelMaxNoCount;
-            mWriteTab.mWorkInProgressLabel = WorkInProgressLabel;
-        }
-
         private void LanguageChanged(object sender, EventArgs e)
         {
             if (mLanguage == cmbBoxLanguage.Text) return;
@@ -234,6 +208,7 @@ namespace ISBNCaller_GUI
 
             if (mColorMode == mColorModesEnum.Dark.ToString())
             {
+                this.BackColor = Color.Black;
                 tabPageSearch.BackColor = Color.Black;
                 tabPageLent.BackColor = Color.Black;
                 tabPageReturn.BackColor = Color.Black;
@@ -241,6 +216,7 @@ namespace ISBNCaller_GUI
             } // if
             else if (mColorMode == mColorModesEnum.System.ToString())
             {
+                this.BackColor = Color.White;
                 tabPageSearch.BackColor = Color.White;
                 tabPageLent.BackColor = Color.White;
                 tabPageReturn.BackColor = Color.White;
@@ -261,6 +237,30 @@ namespace ISBNCaller_GUI
             ChangeLabelColors(SearchTab_radioBtnWSeries);
             ChangeLabelColors(SearchTab_chkBoxOnlyShowFirstAuthor);
             ChangeLabelColors(SearchTab_chkBoxShowLent);
+            ChangeLabelColors(WriteTab_WorkInProgressLabel);
+            ChangeLabelColors(WriteTab_Book_labelFormat);
+            ChangeLabelColors(WriteTab_Book_labelISBN10);
+            ChangeLabelColors(WriteTab_Book_labelISBN13);
+            ChangeLabelColors(WriteTab_Book_labelMaxNo);
+            ChangeLabelColors(WriteTab_Book_labelMaxNoCount);
+            ChangeLabelColors(WriteTab_Book_labelNoInSeries);
+            ChangeLabelColors(WriteTab_Book_labelPublishingDate);
+            ChangeLabelColors(WriteTab_Book_labelSubTitle);
+            ChangeLabelColors(WriteTab_Book_labelTitle);
+            ChangeLabelColors(WriteTab_Book_chkBoxIsNewSeries);
+            ChangeLabelColors(WriteTab_Book_chkBoxIsPartOfSeries);
+            ChangeLabelColors(LentTab_labelAuthorPreName);
+            ChangeLabelColors(LentTab_labelAuthorSurName);
+            ChangeLabelColors(LentTab_labelISBN);
+            ChangeLabelColors(LentTab_labelSubTitle);
+            ChangeLabelColors(LentTab_labelTitle);
+            ChangeLabelColors(ReturnTab_labelBookTitle);
+            ChangeLabelColors(ReturnTab_labelISBN);
+            ChangeLabelColors(ReturnTab_labelLentTo);
+            ChangeLabelColors(ReturnTab_labelOptional);
+            ChangeLabelColors(ReturnTab_labelPreName);
+            ChangeLabelColors(ReturnTab_labelSurName);
+            ChangeLabelColors(ReturnTab_chkBoxIgnoreIsActive);
             #endregion
 
             #region TextBoxes & ComboBoxes
@@ -271,7 +271,64 @@ namespace ISBNCaller_GUI
             ChangeTextBoxColors(SearchTab_txtBoxTitle);
             ChangeTextBoxColors(SearchTab_cmbBoxFormat);
             ChangeTextBoxColors(SearchTab_cmbBoxSeries);
+            ChangeTextBoxColors(WriteTab_txtBoxISBN_1);
+            ChangeTextBoxColors(WriteTab_Book_txtBoxISBN10);
+            ChangeTextBoxColors(WriteTab_Book_txtBoxISBN13);
+            ChangeTextBoxColors(WriteTab_Book_txtBoxNewSeriesName);
+            ChangeTextBoxColors(WriteTab_Book_txtBoxNoInSeries);
+            ChangeTextBoxColors(WriteTab_Book_txtBoxPublishingDate);
+            ChangeTextBoxColors(WriteTab_Book_txtBoxSubTitle);
+            ChangeTextBoxColors(WriteTab_Book_txtBoxTitle);
+            ChangeTextBoxColors(WriteTab_Book_cmbBoxFormat);
+            ChangeTextBoxColors(WriteTab_Book_cmbBoxSeries);
+            ChangeTextBoxColors(LentTab_txtBoxAuthorPreName);
+            ChangeTextBoxColors(LentTab_txtBoxAuthorSurName);
+            ChangeTextBoxColors(LentTab_txtBoxISBN);
+            ChangeTextBoxColors(LentTab_txtBoxSubTitle);
+            ChangeTextBoxColors(LentTab_txtBoxTitle);
+            ChangeTextBoxColors(LentTab_cmbBoxISBN);
+            ChangeTextBoxColors(LentTab_cmbBoxSubTitle);
+            ChangeTextBoxColors(LentTab_cmbBoxTitle);
+            ChangeTextBoxColors(ReturnTab_txtBoxBookTitle);
+            ChangeTextBoxColors(ReturnTab_txtBoxISBN);
+            ChangeTextBoxColors(ReturnTab_txtBoxPreName);
+            ChangeTextBoxColors(ReturnTab_txtBoxSurName);
             #endregion
+
+            #region DataGridView
+            ChangeDataGridViewColors();
+            #endregion
+        }
+
+        private void ChangeDataGridViewColors()
+        {
+            ChangeDataGridViewColors(SearchTab_dataGridViewSearch);
+            ChangeDataGridViewColors(WriteTab_Author_dataGridViewAuthor);
+            ChangeDataGridViewColors(LentTab_dataGridViewLent);
+            ChangeDataGridViewColors(LentTab_dataGridViewSearch);
+            ChangeDataGridViewColors(ReturnTab_dataGridViewReturn);
+        }
+
+        private void ChangeDataGridViewColors(DataGridView dgv)
+        {
+            Color backColor = Color.White;
+            Color foreColor = Color.Black;
+            if (mColorMode == mColorModesEnum.Dark.ToString())
+            {
+                backColor = Color.DarkGray;
+                foreColor = Color.White;
+            } // if
+            else if (mColorMode == mColorModesEnum.System.ToString())
+            {
+                backColor = Color.White;
+                foreColor = Color.Black;
+            } // else if
+
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                row.DefaultCellStyle.BackColor = backColor;
+                row.DefaultCellStyle.ForeColor = foreColor;
+            }
         }
 
         private void ChangeTextBoxColors(Control control)
@@ -314,6 +371,7 @@ namespace ISBNCaller_GUI
             } // else if
         }
 
+#if DEBUG
         private List<Button> GetAllButtons(List<Button> buttonList, Control.ControlCollection controls)
         {
             foreach (Control control in controls)
@@ -331,10 +389,41 @@ namespace ISBNCaller_GUI
 
             return buttonList;
         }
+#endif
+
+        #endregion
+        #region WriteTab
+
+        WriteTab mWriteTab;
+
+        private void InitializeWriteTabObjects()
+        {
+            mWriteTab.mTxtBoxISBN_1 = WriteTab_txtBoxISBN_1;
+            mWriteTab.mBtnOK = WriteTab_btnOK;
+            mWriteTab.mBtnCancel = WriteTab_btnCancel;
+            mWriteTab.mDataGridViewAuthor = WriteTab_Author_dataGridViewAuthor;
+            mWriteTab.mCmbBoxFormat = WriteTab_Book_cmbBoxFormat;
+            mWriteTab.mTxtBoxISBN10 = WriteTab_Book_txtBoxISBN10;
+            mWriteTab.mTxtBoxISBN13 = WriteTab_Book_txtBoxISBN13;
+            mWriteTab.mTxtBoxPublishingDate = WriteTab_Book_txtBoxPublishingDate;
+            mWriteTab.mTxtBoxSubTitle = WriteTab_Book_txtBoxSubTitle;
+            mWriteTab.mTxtBoxTitle = WriteTab_Book_txtBoxTitle;
+            mWriteTab.mChkBoxIsPartOfSeries = WriteTab_Book_chkBoxIsPartOfSeries;
+            mWriteTab.mTxtBoxNoInSeries = WriteTab_Book_txtBoxNoInSeries;
+            mWriteTab.mCmbBoxSeries = WriteTab_Book_cmbBoxSeries;
+            mWriteTab.mChkBoxIsNewSeries = WriteTab_Book_chkBoxIsNewSeries;
+            mWriteTab.mTxtBoxNewSeriesName = WriteTab_Book_txtBoxNewSeriesName;
+            mWriteTab.mBtnCalculateISBN10 = WriteTab_Book_btnCalculateISBN10;
+            mWriteTab.mBtnCalculateISBN13 = WriteTab_Book_btnCalculateISBN13;
+            mWriteTab.mBtnRegisterWOutISBN = WriteTab_btnRegisterWOutISBN;
+            mWriteTab.mLabelMaxNoCount = WriteTab_Book_labelMaxNoCount;
+            mWriteTab.mWorkInProgressLabel = WriteTab_WorkInProgressLabel;
+        }
 
         private void WriteTab_btnOK_Click(object sender, EventArgs e)
         {
             mWriteTab.btnOK_Click();
+            ChangeDataGridViewColors();
         }
 
         private void WriteTab_btnCancel_Click(object sender, EventArgs e)
@@ -384,6 +473,7 @@ namespace ISBNCaller_GUI
         private void WriteTab_btnRegisterWOutISBN_Click(object sender, EventArgs e)
         {
             mWriteTab.btnRegisterWOutISBN_Click();
+            ChangeDataGridViewColors();
         }
 
         private void WriteTab_Book_txtBoxISBN10_TextChanged(object sender, EventArgs e)
@@ -432,11 +522,13 @@ namespace ISBNCaller_GUI
         private void LentTab_btnSearch_Click(object sender, EventArgs e)
         {
             mLentTab.btnSearch_Click();
+            ChangeDataGridViewColors();
         }
 
         private void LentTab_btnPull_Click(object sender, EventArgs e)
         {
             mLentTab.btnPull_Click();
+            ChangeDataGridViewColors();
         }
 
         private void LentTab_btnLent_Click(object sender, EventArgs e)
@@ -494,11 +586,13 @@ namespace ISBNCaller_GUI
         private void ReturnTab_btnShowAll_Click(object sender, EventArgs e)
         {
             mReturnTab.btnShowAllClick();
+            ChangeDataGridViewColors();
         }
 
         private void ReturnTab_btnSearch_Click(object sender, EventArgs e)
         {
             mReturnTab.btnSearch_Click();
+            ChangeDataGridViewColors();
         }
 
         private void ReturnTab_btnReturn_Click(object sender, EventArgs e)
@@ -532,13 +626,14 @@ namespace ISBNCaller_GUI
             FillCmbBoxSeries(SearchTab_cmbBoxSeries);
         }
 
-#if DEBUG
         private void SearchTab_btnSearch_Click(object sender, EventArgs e)
         {
             mSearchTab.btnSearchClick();
             SearchTab_btnCorrection.Enabled = true;
+            ChangeDataGridViewColors();
         }
 
+#if DEBUG
         private void SearchTab_btnCorrection_Click(object sender, EventArgs e)
         {
             mSearchTab.btnCorrectionClick();

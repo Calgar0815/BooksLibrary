@@ -121,7 +121,6 @@ namespace ISBNCaller_GUI
             if (chkBox.Checked)
             {
                 mCmbBoxSeries.Enabled = true;
-                mCmbBoxFormat.Enabled = true;
                 mChkBoxIsNewSeries.Enabled = true;
                 mTxtBoxNoInSeries.Enabled = true;
                 mForm1.FillCmbBoxSeries(mCmbBoxSeries);
@@ -129,7 +128,6 @@ namespace ISBNCaller_GUI
             else
             {
                 mCmbBoxSeries.Enabled = false;
-                mCmbBoxFormat.Enabled = false;
                 mChkBoxIsNewSeries.Checked = false;
                 mChkBoxIsNewSeries.Enabled = false;
                 mTxtBoxNoInSeries.Enabled = false;

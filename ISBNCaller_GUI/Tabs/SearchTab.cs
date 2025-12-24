@@ -183,7 +183,15 @@ namespace ISBNCaller_GUI
                 whereClause = $"WHERE {whereClause}";
             }
 
-            string cmd = $"SELECT b.Title, b.SubTitle, bs.NoInSeries, s.Name, a.PreName, a.Name, b.PublishingDate, b.Format, b.ISBN10, b.ISBN13, l.Active, b.BookID FROM Books b LEFT JOIN BookAuthor ba ON b.BookID = ba.BookID LEFT JOIN Authors a ON ba.AuthorID = a.AuthorID LEFT JOIN BookSeries bs ON b.BookID = bs.BookID LEFT JOIN Series s ON bs.SeriesID = s.SeriesID LEFT JOIN Lent l ON b.BookID = l.BookID {whereClause} ORDER BY s.Name ASC, bs.NoInSeries ASC, b.Title ASC";
+            string cmd = $"SELECT b.Title, b.SubTitle, bs.NoInSeries, s.Name, a.PreName, a.Name, b.PublishingDate, b.Format, b.ISBN10, b.ISBN13, l.Active, b.BookID " +
+                $"FROM Books b " +
+                $"LEFT JOIN BookAuthor ba ON b.BookID = ba.BookID " +
+                $"LEFT JOIN Authors a ON ba.AuthorID = a.AuthorID " +
+                $"LEFT JOIN BookSeries bs ON b.BookID = bs.BookID " +
+                $"LEFT JOIN Series s ON bs.SeriesID = s.SeriesID " +
+                $"LEFT JOIN Lent l ON b.BookID = l.BookID " +
+                $"{whereClause} " +
+                $"ORDER BY s.Name ASC, bs.NoInSeries ASC, b.Title ASC";
 
             return cmd;
         }
