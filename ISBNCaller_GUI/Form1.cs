@@ -10,10 +10,15 @@ namespace ISBNCaller_GUI
 {
     public partial class Form1 : Form
     {
+        #region Variables
         const string cSettingsPath = @"..\Settings.xml";
         const string cLanguagesFilePath = @"..\LabelTexts.xml";
         internal string mLanguage { get; private set; }
         internal string mColorMode { get; private set; }
+
+        #endregion
+        #region Constructor
+
         public Form1()
         {
             InitializeComponent();
@@ -33,6 +38,7 @@ namespace ISBNCaller_GUI
             WriteTab_WorkInProgressLabel.Visible = false;
         }
 
+        #endregion
         #region Overall Settings
 
         enum mLanguagesEnum
@@ -76,7 +82,7 @@ namespace ISBNCaller_GUI
             languageWorker.LoadTexts();
         }
 
-        enum mColorModesEnum
+        internal enum mColorModesEnum
         {
             System,
             Dark
@@ -188,23 +194,27 @@ namespace ISBNCaller_GUI
 
         private void ChangeColor()
         {
+            ColorWorker colorWorker = new ColorWorker(mColorMode);
+
             #region Buttons
-            ChangeButtonColors(SearchTab_btnSearch);
-            ChangeButtonColors(SearchTab_btnCorrection);
-            ChangeButtonColors(SearchTab_btnCorrection);
-            ChangeButtonColors(WriteTab_btnCancel);
-            ChangeButtonColors(WriteTab_btnOK);
-            ChangeButtonColors(WriteTab_btnRegisterWOutISBN);
-            ChangeButtonColors(WriteTab_Book_btnCalculateISBN10);
-            ChangeButtonColors(WriteTab_Book_btnCalculateISBN13);
-            ChangeButtonColors(LentTab_btnLent);
-            ChangeButtonColors(LentTab_btnPull);
-            ChangeButtonColors(LentTab_btnRemove);
-            ChangeButtonColors(LentTab_btnSearch);
-            ChangeButtonColors(ReturnTab_btnReturn);
-            ChangeButtonColors(ReturnTab_btnSearch);
-            ChangeButtonColors(ReturnTab_btnShowAll);
+            colorWorker.ChangeButtonColors(SearchTab_btnSearch);
+            colorWorker.ChangeButtonColors(SearchTab_btnCorrection);
+            colorWorker.ChangeButtonColors(SearchTab_btnCorrection);
+            colorWorker.ChangeButtonColors(WriteTab_btnCancel);
+            colorWorker.ChangeButtonColors(WriteTab_btnOK);
+            colorWorker.ChangeButtonColors(WriteTab_btnRegisterWOutISBN);
+            colorWorker.ChangeButtonColors(WriteTab_Book_btnCalculateISBN10);
+            colorWorker.ChangeButtonColors(WriteTab_Book_btnCalculateISBN13);
+            colorWorker.ChangeButtonColors(LentTab_btnLent);
+            colorWorker.ChangeButtonColors(LentTab_btnPull);
+            colorWorker.ChangeButtonColors(LentTab_btnRemove);
+            colorWorker.ChangeButtonColors(LentTab_btnSearch);
+            colorWorker.ChangeButtonColors(ReturnTab_btnReturn);
+            colorWorker.ChangeButtonColors(ReturnTab_btnSearch);
+            colorWorker.ChangeButtonColors(ReturnTab_btnShowAll);
             #endregion
+
+            #region Backgrounds, etc.
 
             if (mColorMode == mColorModesEnum.Dark.ToString())
             {
@@ -223,152 +233,88 @@ namespace ISBNCaller_GUI
                 tabPageWrite.BackColor = Color.White;
             } // else if
 
+            #endregion
+
             #region Labels & RadioButtons & CheckBoxes
-            ChangeLabelColors(SearchTab_labelAuthorPreName);
-            ChangeLabelColors(SearchTab_labelAuthorSurName);
-            ChangeLabelColors(SearchTab_labelFormat);
-            ChangeLabelColors(SearchTab_labelISBN);
-            ChangeLabelColors(SearchTab_labelPublishedFrom);
-            ChangeLabelColors(SearchTab_labelPublishedTo);
-            ChangeLabelColors(SearchTab_labelSeries);
-            ChangeLabelColors(SearchTab_labelSubTitle);
-            ChangeLabelColors(SearchTab_labelTitle);
-            ChangeLabelColors(SearchTab_radioBtnWOutSeries);
-            ChangeLabelColors(SearchTab_radioBtnWSeries);
-            ChangeLabelColors(SearchTab_chkBoxOnlyShowFirstAuthor);
-            ChangeLabelColors(SearchTab_chkBoxShowLent);
-            ChangeLabelColors(WriteTab_WorkInProgressLabel);
-            ChangeLabelColors(WriteTab_Book_labelFormat);
-            ChangeLabelColors(WriteTab_Book_labelISBN10);
-            ChangeLabelColors(WriteTab_Book_labelISBN13);
-            ChangeLabelColors(WriteTab_Book_labelMaxNo);
-            ChangeLabelColors(WriteTab_Book_labelMaxNoCount);
-            ChangeLabelColors(WriteTab_Book_labelNoInSeries);
-            ChangeLabelColors(WriteTab_Book_labelPublishingDate);
-            ChangeLabelColors(WriteTab_Book_labelSubTitle);
-            ChangeLabelColors(WriteTab_Book_labelTitle);
-            ChangeLabelColors(WriteTab_Book_chkBoxIsNewSeries);
-            ChangeLabelColors(WriteTab_Book_chkBoxIsPartOfSeries);
-            ChangeLabelColors(LentTab_labelAuthorPreName);
-            ChangeLabelColors(LentTab_labelAuthorSurName);
-            ChangeLabelColors(LentTab_labelISBN);
-            ChangeLabelColors(LentTab_labelSubTitle);
-            ChangeLabelColors(LentTab_labelTitle);
-            ChangeLabelColors(ReturnTab_labelBookTitle);
-            ChangeLabelColors(ReturnTab_labelISBN);
-            ChangeLabelColors(ReturnTab_labelLentTo);
-            ChangeLabelColors(ReturnTab_labelOptional);
-            ChangeLabelColors(ReturnTab_labelPreName);
-            ChangeLabelColors(ReturnTab_labelSurName);
-            ChangeLabelColors(ReturnTab_chkBoxIgnoreIsActive);
+            colorWorker.ChangeLabelColors(SearchTab_labelAuthorPreName);
+            colorWorker.ChangeLabelColors(SearchTab_labelAuthorSurName);
+            colorWorker.ChangeLabelColors(SearchTab_labelFormat);
+            colorWorker.ChangeLabelColors(SearchTab_labelISBN);
+            colorWorker.ChangeLabelColors(SearchTab_labelPublishedFrom);
+            colorWorker.ChangeLabelColors(SearchTab_labelPublishedTo);
+            colorWorker.ChangeLabelColors(SearchTab_labelSeries);
+            colorWorker.ChangeLabelColors(SearchTab_labelSubTitle);
+            colorWorker.ChangeLabelColors(SearchTab_labelTitle);
+            colorWorker.ChangeLabelColors(SearchTab_radioBtnWOutSeries);
+            colorWorker.ChangeLabelColors(SearchTab_radioBtnWSeries);
+            colorWorker.ChangeLabelColors(SearchTab_chkBoxOnlyShowFirstAuthor);
+            colorWorker.ChangeLabelColors(SearchTab_chkBoxUseDates);
+            colorWorker.ChangeLabelColors(SearchTab_chkBoxShowLent);
+            colorWorker.ChangeLabelColors(WriteTab_WorkInProgressLabel);
+            colorWorker.ChangeLabelColors(WriteTab_Book_labelFormat);
+            colorWorker.ChangeLabelColors(WriteTab_Book_labelISBN10);
+            colorWorker.ChangeLabelColors(WriteTab_Book_labelISBN13);
+            colorWorker.ChangeLabelColors(WriteTab_Book_labelMaxNo);
+            colorWorker.ChangeLabelColors(WriteTab_Book_labelMaxNoCount);
+            colorWorker.ChangeLabelColors(WriteTab_Book_labelNoInSeries);
+            colorWorker.ChangeLabelColors(WriteTab_Book_labelPublishingDate);
+            colorWorker.ChangeLabelColors(WriteTab_Book_labelSubTitle);
+            colorWorker.ChangeLabelColors(WriteTab_Book_labelTitle);
+            colorWorker.ChangeLabelColors(WriteTab_Book_chkBoxIsNewSeries);
+            colorWorker.ChangeLabelColors(WriteTab_Book_chkBoxIsPartOfSeries);
+            colorWorker.ChangeLabelColors(LentTab_labelAuthorPreName);
+            colorWorker.ChangeLabelColors(LentTab_labelAuthorSurName);
+            colorWorker.ChangeLabelColors(LentTab_labelISBN);
+            colorWorker.ChangeLabelColors(LentTab_labelSubTitle);
+            colorWorker.ChangeLabelColors(LentTab_labelTitle);
+            colorWorker.ChangeLabelColors(ReturnTab_labelBookTitle);
+            colorWorker.ChangeLabelColors(ReturnTab_labelISBN);
+            colorWorker.ChangeLabelColors(ReturnTab_labelLentTo);
+            colorWorker.ChangeLabelColors(ReturnTab_labelOptional);
+            colorWorker.ChangeLabelColors(ReturnTab_labelPreName);
+            colorWorker.ChangeLabelColors(ReturnTab_labelSurName);
+            colorWorker.ChangeLabelColors(ReturnTab_chkBoxIgnoreIsActive);
             #endregion
 
             #region TextBoxes & ComboBoxes
-            ChangeTextBoxColors(SearchTab_txtBoxAuthorPreName);
-            ChangeTextBoxColors(SearchTab_txtBoxAuthorSurName);
-            ChangeTextBoxColors(SearchTab_txtBoxISBN);
-            ChangeTextBoxColors(SearchTab_txtBoxSubTitle);
-            ChangeTextBoxColors(SearchTab_txtBoxTitle);
-            ChangeTextBoxColors(SearchTab_cmbBoxFormat);
-            ChangeTextBoxColors(SearchTab_cmbBoxSeries);
-            ChangeTextBoxColors(WriteTab_txtBoxISBN_1);
-            ChangeTextBoxColors(WriteTab_Book_txtBoxISBN10);
-            ChangeTextBoxColors(WriteTab_Book_txtBoxISBN13);
-            ChangeTextBoxColors(WriteTab_Book_txtBoxNewSeriesName);
-            ChangeTextBoxColors(WriteTab_Book_txtBoxNoInSeries);
-            ChangeTextBoxColors(WriteTab_Book_txtBoxPublishingDate);
-            ChangeTextBoxColors(WriteTab_Book_txtBoxSubTitle);
-            ChangeTextBoxColors(WriteTab_Book_txtBoxTitle);
-            ChangeTextBoxColors(WriteTab_Book_cmbBoxFormat);
-            ChangeTextBoxColors(WriteTab_Book_cmbBoxSeries);
-            ChangeTextBoxColors(LentTab_txtBoxAuthorPreName);
-            ChangeTextBoxColors(LentTab_txtBoxAuthorSurName);
-            ChangeTextBoxColors(LentTab_txtBoxISBN);
-            ChangeTextBoxColors(LentTab_txtBoxSubTitle);
-            ChangeTextBoxColors(LentTab_txtBoxTitle);
-            ChangeTextBoxColors(LentTab_cmbBoxISBN);
-            ChangeTextBoxColors(LentTab_cmbBoxSubTitle);
-            ChangeTextBoxColors(LentTab_cmbBoxTitle);
-            ChangeTextBoxColors(ReturnTab_txtBoxBookTitle);
-            ChangeTextBoxColors(ReturnTab_txtBoxISBN);
-            ChangeTextBoxColors(ReturnTab_txtBoxPreName);
-            ChangeTextBoxColors(ReturnTab_txtBoxSurName);
+            colorWorker.ChangeTextBoxColors(SearchTab_txtBoxAuthorPreName);
+            colorWorker.ChangeTextBoxColors(SearchTab_txtBoxAuthorSurName);
+            colorWorker.ChangeTextBoxColors(SearchTab_txtBoxISBN);
+            colorWorker.ChangeTextBoxColors(SearchTab_txtBoxSubTitle);
+            colorWorker.ChangeTextBoxColors(SearchTab_txtBoxTitle);
+            colorWorker.ChangeTextBoxColors(SearchTab_cmbBoxFormat);
+            colorWorker.ChangeTextBoxColors(SearchTab_cmbBoxSeries);
+            colorWorker.ChangeTextBoxColors(WriteTab_txtBoxISBN_1);
+            colorWorker.ChangeTextBoxColors(WriteTab_Book_txtBoxISBN10);
+            colorWorker.ChangeTextBoxColors(WriteTab_Book_txtBoxISBN13);
+            colorWorker.ChangeTextBoxColors(WriteTab_Book_txtBoxNewSeriesName);
+            colorWorker.ChangeTextBoxColors(WriteTab_Book_txtBoxNoInSeries);
+            colorWorker.ChangeTextBoxColors(WriteTab_Book_txtBoxPublishingDate);
+            colorWorker.ChangeTextBoxColors(WriteTab_Book_txtBoxSubTitle);
+            colorWorker.ChangeTextBoxColors(WriteTab_Book_txtBoxTitle);
+            colorWorker.ChangeTextBoxColors(WriteTab_Book_cmbBoxFormat);
+            colorWorker.ChangeTextBoxColors(WriteTab_Book_cmbBoxSeries);
+            colorWorker.ChangeTextBoxColors(LentTab_txtBoxAuthorPreName);
+            colorWorker.ChangeTextBoxColors(LentTab_txtBoxAuthorSurName);
+            colorWorker.ChangeTextBoxColors(LentTab_txtBoxISBN);
+            colorWorker.ChangeTextBoxColors(LentTab_txtBoxSubTitle);
+            colorWorker.ChangeTextBoxColors(LentTab_txtBoxTitle);
+            colorWorker.ChangeTextBoxColors(LentTab_cmbBoxISBN);
+            colorWorker.ChangeTextBoxColors(LentTab_cmbBoxSubTitle);
+            colorWorker.ChangeTextBoxColors(LentTab_cmbBoxTitle);
+            colorWorker.ChangeTextBoxColors(ReturnTab_txtBoxBookTitle);
+            colorWorker.ChangeTextBoxColors(ReturnTab_txtBoxISBN);
+            colorWorker.ChangeTextBoxColors(ReturnTab_txtBoxPreName);
+            colorWorker.ChangeTextBoxColors(ReturnTab_txtBoxSurName);
             #endregion
 
             #region DataGridView
-            ChangeDataGridViewColors();
+            colorWorker.ChangeDataGridViewColors(SearchTab_dataGridViewSearch);
+            colorWorker.ChangeDataGridViewColors(WriteTab_Author_dataGridViewAuthor);
+            colorWorker.ChangeDataGridViewColors(LentTab_dataGridViewLent);
+            colorWorker.ChangeDataGridViewColors(LentTab_dataGridViewSearch);
+            colorWorker.ChangeDataGridViewColors(ReturnTab_dataGridViewReturn);
             #endregion
-        }
-
-        private void ChangeDataGridViewColors()
-        {
-            ChangeDataGridViewColors(SearchTab_dataGridViewSearch);
-            ChangeDataGridViewColors(WriteTab_Author_dataGridViewAuthor);
-            ChangeDataGridViewColors(LentTab_dataGridViewLent);
-            ChangeDataGridViewColors(LentTab_dataGridViewSearch);
-            ChangeDataGridViewColors(ReturnTab_dataGridViewReturn);
-        }
-
-        private void ChangeDataGridViewColors(DataGridView dgv)
-        {
-            Color backColor = Color.White;
-            Color foreColor = Color.Black;
-            if (mColorMode == mColorModesEnum.Dark.ToString())
-            {
-                backColor = Color.DarkGray;
-                foreColor = Color.White;
-            } // if
-            else if (mColorMode == mColorModesEnum.System.ToString())
-            {
-                backColor = Color.White;
-                foreColor = Color.Black;
-            } // else if
-
-            foreach (DataGridViewRow row in dgv.Rows)
-            {
-                row.DefaultCellStyle.BackColor = backColor;
-                row.DefaultCellStyle.ForeColor = foreColor;
-            }
-        }
-
-        private void ChangeTextBoxColors(Control control)
-        {
-            if (mColorMode == mColorModesEnum.Dark.ToString())
-            {
-                control.BackColor = Color.DarkGray;
-                control.ForeColor = Color.White;
-            } // if
-            else if (mColorMode == mColorModesEnum.System.ToString())
-            {
-                control.BackColor = Color.White;
-                control.ForeColor = Color.Black;
-            } // else if
-        }
-
-        private void ChangeLabelColors(Control control)
-        {
-            if (mColorMode == mColorModesEnum.Dark.ToString())
-            {
-                control.ForeColor = Color.DarkGray;
-            } // if
-            else if (mColorMode == mColorModesEnum.System.ToString())
-            {
-                control.ForeColor = Color.Black;
-            } // else if
-        }
-
-        private void ChangeButtonColors(Button button)
-        {
-            if (mColorMode == mColorModesEnum.Dark.ToString())
-            {
-                button.BackColor = Color.Black;
-                button.ForeColor = Color.DarkGray;
-            } // if
-            else if (mColorMode == mColorModesEnum.System.ToString())
-            {
-                button.BackColor = Color.FromArgb(0, 255, 255, 255);
-                button.ForeColor = Color.Black;
-            } // else if
         }
 
 #if DEBUG
@@ -424,7 +370,8 @@ namespace ISBNCaller_GUI
         private void WriteTab_btnOK_Click(object sender, EventArgs e)
         {
             mWriteTab.btnOK_Click();
-            ChangeDataGridViewColors();
+            ColorWorker colorWorker = new ColorWorker(mColorMode);
+            colorWorker.ChangeDataGridViewColors(WriteTab_Author_dataGridViewAuthor);
         }
 
         private void WriteTab_btnCancel_Click(object sender, EventArgs e)
@@ -474,7 +421,8 @@ namespace ISBNCaller_GUI
         private void WriteTab_btnRegisterWOutISBN_Click(object sender, EventArgs e)
         {
             mWriteTab.btnRegisterWOutISBN_Click();
-            ChangeDataGridViewColors();
+            ColorWorker colorWorker = new ColorWorker(mColorMode);
+            colorWorker.ChangeDataGridViewColors(WriteTab_Author_dataGridViewAuthor);
         }
 
         private void WriteTab_Book_txtBoxISBN10_TextChanged(object sender, EventArgs e)
@@ -523,13 +471,17 @@ namespace ISBNCaller_GUI
         private void LentTab_btnSearch_Click(object sender, EventArgs e)
         {
             mLentTab.btnSearch_Click();
-            ChangeDataGridViewColors();
+            ColorWorker colorWorker = new ColorWorker(mColorMode);
+            colorWorker.ChangeDataGridViewColors(LentTab_dataGridViewLent);
+            colorWorker.ChangeDataGridViewColors(LentTab_dataGridViewSearch);
         }
 
         private void LentTab_btnPull_Click(object sender, EventArgs e)
         {
             mLentTab.btnPull_Click();
-            ChangeDataGridViewColors();
+            ColorWorker colorWorker = new ColorWorker(mColorMode);
+            colorWorker.ChangeDataGridViewColors(LentTab_dataGridViewLent);
+            colorWorker.ChangeDataGridViewColors(LentTab_dataGridViewSearch);
         }
 
         private void LentTab_btnLent_Click(object sender, EventArgs e)
@@ -587,13 +539,15 @@ namespace ISBNCaller_GUI
         private void ReturnTab_btnShowAll_Click(object sender, EventArgs e)
         {
             mReturnTab.btnShowAllClick();
-            ChangeDataGridViewColors();
+            ColorWorker colorWorker = new ColorWorker(mColorMode);
+            colorWorker.ChangeDataGridViewColors(ReturnTab_dataGridViewReturn);
         }
 
         private void ReturnTab_btnSearch_Click(object sender, EventArgs e)
         {
             mReturnTab.btnSearch_Click();
-            ChangeDataGridViewColors();
+            ColorWorker colorWorker = new ColorWorker(mColorMode);
+            colorWorker.ChangeDataGridViewColors(ReturnTab_dataGridViewReturn);
         }
 
         private void ReturnTab_btnReturn_Click(object sender, EventArgs e)
@@ -632,7 +586,8 @@ namespace ISBNCaller_GUI
         {
             mSearchTab.btnSearchClick();
             SearchTab_btnCorrection.Enabled = true;
-            ChangeDataGridViewColors();
+            ColorWorker colorWorker = new ColorWorker(mColorMode);
+            colorWorker.ChangeDataGridViewColors(SearchTab_dataGridViewSearch);
         }
 
         private void SearchTab_chkBoxUseDates_CheckedChanged(object sender, EventArgs e)
