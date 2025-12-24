@@ -17,7 +17,6 @@ namespace ISBNCaller_GUI
         public Form1()
         {
             InitializeComponent();
-            LoadLanguage();
             LoadColorMode();
             mWriteTab = new WriteTab(this);
             mLentTab = new LentTab();
@@ -27,6 +26,7 @@ namespace ISBNCaller_GUI
             InitializeLentTabObjects();
             InitializeReturnTabObjects();
             InitializeSearchTabObjects();
+            LoadLanguage();
             mWriteTab.DisableTxtBoxes();
             this.AcceptButton = SearchTab_btnSearch;
             SearchTab_txtBoxISBN.Focus();
@@ -418,6 +418,7 @@ namespace ISBNCaller_GUI
             mWriteTab.mBtnRegisterWOutISBN = WriteTab_btnRegisterWOutISBN;
             mWriteTab.mLabelMaxNoCount = WriteTab_Book_labelMaxNoCount;
             mWriteTab.mWorkInProgressLabel = WriteTab_WorkInProgressLabel;
+            mWriteTab.InitializeDGV();
         }
 
         private void WriteTab_btnOK_Click(object sender, EventArgs e)

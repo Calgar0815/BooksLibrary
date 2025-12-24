@@ -243,6 +243,16 @@ namespace ISBNCaller_GUI
             mBtnRegisterWOutISBN.Enabled = true;
         }
 
+        internal void InitializeDGV()
+        {
+            mDataGridViewAuthor.ColumnCount = 3;
+            mDataGridViewAuthor.Columns[0].Name = "Vorname";
+            mDataGridViewAuthor.Columns[1].Name = "Name";
+            mDataGridViewAuthor.Columns[2].Name = "In der DB";
+            mDataGridViewAuthor.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            mDataGridViewAuthor.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+        }
+
         private bool WriteTab_ShowResult()
         {
             /// Daten holen
@@ -258,16 +268,6 @@ namespace ISBNCaller_GUI
                 MessageBox.Show(ex.Message.ToString(), "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-
-            if (mDataGridViewAuthor.Columns.Count == 0)
-            {
-                mDataGridViewAuthor.ColumnCount = 3;
-                mDataGridViewAuthor.Columns[0].Name = "Vorname";
-                mDataGridViewAuthor.Columns[1].Name = "Name";
-                mDataGridViewAuthor.Columns[2].Name = "In der DB";
-                mDataGridViewAuthor.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                mDataGridViewAuthor.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            } // if
 
             foreach (string autor in book.Autoren)
             {
