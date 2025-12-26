@@ -427,12 +427,12 @@ namespace ISBNCaller_GUI
 
         private void WriteTab_Book_txtBoxISBN10_TextChanged(object sender, EventArgs e)
         {
-            mWriteTab.CheckAndEnableTxtBoxesCalculateISBN();
+            mWriteTab.CheckAndEnableBtnsCalculateISBN();
         }
 
         private void WriteTab_Book_txtBoxISBN13_TextChanged(object sender, EventArgs e)
         {
-            mWriteTab.CheckAndEnableTxtBoxesCalculateISBN();
+            mWriteTab.CheckAndEnableBtnsCalculateISBN();
         }
 
         private void WriteTab_Book_cmdBoxFormat_EnabledChanged(object sender, EventArgs e)
@@ -626,11 +626,16 @@ namespace ISBNCaller_GUI
             cmbBoxSeries.DataSource = new BindingSource(series, null);
         }
 
-        public void FillCmbBoxFormat(ComboBox cmbBoxFormat)
+        public void FillCmbBoxFormat(ComboBox cmbBoxFormat, bool emptyFirst = true)
         {
             DBReader dbReader = new DBReader();
             List<string> format = new List<string>();
-            format = dbReader.GetAllFormats();
+            if (emptyFirst)
+            {
+                format.Add("");
+            }
+
+            format.AddRange(dbReader.GetAllFormats());
             cmbBoxFormat.Items.AddRange(format.ToArray());
         }
 

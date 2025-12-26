@@ -1,6 +1,6 @@
 ﻿namespace ISBNCaller_GUI
 {
-    partial class Correction
+    partial class Correction_automated
     {
         /// <summary>
         /// Required designer variable.

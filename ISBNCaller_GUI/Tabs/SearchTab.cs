@@ -1,4 +1,5 @@
-﻿using ISBNCaller_Lib;
+﻿using ISBNCaller_GUI.Correction;
+using ISBNCaller_Lib;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -61,37 +62,30 @@ namespace ISBNCaller_GUI
         internal void btnCorrectionClick()
         {
             DataGridViewSelectedRowCollection selectedRows = mDataGridViewSearch.SelectedRows;
-            List<string> isbns = new List<string>();
-            if (selectedRows.Count == 0)
-            {
-                DataGridViewRowCollection rows = new DataGridViewRowCollection(mDataGridViewSearch);
-                for (int index = 0; index < mDataGridViewSearch.SelectedCells.Count; index++)
-                {
-                    int rowindex = mDataGridViewSearch.SelectedCells[index].RowIndex;
-                    DataGridViewRow row = mDataGridViewSearch.Rows[rowindex];
-                    isbns.Add(row.Cells[7].Value.ToString());
-                } // for
-            } // if
-            else
-            {
-                foreach (DataGridViewRow row in selectedRows)
-                {
-                    isbns.Add(row.Cells[7].Value.ToString());
-                }
-            } // else
+            DataGridViewRow row = selectedRows[0];
+            int bookID = (int)row.Cells[8].Value;
+            DBReader.SearchStruct toCorrect = mSearched.Where(searched => searched.BookID == bookID).First();
 
-            List<DBReader.SearchStruct> toCorrectList = new List<DBReader.SearchStruct>();
-            foreach (var searched in mSearched)
-            {
-                if (isbns.Contains(searched.ISBN13) || isbns.Contains(searched.ISBN10))
-                {
-                    toCorrectList.Add(searched);
-                }
-            } // foreach
 
-            Correction correction = new Correction(mForm1, toCorrectList);
+
+            #region Für die mögliche Weiterverwendung der zur Laufzeit generierten GUI
+            //////List<int> bookIDs = new List<int>();
+            //////foreach (DataGridViewRow row in selectedRows)
+            //////{
+            //////    bookIDs.Add((int)row.Cells[8].Value);
+            //////}
+
+            //////List<DBReader.SearchStruct> toCorrectList = mSearched.Where(searched => bookIDs.Contains(searched.BookID)).ToList();
+
+            //////Correction_automated correction = new Correction_automated(mForm1, toCorrectList);
+            #endregion
+
+
+            CorrectionForm correctionForm = new CorrectionForm(toCorrect, mForm1);
             mForm1.Enabled = false;
-            correction.ShowDialog();
+            correctionForm.ShowDialog();
+            //correction.ShowDialog();
+            mForm1.Enabled = true;
         }
 
         #endregion
@@ -192,15 +186,25 @@ namespace ISBNCaller_GUI
 
         internal void InitializeDGV()
         {
-            mDataGridViewSearch.ColumnCount = 8;
-            mDataGridViewSearch.Columns[0].Name = "Titel";
-            mDataGridViewSearch.Columns[1].Name = "Untertitel";
-            mDataGridViewSearch.Columns[2].Name = "Serie";
-            mDataGridViewSearch.Columns[3].Name = "Nr.";
-            mDataGridViewSearch.Columns[4].Name = "Autor_in";
-            mDataGridViewSearch.Columns[5].Name = "Veröffentlicht";
+            mDataGridViewSearch.ColumnCount = 9;
+            mDataGridViewSearch.Columns[0].Name = "Title";
+            mDataGridViewSearch.Columns["Title"].HeaderText = "Titel";
+            mDataGridViewSearch.Columns[1].Name = "Subtitle";
+            mDataGridViewSearch.Columns["Subtitle"].HeaderText = "Untertitel";
+            mDataGridViewSearch.Columns[2].Name = "Series";
+            mDataGridViewSearch.Columns["Series"].HeaderText = "Serie";
+            mDataGridViewSearch.Columns[3].Name = "Number";
+            mDataGridViewSearch.Columns["Number"].HeaderText = "Nr.";
+            mDataGridViewSearch.Columns[4].Name = "Author";
+            mDataGridViewSearch.Columns["Author"].HeaderText = "Autor_in";
+            mDataGridViewSearch.Columns[5].Name = "Published";
+            mDataGridViewSearch.Columns["Published"].HeaderText = "Veröffentlicht";
             mDataGridViewSearch.Columns[6].Name = "Format";
+            mDataGridViewSearch.Columns["Format"].HeaderText = "Format";
             mDataGridViewSearch.Columns[7].Name = "ISBN";
+            mDataGridViewSearch.Columns["ISBN"].HeaderText = "ISBN";
+            mDataGridViewSearch.Columns[8].Name = "BookID";
+            mDataGridViewSearch.Columns["BookID"].Visible = false;
             mDataGridViewSearch.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             mDataGridViewSearch.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
@@ -257,6 +261,9 @@ namespace ISBNCaller_GUI
             DataGridViewCell dgvCellISBN = new DataGridViewTextBoxCell();
             dgvCellISBN.Value = searched.ISBN13 != "" ? searched.ISBN13 : searched.ISBN10;
             dgvRow.Cells.Add(dgvCellISBN);
+            DataGridViewCell dgvCellBookID = new DataGridViewTextBoxCell();
+            dgvCellBookID.Value = searched.BookID;
+            dgvRow.Cells.Add(dgvCellBookID);
             if (searched.IsLent)
             {
                 dgvRow.DefaultCellStyle.BackColor = Color.LightYellow;

@@ -217,6 +217,7 @@ namespace ISBNCaller_GUI
             SearchTab_dataGridViewSearch.Margin = new Padding(4, 3, 4, 3);
             SearchTab_dataGridViewSearch.Name = "SearchTab_dataGridViewSearch";
             SearchTab_dataGridViewSearch.ReadOnly = true;
+            SearchTab_dataGridViewSearch.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             SearchTab_dataGridViewSearch.Size = new System.Drawing.Size(898, 268);
             SearchTab_dataGridViewSearch.TabIndex = 0;
             // 
@@ -307,6 +308,7 @@ namespace ISBNCaller_GUI
             // 
             SearchTab_dtpTo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_dtpTo.CustomFormat = "yyyy";
+            SearchTab_dtpTo.Enabled = false;
             SearchTab_dtpTo.Format = DateTimePickerFormat.Custom;
             SearchTab_dtpTo.Location = new System.Drawing.Point(643, 100);
             SearchTab_dtpTo.Margin = new Padding(4, 3, 4, 3);
@@ -314,7 +316,6 @@ namespace ISBNCaller_GUI
             SearchTab_dtpTo.ShowUpDown = true;
             SearchTab_dtpTo.Size = new System.Drawing.Size(108, 23);
             SearchTab_dtpTo.TabIndex = 19;
-            SearchTab_dtpTo.Enabled = false;
             // 
             // SearchTab_labelPublishedTo
             // 
@@ -331,6 +332,7 @@ namespace ISBNCaller_GUI
             // 
             SearchTab_dtpFrom.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_dtpFrom.CustomFormat = "yyyy";
+            SearchTab_dtpFrom.Enabled = false;
             SearchTab_dtpFrom.Format = DateTimePickerFormat.Custom;
             SearchTab_dtpFrom.Location = new System.Drawing.Point(493, 100);
             SearchTab_dtpFrom.Margin = new Padding(4, 3, 4, 3);
@@ -338,7 +340,6 @@ namespace ISBNCaller_GUI
             SearchTab_dtpFrom.ShowUpDown = true;
             SearchTab_dtpFrom.Size = new System.Drawing.Size(108, 23);
             SearchTab_dtpFrom.TabIndex = 17;
-            SearchTab_dtpFrom.Enabled = false;
             // 
             // SearchTab_labelPublishedFrom
             // 

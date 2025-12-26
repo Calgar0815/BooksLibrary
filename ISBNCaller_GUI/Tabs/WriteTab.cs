@@ -349,28 +349,33 @@ namespace ISBNCaller_GUI
             ChangeTxtBoxesStates(false);
         }
 
-        internal void CheckAndEnableTxtBoxesCalculateISBN()
+        internal void CheckAndEnableBtnsCalculateISBN()
         {
-            string txtBoxISBN10Text = mTxtBoxISBN10.Text;
+            CheckAndAnableBtnsCalculateISBN(mTxtBoxISBN13, mTxtBoxISBN10, mBtnCalculateISBN13, mBtnCalculateISBN10);
+        }
+
+        internal void CheckAndAnableBtnsCalculateISBN(TextBox txtBoxISBN13, TextBox txtBoxISBN10, Button btnCalculateISBN13, Button btnCalculateISBN10)
+        {
+            string txtBoxISBN10Text = txtBoxISBN10.Text;
             txtBoxISBN10Text = txtBoxISBN10Text.Replace("-", "");
-            string txtBoxISBN13Text = mTxtBoxISBN13.Text;
+            string txtBoxISBN13Text = txtBoxISBN13.Text;
             txtBoxISBN13Text = txtBoxISBN13Text.Replace("-", "");
             if (txtBoxISBN10Text.Length == 10 && txtBoxISBN13Text.Length != 13)
             {
-                mBtnCalculateISBN13.Enabled = true;
+                btnCalculateISBN13.Enabled = true;
             }
             else
             {
-                mBtnCalculateISBN13.Enabled = false;
+                btnCalculateISBN13.Enabled = false;
             }
 
             if (txtBoxISBN13Text.Length == 13 && txtBoxISBN10Text.Length != 10)
             {
-                mBtnCalculateISBN10.Enabled = true;
+                btnCalculateISBN10.Enabled = true;
             }
             else
             {
-                mBtnCalculateISBN10.Enabled = false;
+                btnCalculateISBN10.Enabled = false;
             }
         }
 

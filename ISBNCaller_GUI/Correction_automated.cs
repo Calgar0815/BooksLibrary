@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace ISBNCaller_GUI
 {
-    public partial class Correction : Form
+    public partial class Correction_automated : Form
     {
         #region Variables
         private Form1 mForm1 { get; set; }
@@ -28,6 +28,7 @@ namespace ISBNCaller_GUI
         static string cTxtBoxSubTitle ="txtBoxSubTitleTabPage";
         static string cTxtBoxNoInSeries = "txtBoxNoInSeriesTabPage";
         static string cTxtBoxPublishingDate = "txtBoxPublishingDateTabPage";
+        static string cTxtBoxISBN = "txtBoxISBN";
         static string cTxtBoxISBN13 = "txtBoxISBN13TabPage";
         static string cTxtBoxISBN10 = "txtBoxISBN10TabPage";
         static string cCmbBoxSeries = "cmbBoxSeriesTabPage";
@@ -35,7 +36,8 @@ namespace ISBNCaller_GUI
         static string cLabelSeries2 = "labelSeries2TabPage";
         static string cDGVArtists = "dgvArtistsTabPage";
         static string cLabelPreviousSeriesName = "labelPreviousSeriesNameTabPage";
-        static string cBtnTab = "BtnTab";
+        static string cBtnCorrectTab = "btnCorrectTab";
+        static string cBtnCalculateISBN = "btnCalculateISBN";
         static string cLabelTitle = "labelTitleTabPage";
         static string cLabelSubTitle = "labelSubTitleTabPage";
         static string cLabelSeries = "labelSeriesTabPage";
@@ -57,6 +59,7 @@ namespace ISBNCaller_GUI
         static string cQuestion = "Frage";
         static string cStartCorrection = "Korrektur starten";
         static string cBisher = "Bisher: ";
+        static string cCalculate = "Berechnen";
 
         #endregion
         #region Globale Variablen
@@ -77,7 +80,7 @@ namespace ISBNCaller_GUI
         #endregion
     #region Constructor
 
-        public Correction(Form1 form1, List<DBReader.SearchStruct> toCorrectList)
+        public Correction_automated(Form1 form1, List<DBReader.SearchStruct> toCorrectList)
         {
             InitializeComponent();
             mForm1 = form1;
@@ -88,11 +91,67 @@ namespace ISBNCaller_GUI
         #endregion
         #region Events
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void BtnCalculateISBN_OnClick(object sender, EventArgs e)
         {
-            Close();
-            // Prevent from closing
-            // e.Cancel = true;
+            Button btn = (Button)sender;
+            string isbnVersion = btn.Name.Replace(cBtnCalculateISBN, "");
+            int tabIndex = int.Parse(isbnVersion.Remove(0, 5));
+            isbnVersion = isbnVersion.Remove(2);
+            int version = int.Parse(isbnVersion);
+            ISBNWorker isbnWorker = new ISBNWorker();
+            TabPage tabPage = (TabPage)tabControl1.SelectedTab;
+            int otherVersion = version == 10 ? 13 : 10;
+            string key = $"{cTxtBoxISBN}{otherVersion}TabPage{tabIndex}";
+            int keyIndex = tabPage.Controls.IndexOfKey(key);
+            string isbn = tabPage.Controls[keyIndex].Text;
+            switch (version)
+            {
+                case 10: isbn = isbnWorker.CalculateISBN10(isbn); break;
+                case 13: isbn = isbnWorker.CalculateISBN13(isbn); break;
+            }
+
+            keyIndex = tabPage.Controls.IndexOfKey($"{cTxtBoxISBN}{version}TabPage{tabIndex}");
+            tabPage.Controls[keyIndex].Text = isbn;
+        }
+
+        private void BtnThisWillNowBeCorrected_OnClick(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            string no = btn.Name.Replace(cBtnCorrectTab, "");
+            int tabIndex = int.Parse(no);
+
+            TabPage tabPage = (TabPage)tabControl1.SelectedTab;
+            int keyIndex = tabPage.Controls.IndexOfKey($"{cLabelPreviousSeriesName}{tabIndex}");
+            string labelText = tabPage.Controls[keyIndex].Text;
+            labelText = labelText.Replace($"{cBisher}", "");
+            keyIndex = tabPage.Controls.IndexOfKey($"{cCmbBoxSeries}{tabIndex}");
+            ComboBox cmbBoxSeries = (ComboBox)tabPage.Controls[keyIndex];
+            KeyValuePair<int, string> kvp = (KeyValuePair<int, string>)cmbBoxSeries.Items[cmbBoxSeries.SelectedIndex];
+            if (cmbBoxSeries.SelectedIndex == 0 && labelText != "")
+            {
+                DialogResult dr = MessageBox.Show(cReallyDeleteSeries, cQuestion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr.Equals(DialogResult.No))
+                {
+                    return;
+                }
+            } // if
+            else if (kvp.Value != labelText)
+            {
+                DialogResult dr = MessageBox.Show(cReallyChangSeries, cQuestion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr.Equals(DialogResult.No))
+                {
+                    return;
+                }
+            } // else if
+
+            if (CorrectInformations(tabIndex))
+            {
+                MessageBox.Show(cCorrectionsSuccessful, cInfo, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(cCorrectionError, cInfo, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         #endregion
@@ -154,12 +213,12 @@ namespace ISBNCaller_GUI
             text = toCorrect.ISBN13;
             location = new Point(95, 163);
             name = $"{cTxtBoxISBN13}{index}";
-            size = new Size(666, 20);
+            size = new Size(572, 20);
             AddTextBoxToTabPage(text, name, location, size, 1, ref tabPage);
             text = toCorrect.ISBN10;
             location = new Point(95, 189);
             name = $"{cTxtBoxISBN10}{index}";
-            size = new Size(666, 20);
+            size = new Size(572, 20);
             AddTextBoxToTabPage(text, name, location, size, 1, ref tabPage);
         }
 
@@ -198,6 +257,12 @@ namespace ISBNCaller_GUI
             size = new Size(666, 60);
             DataGridView dgvAuthors = AddAuthorsDGVToTabPage($"{cDGVArtists}{index}", location, size, ref tabPage);
             FillDGVAuthors(toCorrect, ref dgvAuthors);
+            location = new Point(672, 163);
+            size = new Size(88, 23);
+            AddCalculateISBN13ButtonToTabPage(location, size, index, (toCorrect.ISBN13 == "" && toCorrect.ISBN10 != ""), 13, BtnCalculateISBN_OnClick, ref tabPage);
+            location = new Point(672, 189);
+            size = new Size(88, 23);
+            AddCalculateISBN13ButtonToTabPage(location, size, index, (toCorrect.ISBN10 == "" && toCorrect.ISBN13 != ""), 10, BtnCalculateISBN_OnClick, ref tabPage);
             location = new Point(661, 280);
             size = new Size(100, 23);
             AddCorrectButtonToTabPage(location, size, index, ref tabPage);
@@ -254,19 +319,36 @@ namespace ISBNCaller_GUI
             tabPage.Controls.Add(cmbBox);
         }
 
+        private void AddCalculateISBN13ButtonToTabPage(Point location, Size size, int tabIndex, bool enabled, int isbnVersion, EventHandler calledEvent, ref TabPage tabPage)
+        {
+            Button btnCalculateISBN = new Button()
+            {
+                Text = cCalculate,
+                Location = location,
+                Name = $"{cBtnCalculateISBN}{isbnVersion}Tab{tabIndex}",
+                Size = size,
+                BackColor = Color.LightGray,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right,
+                Enabled = enabled
+            };
+
+            btnCalculateISBN.Click += calledEvent;
+            tabPage.Controls.Add(btnCalculateISBN);
+        }
+
         private void AddCorrectButtonToTabPage(Point location, Size size, int tabIndex, ref TabPage tabPage)
         {
             Button btnThisIsCorrected = new Button()
             {
                 Text = cStartCorrection,
                 Location = location,
-                Name = $"{cBtnTab}{tabIndex}",
+                Name = $"{cBtnCorrectTab}{tabIndex}",
                 Size = size,
                 BackColor = Color.LightGray,
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Right
             };
 
-            btnThisIsCorrected.Click += BtnThisWillNowBeCorrected_CheckedChanged;
+            btnThisIsCorrected.Click += BtnThisWillNowBeCorrected_OnClick;
             tabPage.Controls.Add(btnThisIsCorrected);
         }
 
@@ -305,46 +387,6 @@ namespace ISBNCaller_GUI
 
                 timingIndex++;
             } // while
-        }
-
-        private void BtnThisWillNowBeCorrected_CheckedChanged(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            string no = btn.Name.Replace(cBtnTab, "");
-            int tabIndex = int.Parse(no);
-
-            TabPage tabPage = (TabPage)tabControl1.GetControl(tabIndex);
-            int keyIndex = tabPage.Controls.IndexOfKey($"{cLabelPreviousSeriesName}{tabIndex}");
-            string labelText = tabPage.Controls[keyIndex].Text;
-            labelText = labelText.Replace($"{cBisher}", "");
-            keyIndex = tabPage.Controls.IndexOfKey($"{cCmbBoxSeries}{tabIndex}");
-            ComboBox cmbBoxSeries = (ComboBox)tabPage.Controls[keyIndex];
-            KeyValuePair<int, string> kvp = (KeyValuePair<int, string>)cmbBoxSeries.Items[cmbBoxSeries.SelectedIndex];
-            if (cmbBoxSeries.SelectedIndex == 0 && labelText != "")
-            {
-                DialogResult dr = MessageBox.Show(cReallyDeleteSeries, cQuestion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dr.Equals(DialogResult.No))
-                {
-                    return;
-                }
-            } // if
-            else if (kvp.Value != labelText)
-            {
-                DialogResult dr = MessageBox.Show(cReallyChangSeries, cQuestion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dr.Equals(DialogResult.No))
-                {
-                    return;
-                }
-            } // else if
-
-            if (CorrectInformations(tabIndex))
-            {
-                MessageBox.Show(cCorrectionsSuccessful, cInfo, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show(cCorrectionError, cInfo, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
         }
 
         #endregion
