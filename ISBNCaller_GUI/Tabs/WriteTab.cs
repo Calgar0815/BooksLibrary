@@ -351,10 +351,10 @@ namespace ISBNCaller_GUI
 
         internal void CheckAndEnableBtnsCalculateISBN()
         {
-            CheckAndAnableBtnsCalculateISBN(mTxtBoxISBN13, mTxtBoxISBN10, mBtnCalculateISBN13, mBtnCalculateISBN10);
+            CheckAndEnableBtnsCalculateISBN(mTxtBoxISBN13, mTxtBoxISBN10, mBtnCalculateISBN13, mBtnCalculateISBN10);
         }
 
-        internal void CheckAndAnableBtnsCalculateISBN(TextBox txtBoxISBN13, TextBox txtBoxISBN10, Button btnCalculateISBN13, Button btnCalculateISBN10)
+        internal void CheckAndEnableBtnsCalculateISBN(TextBox txtBoxISBN13, TextBox txtBoxISBN10, Button btnCalculateISBN13, Button btnCalculateISBN10)
         {
             string txtBoxISBN10Text = txtBoxISBN10.Text;
             txtBoxISBN10Text = txtBoxISBN10Text.Replace("-", "");

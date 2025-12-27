@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace ISBNCaller_GUI.Correction
 {
-    public partial class CorrectionForm: Form
+    public partial class CorrectionForm : Form
     {
         #region Variables
 
@@ -17,7 +17,7 @@ namespace ISBNCaller_GUI.Correction
         {
             InitializeComponent();
             mCorrectionFormWorker = new CorrectionFormWorker(form1);
-            PrepareForCorrection(toCorrect);        
+            PrepareForCorrection(toCorrect);
         }
 
         #endregion
@@ -85,5 +85,10 @@ namespace ISBNCaller_GUI.Correction
         }
 
         #endregion
+
+        private void CorrectionForm_cmbBoxSeries_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mCorrectionFormWorker.CmbBoxSeries_SelectedIndexChanged();
+        }
     }
 }

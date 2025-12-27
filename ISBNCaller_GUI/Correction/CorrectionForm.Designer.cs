@@ -159,6 +159,7 @@
             CorrectionForm_cmbBoxSeries.Name = "CorrectionForm_cmbBoxSeries";
             CorrectionForm_cmbBoxSeries.Size = new System.Drawing.Size(371, 23);
             CorrectionForm_cmbBoxSeries.TabIndex = 11;
+            CorrectionForm_cmbBoxSeries.SelectedIndexChanged += CorrectionForm_cmbBoxSeries_SelectedIndexChanged;
             // 
             // CorrectionForm_txtBoxNoInSeries
             // 
@@ -192,7 +193,7 @@
             CorrectionForm_txtBoxISBN13.Name = "CorrectionForm_txtBoxISBN13";
             CorrectionForm_txtBoxISBN13.Size = new System.Drawing.Size(576, 23);
             CorrectionForm_txtBoxISBN13.TabIndex = 15;
-            CorrectionForm_txtBoxISBN13.TextChanged += this.CorrectionForm_txtBoxISBN13_TextChanged;
+            CorrectionForm_txtBoxISBN13.TextChanged += CorrectionForm_txtBoxISBN13_TextChanged;
             // 
             // CorrectionForm_txtBoxISBN10
             // 
@@ -201,7 +202,7 @@
             CorrectionForm_txtBoxISBN10.Name = "CorrectionForm_txtBoxISBN10";
             CorrectionForm_txtBoxISBN10.Size = new System.Drawing.Size(576, 23);
             CorrectionForm_txtBoxISBN10.TabIndex = 16;
-            CorrectionForm_txtBoxISBN10.TextChanged += this.CorrectionForm_txtBoxISBN10_TextChanged;
+            CorrectionForm_txtBoxISBN10.TextChanged += CorrectionForm_txtBoxISBN10_TextChanged;
             // 
             // CorrectionForm_dgvAuthors
             // 
