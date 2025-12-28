@@ -187,12 +187,7 @@ namespace ISBNCaller_GUI
             ChangeTxtBoxesStates(true);
             if (mDataGridViewAuthor.Rows.Count == 0)
             {
-                mDataGridViewAuthor.ColumnCount = 3;
-                mDataGridViewAuthor.Columns[0].Name = "Vorname";
-                mDataGridViewAuthor.Columns[1].Name = "Name";
-                mDataGridViewAuthor.Columns[2].Name = "In der DB";
-                mDataGridViewAuthor.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                mDataGridViewAuthor.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                InitializeDGV();
             } // if
 
             // abfragen
