@@ -11,6 +11,10 @@ Global
 		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
+		WithoutLanguageSelection_Debug|Any CPU = WithoutLanguageSelection_Debug|Any CPU
+		WithoutLanguageSelection_Debug|x64 = WithoutLanguageSelection_Debug|x64
+		WithoutLangugaeSelection_Release|Any CPU = WithoutLangugaeSelection_Release|Any CPU
+		WithoutLangugaeSelection_Release|x64 = WithoutLangugaeSelection_Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.Release|x64.ActiveCfg = Release|x64
 		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.Release|x64.Build.0 = Release|x64
+		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.WithoutLanguageSelection_Debug|Any CPU.ActiveCfg = WithoutLanguageSelection_Debug|Any CPU
+		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.WithoutLanguageSelection_Debug|Any CPU.Build.0 = WithoutLanguageSelection_Debug|Any CPU
+		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.WithoutLanguageSelection_Debug|x64.ActiveCfg = WithoutLanguageSelection_Debug|Any CPU
+		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.WithoutLanguageSelection_Debug|x64.Build.0 = WithoutLanguageSelection_Debug|Any CPU
+		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.WithoutLangugaeSelection_Release|Any CPU.ActiveCfg = WithoutLangugaeSelection_Release|Any CPU
+		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.WithoutLangugaeSelection_Release|Any CPU.Build.0 = WithoutLangugaeSelection_Release|Any CPU
+		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.WithoutLangugaeSelection_Release|x64.ActiveCfg = WithoutLangugaeSelection_Release|Any CPU
+		{20CCA381-3BC7-4D45-94A6-95193316DDF0}.WithoutLangugaeSelection_Release|x64.Build.0 = WithoutLangugaeSelection_Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

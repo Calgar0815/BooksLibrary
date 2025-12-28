@@ -6,7 +6,7 @@ namespace ISBNCaller_Lib
 {
     public class DBReader
     {
-#if DEBUG
+#if DEBUG || WITHOUTLANGUAGESELECTION_DEBUG
         private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB_Test";
 #else
         private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";

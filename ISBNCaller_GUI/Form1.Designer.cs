@@ -132,7 +132,9 @@ namespace ISBNCaller_GUI
             ReturnTab_labelISBN = new Label();
             ReturnTab_chkBoxIgnoreIsActive = new CheckBox();
             ReturnTab_btnShowAll = new Button();
+#if DEBUG || RELEASE
             cmbBoxLanguage = new ComboBox();
+#endif
             cmbBoxColorMode = new ComboBox();
             tabControl.SuspendLayout();
             tabPageSearch.SuspendLayout();
@@ -1331,6 +1333,7 @@ namespace ISBNCaller_GUI
             ReturnTab_btnShowAll.Text = "Alle anzeigen";
             ReturnTab_btnShowAll.UseVisualStyleBackColor = true;
             ReturnTab_btnShowAll.Click += ReturnTab_btnShowAll_Click;
+#if DEBUG || RELEASE
             // 
             // cmbBoxLanguage
             // 
@@ -1343,13 +1346,18 @@ namespace ISBNCaller_GUI
             cmbBoxLanguage.Size = new System.Drawing.Size(65, 23);
             cmbBoxLanguage.TabIndex = 1;
             cmbBoxLanguage.SelectedIndexChanged += LanguageChanged;
+#endif
             // 
             // cmbBoxColorMode
             // 
             cmbBoxColorMode.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cmbBoxColorMode.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBoxColorMode.FormattingEnabled = true;
+#if WITHOUTLANGUAGESELECTION_DEBUG || WITHOUTLANGUAGESELECTION_RELEASE
+            cmbBoxColorMode.Location = new System.Drawing.Point(852, -1);
+#else
             cmbBoxColorMode.Location = new System.Drawing.Point(779, -1);
+#endif
             cmbBoxColorMode.Margin = new Padding(4, 3, 4, 3);
             cmbBoxColorMode.Name = "cmbBoxColorMode";
             cmbBoxColorMode.Size = new System.Drawing.Size(82, 23);
@@ -1362,7 +1370,9 @@ namespace ISBNCaller_GUI
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(933, 519);
             Controls.Add(cmbBoxColorMode);
+#if DEBUG || RELEASE
             Controls.Add(cmbBoxLanguage);
+#endif
             Controls.Add(tabControl);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 3, 4, 3);
@@ -1397,7 +1407,7 @@ namespace ISBNCaller_GUI
 
         }
 
-        #endregion
+#endregion
         private System.Windows.Forms.Button WriteTab_btnOK;
         private System.Windows.Forms.Button WriteTab_btnCancel;
         private System.Windows.Forms.TabControl tabControl;
@@ -1472,7 +1482,7 @@ namespace ISBNCaller_GUI
         private System.Windows.Forms.CheckBox ReturnTab_chkBoxIgnoreIsActive;
         private System.Windows.Forms.GroupBox SearchTab_groupBoxInput;
         private System.Windows.Forms.Button SearchTab_btnSearch;
-#if DEBUG
+#if DEBUG || WITHOUTLANGUAGESELECTION_DEBUG
         private System.Windows.Forms.Button SearchTab_btnCorrection;
 #endif
         private System.Windows.Forms.DateTimePicker SearchTab_dtpFrom;
@@ -1500,7 +1510,9 @@ namespace ISBNCaller_GUI
         private System.Windows.Forms.ComboBox SearchTab_cmbBoxSeries;
         private System.Windows.Forms.Label WriteTab_WorkInProgressLabel;
         private System.Windows.Forms.ComboBox WriteTab_Book_cmbBoxFormat;
+#if DEBUG || RELEASE
         private System.Windows.Forms.ComboBox cmbBoxLanguage;
+#endif
         private System.Windows.Forms.ComboBox cmbBoxColorMode;
         private CheckBox SearchTab_chkBoxUseDates;
     }

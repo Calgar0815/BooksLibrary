@@ -31,14 +31,16 @@ namespace ISBNCaller_GUI
             InitializeLentTabObjects();
             InitializeReturnTabObjects();
             InitializeSearchTabObjects();
+#if DEBUG || RELEASE
             LoadLanguage();
+#endif
             mWriteTab.DisableTxtBoxes();
             this.AcceptButton = SearchTab_btnSearch;
             SearchTab_txtBoxISBN.Focus();
             WriteTab_WorkInProgressLabel.Visible = false;
         }
 
-        #endregion
+#endregion
         #region Overall Settings
 
         enum mLanguagesEnum
@@ -56,14 +58,9 @@ namespace ISBNCaller_GUI
         public static List<mLanguagesEnum> GetLanguagesEnumList<mLanguagesEnum>() where mLanguagesEnum : Enum
     => ((mLanguagesEnum[])Enum.GetValues(typeof(mLanguagesEnum))).ToList();
 
+#if DEBUG || RELEASE
         private void LoadLanguage()
         {
-            if (!File.Exists(cSettingsPath))
-            {
-                XmlWriter writer = new XmlWriter(cSettingsPath);
-                writer.CreateSettingsXML(cSettingsPath, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Settings>\r\n\t<Language>de</Language>\r\n\t<ColorMode>Dark</ColorMode>\r\n</Settings>");
-            } // if
-
             XmlReader reader = new XmlReader(cSettingsPath);
             mLanguage = reader.Read($"/Settings/Language");
 
@@ -81,6 +78,7 @@ namespace ISBNCaller_GUI
             LanguageWorker languageWorker = new LanguageWorker(mLanguage, cLanguagesFilePath, this);
             languageWorker.LoadTexts();
         }
+#endif
 
         internal enum mColorModesEnum
         {
@@ -93,6 +91,12 @@ namespace ISBNCaller_GUI
 
         private void LoadColorMode()
         {
+            if (!File.Exists(cSettingsPath))
+            {
+                XmlWriter writer = new XmlWriter(cSettingsPath);
+                writer.CreateSettingsXML(cSettingsPath, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Settings>\r\n\t<Language>de</Language>\r\n\t<ColorMode>Dark</ColorMode>\r\n</Settings>");
+            } // if
+
             XmlReader reader = new XmlReader(cSettingsPath);
             try
             {
@@ -148,6 +152,7 @@ namespace ISBNCaller_GUI
             } // if
         }
 
+#if DEBUG || RELEASE
         private void LanguageChanged(object sender, EventArgs e)
         {
             if (mLanguage == cmbBoxLanguage.Text) return;
@@ -169,6 +174,7 @@ namespace ISBNCaller_GUI
                 languageWorker.LoadTexts();
             } // if
         }
+#endif
 
         private void ColorModeChanged(object sender, EventArgs e)
         {
@@ -198,8 +204,6 @@ namespace ISBNCaller_GUI
 
             #region Buttons
             colorWorker.ChangeButtonColors(SearchTab_btnSearch);
-            colorWorker.ChangeButtonColors(SearchTab_btnCorrection);
-            colorWorker.ChangeButtonColors(SearchTab_btnCorrection);
             colorWorker.ChangeButtonColors(WriteTab_btnCancel);
             colorWorker.ChangeButtonColors(WriteTab_btnOK);
             colorWorker.ChangeButtonColors(WriteTab_btnRegisterWOutISBN);
@@ -317,7 +321,7 @@ namespace ISBNCaller_GUI
             #endregion
         }
 
-#if DEBUG
+#if DEBUG || WITHOUTLANGUAGESELECTION_DEBUG
         private List<Button> GetAllButtons(List<Button> buttonList, Control.ControlCollection controls)
         {
             foreach (Control control in controls)
@@ -337,7 +341,7 @@ namespace ISBNCaller_GUI
         }
 #endif
 
-        #endregion
+#endregion
         #region WriteTab
 
         WriteTab mWriteTab;
@@ -604,13 +608,13 @@ namespace ISBNCaller_GUI
             }
         }
 
-#if DEBUG
+#if DEBUG || WITHOUTLANGUAGESELECTION_DEBUG
         private void SearchTab_btnCorrection_Click(object sender, EventArgs e)
         {
             mSearchTab.btnCorrectionClick();
         }
 #endif
-        #endregion
+#endregion
 
         #region all
 
