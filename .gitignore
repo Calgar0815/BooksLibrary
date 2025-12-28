@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/ISBNCaller_GUI/Correction/CorrectionFormWorker.cs
