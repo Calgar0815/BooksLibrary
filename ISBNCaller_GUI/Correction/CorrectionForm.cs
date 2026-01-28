@@ -90,5 +90,13 @@ namespace ISBNCaller_GUI.Correction
         {
             mCorrectionFormWorker.CmbBoxSeries_SelectedIndexChanged();
         }
+
+        private void CorrectionForm_dgvAuthors_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            DataGridView dgvAuthors = (DataGridView)sender;
+            if (e.RowIndex < 1 || dgvAuthors.Rows[e.RowIndex].Cells[2].Value != null) return;
+
+            mCorrectionFormWorker.DGVAuthors_RowAdded(e.RowIndex - 1);
+        }
     }
 }

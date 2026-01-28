@@ -2,7 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace ISBNCaller_GUI.Correction
 {
@@ -41,6 +45,8 @@ namespace ISBNCaller_GUI.Correction
         private const string cFirstName = "Vorname";
         private const string cName = "Nachname";
         private const string cAlreadyInDB = "In DB";
+        private const string cDeleteFromDB = "Löschen";
+        private const string cAuthorID = "AuthorID";
 
         #endregion
         #region Structs && Enums
@@ -48,8 +54,17 @@ namespace ISBNCaller_GUI.Correction
         private struct ChangedItemsStruct
         {
             public ISBNWorker.DBBookStruct Book;
-            public List<ISBNWorker.DBAuthorStruct> Author;
+            public List<AuthorStruct> Authors;
             public string Series;
+        }
+
+        public struct AuthorStruct
+        {
+            public int AuthorID;
+            public string PreName;
+            public string Name;
+            public bool AlreadyInDB;
+            public bool ToDelete;
         }
 
         private enum CmbBoxEnum
@@ -86,10 +101,13 @@ namespace ISBNCaller_GUI.Correction
 
         private void FillAuthorsDGV()
         {
-            mDGVAuthors.ColumnCount = 3;
+            mDGVAuthors.ColumnCount = 5;
             mDGVAuthors.Columns[0].Name = cFirstName;
             mDGVAuthors.Columns[1].Name = cName;
             mDGVAuthors.Columns[2].Name = cAlreadyInDB;
+            mDGVAuthors.Columns[3].Name = cDeleteFromDB;
+            mDGVAuthors.Columns[4].Name = cAuthorID;
+            mDGVAuthors.Columns[4].Visible = false;
             mDGVAuthors.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             mDGVAuthors.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
@@ -107,6 +125,12 @@ namespace ISBNCaller_GUI.Correction
                 DataGridViewCell dgvCell3 = new DataGridViewCheckBoxCell();
                 dgvCell3.Value = true;
                 dgvRow.Cells.Add(dgvCell3);
+                DataGridViewCell dgvCell4 = new DataGridViewCheckBoxCell();
+                dgvCell4.Value = false;
+                dgvRow.Cells.Add(dgvCell4);
+                DataGridViewCell dgvCell5 = new DataGridViewTextBoxCell();
+                dgvCell5.Value = mAuthorsFromDB[index].AuthorID;
+                dgvRow.Cells.Add(dgvCell5);
                 mDGVAuthors.Rows.Add(dgvRow);
             } // for
         }
@@ -151,10 +175,10 @@ namespace ISBNCaller_GUI.Correction
             // Title
             if (mToCorrect.Title != mTxtBoxTitle.Text)
             {
-                if(mTxtBoxTitle.Text == "")
+                if (mTxtBoxTitle.Text == "")
                 {
                     MessageBox.Show("Ein Titel muss angegeben werden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+
                     return false;
                 }
 
@@ -225,31 +249,42 @@ namespace ISBNCaller_GUI.Correction
                 msg += $"\r\nISBN 13:\r\n\t{mToCorrect.ISBN13}\r\n\t{newText}";
             } // if
             // Authors
-            List<ISBNWorker.DBAuthorStruct> changedAuthors = new List<ISBNWorker.DBAuthorStruct>();
+            List<AuthorStruct> changedAuthors = new List<AuthorStruct>();
             string dgvMsg = "";
             foreach (DataGridViewRow author in mDGVAuthors.Rows)
             {
                 string firstName = author.Cells[0].Value == null ? "" : author.Cells[0].Value.ToString();
                 string name = author.Cells[1].Value == null ? "" : author.Cells[1].Value.ToString();
-                bool? alreadyInDB = (bool?)author.Cells[2].Value;
                 if (firstName != "" & name != "")
                 {
-                    if (alreadyInDB.Value && mAuthorsFromDB.Where(auth => auth.PreName == firstName && auth.Name == name).Count() < 1)
+                    bool alreadyInDB = (bool)author.Cells[2].Value;
+                    bool toDelete = (bool)author.Cells[3].Value;
+                    int authorID = int.Parse(author.Cells[4].Value.ToString());
+                    if (alreadyInDB)
                     {
-                        dgvMsg += $"\r\n\t{author.Cells[0].Value} {author.Cells[1].Value} - ist in DB";
-                    }
-                    else if(!alreadyInDB.Value)
+                        if (mAuthorsFromDB.Where(auth => auth.PreName == firstName && auth.Name == name).Count() < 1 && !toDelete)
+                        {
+                            dgvMsg += $"\r\n\t{author.Cells[0].Value} {author.Cells[1].Value} - ist in DB";
+                            changedAuthors.Add(new AuthorStruct() { PreName = author.Cells[0].Value.ToString(), Name = author.Cells[1].Value.ToString(), AuthorID = authorID, ToDelete = toDelete, AlreadyInDB = alreadyInDB });
+                        }
+                        else if (authorID >= 0)
+                        {
+                            dgvMsg += $"\r\n\t{author.Cells[0].Value} {author.Cells[1].Value} - ist in DB";
+                            dgvMsg += toDelete ? " - wird gelöscht" : "";
+                            changedAuthors.Add(new AuthorStruct() { PreName = author.Cells[0].Value.ToString(), Name = author.Cells[1].Value.ToString(), AuthorID = authorID, ToDelete = toDelete, AlreadyInDB = alreadyInDB });
+                        }
+                    } // if
+                    else if (!alreadyInDB && !toDelete)
                     {
                         dgvMsg += $"\r\n\t{author.Cells[0].Value} {author.Cells[1].Value} - ist nicht in DB";
+                        changedAuthors.Add(new AuthorStruct() { PreName = author.Cells[0].Value.ToString(), Name = author.Cells[1].Value.ToString(), AuthorID = authorID, ToDelete = toDelete, AlreadyInDB = alreadyInDB });
                     }
-
-                    changedAuthors.Add(new ISBNWorker.DBAuthorStruct() { PreName = author.Cells[0].Value.ToString(), Name = author.Cells[1].Value.ToString() , AuthorID = -1});
                 } // if
             } // foreach
             if (dgvMsg != "")
             {
                 string oldAuthors = "";
-                foreach(ISBNWorker.DBAuthorStruct author in mAuthorsFromDB)
+                foreach (ISBNWorker.DBAuthorStruct author in mAuthorsFromDB)
                 {
                     oldAuthors += $"\r\n\t{author.PreName} {author.Name}";
                 }
@@ -261,7 +296,7 @@ namespace ISBNCaller_GUI.Correction
                 msg += "\r\n\r\nEs wurden alle Autor_innen entfernt";
             }
 
-            changedItemsStruct.Author = changedAuthors;
+            changedItemsStruct.Authors = changedAuthors;
             changedItemsStruct.Book = dbBookStruct;
             if (msg != "")
             {
@@ -280,38 +315,39 @@ namespace ISBNCaller_GUI.Correction
             string cmd = "";
             List<string> bookParameters = new List<string>();
             bool bookChanged = false;
+            #region Book
             // Title
-            if(changedItemsStruct.Book.Title != null)
+            if (changedItemsStruct.Book.Title != null)
             {
                 bookChanged = true;
                 bookParameters.Add($"Title='{changedItemsStruct.Book.Title}'");
             }
             // SubTitle
-            if(changedItemsStruct.Book.SubTitle != null)
+            if (changedItemsStruct.Book.SubTitle != null)
             {
                 bookChanged = true;
                 bookParameters.Add($"SubTitle='{changedItemsStruct.Book.SubTitle}'");
             }
             // PublishingDate
-            if(changedItemsStruct.Book.PublishingDate != null)
+            if (changedItemsStruct.Book.PublishingDate != null)
             {
                 bookChanged = true;
                 bookParameters.Add($"PublishingDate='{changedItemsStruct.Book.PublishingDate}'");
             }
             // Format
-            if(changedItemsStruct.Book.Format != null)
+            if (changedItemsStruct.Book.Format != null)
             {
                 bookChanged = true;
                 bookParameters.Add($"Format='{changedItemsStruct.Book.Format}'");
             }
             // ISBN10
-            if(changedItemsStruct.Book.ISBN10 != null)
+            if (changedItemsStruct.Book.ISBN10 != null)
             {
                 bookChanged = true;
                 bookParameters.Add($"ISBN10='{changedItemsStruct.Book.ISBN10}'");
             }
             // ISBN13
-            if(changedItemsStruct.Book.ISBN13 != null)
+            if (changedItemsStruct.Book.ISBN13 != null)
             {
                 bookChanged = true;
                 bookParameters.Add($"ISBN13='{changedItemsStruct.Book.ISBN13}'");
@@ -322,10 +358,71 @@ namespace ISBNCaller_GUI.Correction
                 string bookCmd = $"UPDATE Books SET {String.Join(", ", bookParameters)} WHERE BookID={mToCorrect.BookID};";
                 cmd += bookCmd;
             }
+            #endregion
+
             // Authors
-            //mAuthorsFromDB;
+            bool authorsChanged = false;
+            List<string> changedAuthorsParameters = new List<string>();
+            List<string> deletedAuthorsParameters = new List<string>();
+            List<string> newAuthorsParameters = new List<string>();
+            List<string> newAuthorsAlreadyInDBParameters = new List<string>();
+            foreach (AuthorStruct author in changedItemsStruct.Authors)
+            {
+                // Authors deleted
+                if (author.ToDelete)
+                {
+                    if (author.AlreadyInDB && author.AuthorID >= 0)
+                    {
+                        authorsChanged = true;
+                        deletedAuthorsParameters.Add(author.AuthorID.ToString());
+                    }
+                } // if
+                // Authors added (not in DB)
+                else if (!author.AlreadyInDB)
+                {
+                    authorsChanged = true;
+                    newAuthorsParameters.Add($"{author.PreName}, {author.Name}");
+                }
+                // Authors added (in DB)
+                else if (author.AuthorID == -1)
+                {
+                    authorsChanged = true;
+                    newAuthorsAlreadyInDBParameters.Add($"Prename='{author.PreName}' AND Name='{author.Name}'");
+                }
+                // Authors changed
+                else if (mAuthorsFromDB.Where(auth => auth.AuthorID == author.AuthorID && (auth.Name != author.Name || auth.PreName != author.PreName)).Count() > 0)
+                {
+                    authorsChanged = true;
+                    changedAuthorsParameters.Add($"UPDATE Authors SET Prename='{author.PreName}', Name='{author.Name}' WHERE AuthorID={author.AuthorID};");
+                }
+            } // foreach
+
+            if (authorsChanged)
+            {
+                string authorsChangedCmd = String.Join("; ", changedAuthorsParameters);
+                string newAuthorsCmd = "";
+                for (int index = 0; index < newAuthorsParameters.Count; index++)
+                {
+                    newAuthorsCmd += $"DO $$ DECLARE newAuthorID integer; BEGIN INSERT INTO Authors (Prename, Name) VALUES({newAuthorsParameters[index]}) RETURNING AuthorID INTO NewAuthorID; INSERT INTO BookAuthor(BookID, AuthorID) VALUES ({mToCorrect.BookID}, NewAuthorID); END $$;";
+                }
+
+                string newAuthorAlreadyInDBCmd = "";
+                for (int index = 0; index < newAuthorsAlreadyInDBParameters.Count; index++)
+                {
+                    newAuthorAlreadyInDBCmd += $"ExistingAuthorID := SELECT AuthorID FROM Authors WHERE {newAuthorsAlreadyInDBParameters[index]} LIMIT 1; INSERT INTO BookAuthor (BookID, AuthorID) VALUES ({mToCorrect.BookID}, ExistingAuthorID);";
+                }
+
+                string deletedAuthorsCmd = $"DELETE FROM BookAuthor WHERE AuthorID IN({String.Join(", ", deletedAuthorsParameters)}); DELETE FROM Authors WHERE AuthorID IN({String.Join(", ", deletedAuthorsParameters)});";
+
+                cmd += $"{authorsChangedCmd} {newAuthorsCmd} {newAuthorAlreadyInDBCmd} {deletedAuthorsCmd}";
+            }
+
             // Series
             // NoInSeries
+
+
+
+
 
             return cmd;
         }
@@ -380,6 +477,19 @@ namespace ISBNCaller_GUI.Correction
             {
                 mTxtBoxNoInSeries.Enabled = true;
             }
+        }
+
+        internal void DGVAuthors_RowAdded(int rowIndex)
+        {
+            DataGridViewRow dgvRow = mDGVAuthors.Rows[rowIndex];
+            if (dgvRow.Cells.Count == 5)
+            {
+                dgvRow.Cells[2] = new DataGridViewCheckBoxCell();
+                dgvRow.Cells[2].Value = false;
+                dgvRow.Cells[3] = new DataGridViewCheckBoxCell();
+                dgvRow.Cells[3].Value = false;
+                dgvRow.Cells[4].Value = "-1";
+            } // if
         }
 
         #endregion

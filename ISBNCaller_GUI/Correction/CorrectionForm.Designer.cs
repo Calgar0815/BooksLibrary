@@ -206,6 +206,7 @@
             // 
             // CorrectionForm_dgvAuthors
             // 
+            CorrectionForm_dgvAuthors.AllowUserToDeleteRows = false;
             CorrectionForm_dgvAuthors.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             CorrectionForm_dgvAuthors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             CorrectionForm_dgvAuthors.Location = new System.Drawing.Point(121, 244);
@@ -213,6 +214,7 @@
             CorrectionForm_dgvAuthors.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             CorrectionForm_dgvAuthors.Size = new System.Drawing.Size(667, 165);
             CorrectionForm_dgvAuthors.TabIndex = 17;
+            CorrectionForm_dgvAuthors.RowsAdded += CorrectionForm_dgvAuthors_RowsAdded;
             // 
             // CorrectionForm_btnCalculateISBN13
             // 
