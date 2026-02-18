@@ -7,9 +7,9 @@ namespace ISBNCaller_Lib
     public class DBReader
     {
 #if DEBUG
-        private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB_Test";
+        private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB_Test;Port=5432";
 #else
-        private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
+        private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB;Port=5432";
 #endif
 
         #region Search
