@@ -262,7 +262,7 @@ namespace ISBNCaller_Lib
 
         public ISBNWorker.DBBookStruct GetBookByBookID(int bookID)
         {
-            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE BookID={bookID}";
+            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE BookID={bookID} AND Deleted <> TRUE";
             List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
             if (books.Count > 0)
             {
@@ -274,7 +274,7 @@ namespace ISBNCaller_Lib
 
         public List<ISBNWorker.DBBookStruct> GetBookByBookIDs(List<int> bookIDs)
         {
-            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE BookID IN ({string.Join(",", bookIDs)})";
+            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE BookID IN ({string.Join(",", bookIDs)}) AND Deleted <> TRUE";
             List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
 
             return books;
@@ -282,7 +282,7 @@ namespace ISBNCaller_Lib
 
         public List<ISBNWorker.DBBookStruct> GetBookByTitle(string title)
         {
-            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE Title='{title}'";
+            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE Title='{title}' AND Deleted <> TRUE";
             List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
 
             return books;
@@ -291,7 +291,7 @@ namespace ISBNCaller_Lib
 
         public ISBNWorker.DBBookStruct GetBookByFormat(string format)
         {
-            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE Format='{format}'";
+            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE Format='{format}' AND Deleted <> TRUE";
             List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
             if (books.Count > 0)
             {
@@ -310,7 +310,7 @@ namespace ISBNCaller_Lib
                 default: throw new Exception($"Eine ISBN mit {isbn.Length.ToString()} Digits ist ungültig.");
             } // switch
 
-            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE {isbn}";
+            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE {isbn} AND Deleted <> TRUE";
             List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
             if (books.Count > 0)
             {
@@ -322,7 +322,7 @@ namespace ISBNCaller_Lib
 
         public List<ISBNWorker.DBBookStruct> GetBookByAuthorID(int authorID)
         {
-            string cmd = $"SELECT b.BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books b INNER JOIN BookAuthor ba ON b.BookID=ba.BookID WHERE AuthorID={authorID}";
+            string cmd = $"SELECT b.BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books b INNER JOIN BookAuthor ba ON b.BookID=ba.BookID WHERE AuthorID={authorID} AND Deleted <> TRUE";
             List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
 
             return books;
