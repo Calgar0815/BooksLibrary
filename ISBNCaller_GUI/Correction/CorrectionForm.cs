@@ -47,6 +47,7 @@ namespace ISBNCaller_GUI.Correction
             mCorrectionFormWorker.mBtnCalculateISBN13 = CorrectionForm_btnCalculateISBN13;
             mCorrectionFormWorker.mBtnCalculateISBN10 = CorrectionForm_btnCalculateISBN10;
             mCorrectionFormWorker.mBtnStartCorrection = CorrectionForm_btnStartCorrection;
+            mCorrectionFormWorker.mBtnDeleteBook = CorrectionForm_btnDeleteBook;
             mCorrectionFormWorker.mBtnClose = CorrectionForm_btnClose;
             mCorrectionFormWorker.PrepareForCorrection(toCorrect);
         }
@@ -84,8 +85,6 @@ namespace ISBNCaller_GUI.Correction
             Close();
         }
 
-        #endregion
-
         private void CorrectionForm_cmbBoxSeries_SelectedIndexChanged(object sender, EventArgs e)
         {
             mCorrectionFormWorker.CmbBoxSeries_SelectedIndexChanged();
@@ -98,5 +97,16 @@ namespace ISBNCaller_GUI.Correction
 
             mCorrectionFormWorker.DGVAuthors_RowAdded(e.RowIndex - 1);
         }
+
+        private void CorrectionForm_btnDeleteBook_Click(object sender, EventArgs e)
+        {
+            DialogResult result = mCorrectionFormWorker.btnDeleteBook_Click();
+            if(result == DialogResult.OK)
+            {
+                Close();
+            }
+        }
+
+        #endregion
     }
 }

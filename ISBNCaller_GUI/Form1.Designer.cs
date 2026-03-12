@@ -1370,7 +1370,6 @@ namespace ISBNCaller_GUI
             MinimumSize = new System.Drawing.Size(949, 558);
             Name = "Form1";
             Text = "ISBN Caller";
-            Load += Form1_Load;
             tabControl.ResumeLayout(false);
             tabPageSearch.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)SearchTab_dataGridViewSearch).EndInit();

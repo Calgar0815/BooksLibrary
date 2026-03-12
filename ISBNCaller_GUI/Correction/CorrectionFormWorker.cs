@@ -36,6 +36,7 @@ namespace ISBNCaller_GUI.Correction
         internal Button mBtnCalculateISBN13 { get; set; }
         internal Button mBtnCalculateISBN10 { get; set; }
         internal Button mBtnStartCorrection { get; set; }
+        internal Button mBtnDeleteBook { get; set; }
         internal Button mBtnClose { get; set; }
         private Form1 mForm1 { get; set; }
         private DBReader.SearchStruct mToCorrect { get; set; }
@@ -518,6 +519,27 @@ namespace ISBNCaller_GUI.Correction
                 dgvRow.Cells[3].Value = false;
                 dgvRow.Cells[4].Value = "-1";
             } // if
+        }
+
+        internal DialogResult btnDeleteBook_Click()
+        {
+            DialogResult result = MessageBox.Show("Soll das Buch wirklich aus dem Bestand gelöscht werden?", "Frage", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                DBWriter writer = new DBWriter();
+                bool ok = writer.DeleteBook(mToCorrect.BookID);
+                if (ok)
+                {
+                    MessageBox.Show("Das Buch wurde erfolgreich aus dem Bestand gelöscht.");
+                    return DialogResult.OK;
+                }
+                else
+                {
+                    MessageBox.Show("Das Buch konnte nicht erfolgreich aus dem Bestand gelöscht werden.");
+                }
+            }
+
+            return DialogResult.Cancel;
         }
 
         #endregion

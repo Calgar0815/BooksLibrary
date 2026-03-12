@@ -51,6 +51,7 @@
             CorrectionForm_btnStartCorrection = new System.Windows.Forms.Button();
             CorrectionForm_btnClose = new System.Windows.Forms.Button();
             CorrectionForm_labelCurrentSeries = new System.Windows.Forms.Label();
+            CorrectionForm_btnDeleteBook = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)CorrectionForm_dgvAuthors).BeginInit();
             SuspendLayout();
             // 
@@ -243,7 +244,7 @@
             // CorrectionForm_btnStartCorrection
             // 
             CorrectionForm_btnStartCorrection.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            CorrectionForm_btnStartCorrection.Location = new System.Drawing.Point(612, 415);
+            CorrectionForm_btnStartCorrection.Location = new System.Drawing.Point(521, 415);
             CorrectionForm_btnStartCorrection.Name = "CorrectionForm_btnStartCorrection";
             CorrectionForm_btnStartCorrection.Size = new System.Drawing.Size(85, 23);
             CorrectionForm_btnStartCorrection.TabIndex = 20;
@@ -272,11 +273,23 @@
             CorrectionForm_labelCurrentSeries.TabIndex = 22;
             CorrectionForm_labelCurrentSeries.Text = "label1";
             // 
+            // CorrectionForm_btnDeleteBook
+            // 
+            CorrectionForm_btnDeleteBook.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            CorrectionForm_btnDeleteBook.Location = new System.Drawing.Point(612, 415);
+            CorrectionForm_btnDeleteBook.Name = "CorrectionForm_btnDeleteBook";
+            CorrectionForm_btnDeleteBook.Size = new System.Drawing.Size(85, 23);
+            CorrectionForm_btnDeleteBook.TabIndex = 23;
+            CorrectionForm_btnDeleteBook.Text = "Löschen";
+            CorrectionForm_btnDeleteBook.UseVisualStyleBackColor = true;
+            CorrectionForm_btnDeleteBook.Click += CorrectionForm_btnDeleteBook_Click;
+            // 
             // CorrectionForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(800, 450);
+            Controls.Add(CorrectionForm_btnDeleteBook);
             Controls.Add(CorrectionForm_labelCurrentSeries);
             Controls.Add(CorrectionForm_btnClose);
             Controls.Add(CorrectionForm_btnStartCorrection);
@@ -332,5 +345,6 @@
         private System.Windows.Forms.Button CorrectionForm_btnStartCorrection;
         private System.Windows.Forms.Button CorrectionForm_btnClose;
         private System.Windows.Forms.Label CorrectionForm_labelCurrentSeries;
+        private System.Windows.Forms.Button CorrectionForm_btnDeleteBook;
     }
 }

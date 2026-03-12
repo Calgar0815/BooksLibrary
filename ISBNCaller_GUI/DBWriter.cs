@@ -110,6 +110,14 @@ namespace ISBNCaller_Lib
             return ok;
         }
 
+        internal bool DeleteBook(int bookID)
+        {
+            string cmd = $"UPDATE Books SET Deleted = True WHERE BookID = {bookID}";
+            bool ok = WriteToDB(cmd);
+
+            return ok;
+        }
+
         #endregion
         #region BookAuthor
 
