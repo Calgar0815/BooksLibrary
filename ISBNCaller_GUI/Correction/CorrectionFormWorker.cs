@@ -440,7 +440,7 @@ namespace ISBNCaller_GUI.Correction
                     newAuthorAlreadyInDBCmd += $"ExistingAuthorID := SELECT AuthorID FROM Authors WHERE {newAuthorsAlreadyInDBParameters[index]} LIMIT 1; INSERT INTO BookAuthor (BookID, AuthorID) VALUES ({mToCorrect.BookID}, ExistingAuthorID);";
                 }
 
-                string deletedAuthorsCmd = $"DELETE FROM BookAuthor WHERE AuthorID IN({String.Join(", ", deletedAuthorsParameters)}); DELETE FROM Authors WHERE AuthorID IN({String.Join(", ", deletedAuthorsParameters)});";
+                string deletedAuthorsCmd = $"UPDATE Authors SET Deleted = true WHERE AuthorID IN({String.Join(", ", deletedAuthorsParameters)});";
 
                 cmd += $"{authorsChangedCmd} {newAuthorsCmd} {newAuthorAlreadyInDBCmd} {deletedAuthorsCmd}";
             }

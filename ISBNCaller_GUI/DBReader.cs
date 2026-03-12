@@ -21,13 +21,18 @@ namespace ISBNCaller_Lib
             public string SubTitle;
             public string Series;
             public string NoInSeries;
-            public string AuthorPreName;
-            public string AuthorSurName;
+            public List<AuthorSearchStruct> AuthorSearchStructs;
             public string PublishingDate;
             public string Format;
             public string ISBN13;
             public string ISBN10;
             public bool IsLent;
+        }
+
+        public struct AuthorSearchStruct
+        {
+            public string AuthorPreName;
+            public string AuthorSurName;
         }
 
         public List<SearchStruct> GetSearched(string cmd)
@@ -110,8 +115,11 @@ namespace ISBNCaller_Lib
             search.SubTitle = reader.IsDBNull(1) ? "" : reader.GetFieldValue<string>(1);
             search.NoInSeries = reader.IsDBNull(2) ? "" : reader.GetFieldValue<int>(2).ToString();
             search.Series = reader.IsDBNull(3) ? "" : reader.GetFieldValue<string>(3);
-            search.AuthorPreName = reader.IsDBNull(4) ? "" : reader.GetFieldValue<string>(4);
-            search.AuthorSurName = reader.IsDBNull(5) ? "" : reader.GetFieldValue<string>(5);
+            AuthorSearchStruct authorSearchStruct = new AuthorSearchStruct();
+            authorSearchStruct.AuthorPreName = reader.IsDBNull(4) ? "" : reader.GetFieldValue<string>(4);
+            authorSearchStruct.AuthorSurName = reader.IsDBNull(5) ? "" : reader.GetFieldValue<string>(5);
+            search.AuthorSearchStructs = new List<AuthorSearchStruct>();
+            search.AuthorSearchStructs.Add(authorSearchStruct);
             search.PublishingDate = reader.IsDBNull(6) ? "" : reader.GetFieldValue<string>(6);
             search.Format = reader.IsDBNull(7) ? "" : reader.GetFieldValue<string>(7);
             search.ISBN10 = reader.IsDBNull(8) ? "" : reader.GetFieldValue<string>(8);
@@ -127,7 +135,7 @@ namespace ISBNCaller_Lib
 
         public ISBNWorker.DBAuthorStruct GetAuthor(int authorID)
         {
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE AuthorID={authorID}";
+            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE AuthorID={authorID} AND Deleted <> TRUE";
             List<ISBNWorker.DBAuthorStruct> author = ReadDBAuthor(cmd);
             if (author.Count > 0)
             {
@@ -139,7 +147,7 @@ namespace ISBNCaller_Lib
 
         public ISBNWorker.DBAuthorStruct GetAuthorByName(string name)
         {
-            string cmd = $"SELECT DISTINCT AuthorID, PreName, Name FROM Authors WHERE Name='{name}'";
+            string cmd = $"SELECT DISTINCT AuthorID, PreName, Name FROM Authors WHERE Name='{name}' AND Deleted <> TRUE";
             List<ISBNWorker.DBAuthorStruct> author = ReadDBAuthor(cmd);
             if (author.Count > 0)
             {
@@ -151,7 +159,7 @@ namespace ISBNCaller_Lib
 
         public ISBNWorker.DBAuthorStruct GetAuthorByPreName(string name)
         {
-            string cmd = $"SELECT DISTINCT AuthorID, PreName, Name FROM Authors WHERE PreName='{name}'";
+            string cmd = $"SELECT DISTINCT AuthorID, PreName, Name FROM Authors WHERE PreName='{name}' AND Deleted <> TRUE";
             List<ISBNWorker.DBAuthorStruct> author = ReadDBAuthor(cmd);
             if (author.Count > 0)
             {
@@ -163,7 +171,7 @@ namespace ISBNCaller_Lib
 
         public ISBNWorker.DBAuthorStruct GetAuthor(string preName, string name)
         {
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE Name='{name}' AND PreName='{preName}'";
+            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE Name='{name}' AND PreName='{preName}' AND Deleted <> TRUE";
             List<ISBNWorker.DBAuthorStruct> author = ReadDBAuthor(cmd);
             if (author.Count > 0)
             {
@@ -175,7 +183,7 @@ namespace ISBNCaller_Lib
 
         public List<ISBNWorker.DBAuthorStruct> GetAuthors(List<int> authorIDs)
         {
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE AuthorID IN ({string.Join(",", authorIDs)})";
+            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE AuthorID IN ({string.Join(",", authorIDs)}) AND Deleted <> TRUE";
             List<ISBNWorker.DBAuthorStruct> authors = ReadDBAuthor(cmd);
 
             return authors;
@@ -183,7 +191,7 @@ namespace ISBNCaller_Lib
 
         public List<ISBNWorker.DBAuthorStruct> GetAuthors(List<string> names)
         {
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE Name IN ('{string.Join("','", names)}')";
+            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE Name IN ('{string.Join("','", names)}') AND Deleted <> TRUE";
             List<ISBNWorker.DBAuthorStruct> authors = ReadDBAuthor(cmd);
 
             return authors;
@@ -204,7 +212,7 @@ namespace ISBNCaller_Lib
                 }
             }
 
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE {string.Join(" OR ", names)}";
+            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE {string.Join(" OR ", names)} AND Deleted <> TRUE";
             List<ISBNWorker.DBAuthorStruct> authors = ReadDBAuthor(cmd);
 
             return authors;
@@ -212,7 +220,7 @@ namespace ISBNCaller_Lib
 
         public List<ISBNWorker.DBAuthorStruct> GetAuthorsByBookID(int bookID)
         {
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE AuthorID IN (SELECT AuthorID FROM BookAuthor WHERE BookID = {bookID} ORDER BY AuthorID ASC);";
+            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE AuthorID IN (SELECT AuthorID FROM BookAuthor WHERE BookID = {bookID} ORDER BY AuthorID ASC) AND Deleted <> TRUE;";
             List<ISBNWorker.DBAuthorStruct> authors = ReadDBAuthor(cmd);
 
             return authors;

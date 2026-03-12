@@ -166,11 +166,15 @@ namespace ISBNCaller_GUI
                 whereClause += whereClause == "" ? $"{string.Join(" AND", wheres2)}" : $" AND {string.Join(" AND", wheres2)}";
             }
 
+            List<string> whereClauses = new List<string>();
             if (whereClause != "")
             {
-                whereClause = $"WHERE {whereClause}";
+                whereClauses.Add(whereClause);
             }
 
+            whereClauses.Add("b.Deleted <> TRUE AND a.Deleted <> TRUE");
+            whereClause = $"WHERE {string.Join(" AND ", whereClauses)}";
+            
             string cmd = $"SELECT b.Title, b.SubTitle, bs.NoInSeries, s.Name, a.PreName, a.Name, b.PublishingDate, b.Format, b.ISBN10, b.ISBN13, l.Active, b.BookID " +
                 $"FROM Books b " +
                 $"LEFT JOIN BookAuthor ba ON b.BookID = ba.BookID " +
@@ -250,7 +254,7 @@ namespace ISBNCaller_GUI
             dgvCellNoInSeries.Value = searched.NoInSeries;
             dgvRow.Cells.Add(dgvCellNoInSeries);
             DataGridViewCell dgvCellAuthor = new DataGridViewTextBoxCell();
-            dgvCellAuthor.Value = $"{searched.AuthorPreName} {searched.AuthorSurName}";
+            dgvCellAuthor.Value = $"{searched.AuthorSearchStructs[0].AuthorPreName} {searched.AuthorSearchStructs[0].AuthorSurName}";
             dgvRow.Cells.Add(dgvCellAuthor);
             DataGridViewCell dgvCellPublishingDate = new DataGridViewTextBoxCell();
             dgvCellPublishingDate.Value = searched.PublishingDate;
