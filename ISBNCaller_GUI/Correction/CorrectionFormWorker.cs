@@ -249,57 +249,63 @@ namespace ISBNCaller_GUI.Correction
                 msg += $"\r\nISBN 13:\r\n\t{mToCorrect.ISBN13}\r\n\t{newText}";
             } // if
             // Authors
+            bool needsToBeChanged = HaveAuthorsChanged();
             List<AuthorStruct> changedAuthors = new List<AuthorStruct>();
-            string dgvMsg = "";
-            foreach (DataGridViewRow author in mDGVAuthors.Rows)
+            if (needsToBeChanged)
             {
-                string firstName = author.Cells[0].Value == null ? "" : author.Cells[0].Value.ToString();
-                string name = author.Cells[1].Value == null ? "" : author.Cells[1].Value.ToString();
-                if (firstName != "" & name != "")
+                string dgvMsg = "";
+                foreach (DataGridViewRow author in mDGVAuthors.Rows)
                 {
-                    bool alreadyInDB = (bool)author.Cells[2].Value;
-                    bool toDelete = (bool)author.Cells[3].Value;
-                    int authorID = int.Parse(author.Cells[4].Value.ToString());
-                    if (alreadyInDB)
+                    string firstName = author.Cells[0].Value == null ? "" : author.Cells[0].Value.ToString();
+                    string name = author.Cells[1].Value == null ? "" : author.Cells[1].Value.ToString();
+                    if (firstName != "" & name != "")
                     {
-                        if (mAuthorsFromDB.Where(auth => auth.PreName == firstName && auth.Name == name).Count() < 1 && !toDelete)
+                        bool alreadyInDB = (bool)author.Cells[2].Value;
+                        bool toDelete = (bool)author.Cells[3].Value;
+                        int authorID = int.Parse(author.Cells[4].Value.ToString());
+                        if (alreadyInDB)
                         {
-                            dgvMsg += $"\r\n\t{author.Cells[0].Value} {author.Cells[1].Value} - ist in DB";
-                            changedAuthors.Add(new AuthorStruct() { PreName = author.Cells[0].Value.ToString(), Name = author.Cells[1].Value.ToString(), AuthorID = authorID, ToDelete = toDelete, AlreadyInDB = alreadyInDB });
-                        }
-                        else if (authorID >= 0)
+                            if (mAuthorsFromDB.Where(auth => auth.PreName == firstName && auth.Name == name).Count() < 1 && !toDelete)
+                            {
+                                dgvMsg += $"\r\n\t{author.Cells[0].Value} {author.Cells[1].Value} - ist in DB";
+                                changedAuthors.Add(new AuthorStruct() { PreName = author.Cells[0].Value.ToString(), Name = author.Cells[1].Value.ToString(), AuthorID = authorID, ToDelete = toDelete, AlreadyInDB = alreadyInDB });
+                            }
+                            else if (authorID >= 0)
+                            {
+                                dgvMsg += $"\r\n\t{author.Cells[0].Value} {author.Cells[1].Value} - ist in DB";
+                                dgvMsg += toDelete ? " - wird gelöscht" : "";
+                                changedAuthors.Add(new AuthorStruct() { PreName = author.Cells[0].Value.ToString(), Name = author.Cells[1].Value.ToString(), AuthorID = authorID, ToDelete = toDelete, AlreadyInDB = alreadyInDB });
+                            }
+                        } // if
+                        else if (!alreadyInDB && !toDelete)
                         {
-                            dgvMsg += $"\r\n\t{author.Cells[0].Value} {author.Cells[1].Value} - ist in DB";
-                            dgvMsg += toDelete ? " - wird gelöscht" : "";
+                            dgvMsg += $"\r\n\t{author.Cells[0].Value} {author.Cells[1].Value} - ist nicht in DB";
                             changedAuthors.Add(new AuthorStruct() { PreName = author.Cells[0].Value.ToString(), Name = author.Cells[1].Value.ToString(), AuthorID = authorID, ToDelete = toDelete, AlreadyInDB = alreadyInDB });
                         }
                     } // if
-                    else if (!alreadyInDB && !toDelete)
-                    {
-                        dgvMsg += $"\r\n\t{author.Cells[0].Value} {author.Cells[1].Value} - ist nicht in DB";
-                        changedAuthors.Add(new AuthorStruct() { PreName = author.Cells[0].Value.ToString(), Name = author.Cells[1].Value.ToString(), AuthorID = authorID, ToDelete = toDelete, AlreadyInDB = alreadyInDB });
-                    }
-                } // if
-            } // foreach
-            if (dgvMsg != "")
-            {
-                string oldAuthors = "";
-                foreach (ISBNWorker.DBAuthorStruct author in mAuthorsFromDB)
+                } // foreach
+                if (dgvMsg != "")
                 {
-                    oldAuthors += $"\r\n\t{author.PreName} {author.Name}";
+                    string oldAuthors = "";
+                    foreach (ISBNWorker.DBAuthorStruct author in mAuthorsFromDB)
+                    {
+                        oldAuthors += $"\r\n\t{author.PreName} {author.Name}";
+                    }
+
+                    msg += $"\r\n\r\nAutor_innen-Liste alt:{oldAuthors}\r\nneu:{dgvMsg}";
+                } // if
+                else if (changedAuthors.Count != mAuthorsFromDB.Count)
+                {
+                    msg += "\r\n\r\nEs wurden alle Autor_innen entfernt";
                 }
-
-                msg += $"\r\n\r\nAutor_innen alt:{oldAuthors}\r\nneu:{dgvMsg}";
             } // if
-            else if (changedAuthors.Count != mAuthorsFromDB.Count)
-            {
-                msg += "\r\n\r\nEs wurden alle Autor_innen entfernt";
-            }
 
-            changedItemsStruct.Authors = changedAuthors;
-            changedItemsStruct.Book = dbBookStruct;
+
+
             if (msg != "")
             {
+                changedItemsStruct.Authors = changedAuthors;
+                changedItemsStruct.Book = dbBookStruct;
                 ok = DialogResult.Yes == MessageBox.Show($"Sollen folgende Änderungen wirklich vorgenommen werden?\r\n\r\nalt -> neu{msg}", "Frage", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
             else
@@ -308,6 +314,28 @@ namespace ISBNCaller_GUI.Correction
             }
 
             return ok;
+        }
+
+        private bool HaveAuthorsChanged()
+        {
+            bool needsToBeChanged = false;
+            foreach (DataGridViewRow author in mDGVAuthors.Rows)
+            {
+                string firstName = author.Cells[0].Value == null ? "" : author.Cells[0].Value.ToString();
+                string name = author.Cells[1].Value == null ? "" : author.Cells[1].Value.ToString();
+                var res = mAuthorsFromDB.Where(auth => auth.Name == name && auth.PreName == firstName);
+                if (firstName != "" && name != "" && mAuthorsFromDB.Where(auth => auth.Name == name && auth.PreName == firstName).Count() == 0)
+                {
+                    needsToBeChanged = true;
+                }
+
+                if (firstName != "" && name != "" && (bool)author.Cells[3].Value)
+                {
+                    needsToBeChanged = true;
+                }
+            } // foreach
+
+            return needsToBeChanged;
         }
 
         private string CreateUpdateCommand(ChangedItemsStruct changedItemsStruct)
