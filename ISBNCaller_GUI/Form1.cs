@@ -40,7 +40,7 @@ namespace ISBNCaller_GUI
             WriteTab_WorkInProgressLabel.Visible = false;
         }
 
-#endregion
+        #endregion
         #region Overall Settings
 
         enum mLanguagesEnum
@@ -341,7 +341,7 @@ namespace ISBNCaller_GUI
         }
 #endif
 
-#endregion
+        #endregion
         #region WriteTab
 
         WriteTab mWriteTab;
@@ -581,6 +581,9 @@ namespace ISBNCaller_GUI
             mSearchTab.mChkBoxOnlyShowFirstAuthor = SearchTab_chkBoxOnlyShowFirstAuthor;
             mSearchTab.mDataGridViewSearch = SearchTab_dataGridViewSearch;
             mSearchTab.mChkBoxUseDates = SearchTab_chkBoxUseDates;
+            mSearchTab.mBtnClearFields = SearchTab_btnClearFields;
+            mSearchTab.mBtnSearch = SearchTab_btnSearch;
+            mSearchTab.mBtnCorrection = SearchTab_btnCorrection;
             mSearchTab.InitializeDGV();
             mSearchTab.InitializeCmbBoxFormat();
             FillCmbBoxSeries(SearchTab_cmbBoxSeries);
@@ -589,23 +592,83 @@ namespace ISBNCaller_GUI
         private void SearchTab_btnSearch_Click(object sender, EventArgs e)
         {
             mSearchTab.btnSearchClick();
-            SearchTab_btnCorrection.Enabled = true;
             ColorWorker colorWorker = new ColorWorker(mColorMode);
             colorWorker.ChangeDataGridViewColors(SearchTab_dataGridViewSearch);
         }
 
         private void SearchTab_chkBoxUseDates_CheckedChanged(object sender, EventArgs e)
         {
-            if (SearchTab_chkBoxUseDates.Checked)
-            {
-                SearchTab_dtpFrom.Enabled = true;
-                SearchTab_dtpTo.Enabled = true;
-            }
-            else
-            {
-                SearchTab_dtpFrom.Enabled = false;
-                SearchTab_dtpTo.Enabled = false;
-            }
+            mSearchTab.chkBoxUseDatesCheckedChanged();
+        }
+
+        private void SearchTab_btnClearFields_Click(object sender, EventArgs e)
+        {
+            mSearchTab.btnClearFieldsClick();
+        }
+
+        private void SearchTab_DataGridViewSearch_SelectionChanged(object sender, EventArgs e)
+        {
+            mSearchTab.dataGridViewSearchSelectionChanged();
+        }
+
+        private void SearchTab_txtBoxISBN_TextChanged(object sender, EventArgs e)
+        {
+            mSearchTab.txtBoxISBNTextChanged();
+        }
+
+        private void SearchTab_txtBoxTitle_TextChanged(object sender, EventArgs e)
+        {
+            mSearchTab.txtBoxTitleTextChanged();
+        }
+
+        private void SearchTab_txtBoxSubTitle_TextChanged(object sender, EventArgs e)
+        {
+            mSearchTab.txtBoxSubTitleTextChanged();
+        }
+
+        private void SearchTab_txtBoxAuthorPreName_TextChanged(object sender, EventArgs e)
+        {
+            mSearchTab.txtBoxAuthorPreNameTextChanged();
+        }
+
+        private void SearchTab_txtBoxAuthorSurName_TextChanged(object sender, EventArgs e)
+        {
+            mSearchTab.txtBoxAuthorSurNameTextChanged();
+        }
+
+        private void SearchTab_radioBtnWOutSeries_CheckedChanged(object sender, EventArgs e)
+        {
+            mSearchTab.radioBtnWOutSeriesCheckedChanged();
+        }
+
+        private void SearchTab_cmbBoxSeries_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mSearchTab.cmbBoxSeriesSelectedIndexChanged();
+        }
+
+        private void SearchTab_cmbBoxFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mSearchTab.cmbBoxFormatSelectedIndexChanged();
+        }
+
+        private void SearchTab_dtpFrom_ValueChanged(object sender, EventArgs e)
+        {
+            mSearchTab.dtpFromValueChanged();
+        }
+
+        private void SearchTab_dtpTo_ValueChanged(object sender, EventArgs e)
+        {
+            mSearchTab.dtpToValueChanged();
+        }
+
+        private void SearchTab_chkBoxShowLent_CheckedChanged(object sender, EventArgs e)
+        {
+            mSearchTab.chkBoxShowLentCheckedChanged();
+        }
+
+        private void SearchTab_chkBoxOnlyShowFirstAuthor_CheckedChanged(object sender, EventArgs e)
+        {
+            mSearchTab.chkBoxOnlyShowFirstAuthorCheckedChanged();
         }
 
 #if DEBUG || WITHOUTLANGUAGESELECTION_DEBUG
@@ -614,7 +677,7 @@ namespace ISBNCaller_GUI
             mSearchTab.btnCorrectionClick();
         }
 #endif
-#endregion
+        #endregion
 
         #region all
 

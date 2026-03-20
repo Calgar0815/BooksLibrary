@@ -26,6 +26,9 @@ namespace ISBNCaller_GUI
         internal CheckBox mChkBoxOnlyShowFirstAuthor { get; set; }
         internal DataGridView mDataGridViewSearch { get; set; }
         internal CheckBox mChkBoxUseDates { get; set; }
+        internal Button mBtnClearFields { get; set; }
+        internal Button mBtnSearch { get; set; }
+        internal Button mBtnCorrection { get; set; }
         private Form1 mForm1 { get; set; }
         private List<DBReader.SearchStruct> mSearched { get; set; }
 
@@ -91,10 +94,148 @@ namespace ISBNCaller_GUI
 
             Correction correction = new Correction(mForm1, toCorrectList);
             mForm1.Enabled = false;
-            correction.ShowDialog();
+            DialogResult res = correction.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                btnSearchClick();
+            }
+        }
+
+        internal void chkBoxUseDatesCheckedChanged()
+        {
+            if (mChkBoxUseDates.Checked)
+            {
+                mDtpFrom.Enabled = true;
+                mDtpTo.Enabled = true;
+                SetClearFields();
+            } // if
+            else
+            {
+                mDtpFrom.Enabled = false;
+                mDtpTo.Enabled = false;
+                SetClearFields();
+            } // else
+        }
+
+        internal void dataGridViewSearchSelectionChanged()
+        {
+            if(mDataGridViewSearch.SelectedCells.Count > 0)
+            {
+                mBtnCorrection.Enabled = true;
+            }
+            else
+            {
+                mBtnCorrection.Enabled = false;
+            }
+
+            SetClearFields();
+        }
+
+        internal void btnClearFieldsClick()
+        {
+            mTxtBoxISBN.Text = "";
+            mTxtBoxTitle.Text = "";
+            mTxtBoxSubTitle.Text = "";
+            mTxtBoxAuthorPreName.Text = "";
+            mTxtBoxAuthorSurName.Text = "";
+            mCmbBoxSeries.SelectedIndex = 0;
+            mCmbBoxFormat.SelectedIndex = 0;
+            mDtpFrom.Value = DateTime.Now;
+            mDtpTo.Value = DateTime.Now;
+            mChkBoxOnlyShowFirstAuthor.Checked = true;
+            mChkBoxShowLent.Checked = true;
+            mChkBoxUseDates.Checked = false;
+            mRadioBtnWSeries.Checked = true;
+            mDataGridViewSearch.Rows.Clear();
+            mBtnClearFields.Enabled = false;
+        }
+
+        internal void txtBoxISBNTextChanged()
+        {
+            SetClearFields();
+        }
+
+        internal void txtBoxTitleTextChanged()
+        {
+            SetClearFields();
+        }
+
+        internal void txtBoxSubTitleTextChanged()
+        {
+            SetClearFields();
+        }
+
+        internal void txtBoxAuthorPreNameTextChanged()
+        {
+            SetClearFields();
+        }
+
+        internal void txtBoxAuthorSurNameTextChanged()
+        {
+            SetClearFields();
+        }
+
+        internal void radioBtnWOutSeriesCheckedChanged()
+        {
+            SetClearFields();
+        }
+
+        internal void cmbBoxSeriesSelectedIndexChanged()
+        {
+            SetClearFields();
+        }
+
+        internal void cmbBoxFormatSelectedIndexChanged()
+        {
+            SetClearFields();
+        }
+
+        internal void dtpFromValueChanged()
+        {
+            SetClearFields();
+        }
+
+        internal void dtpToValueChanged()
+        {
+            SetClearFields();
+        }
+
+        internal void chkBoxShowLentCheckedChanged()
+        {
+            SetClearFields();
+        }
+
+        internal void chkBoxOnlyShowFirstAuthorCheckedChanged()
+        {
+            SetClearFields();
         }
 
         #endregion
+
+        private void SetClearFields()
+        {
+            if(mTxtBoxISBN.Text != "" ||
+                mTxtBoxTitle.Text != "" ||
+                mTxtBoxSubTitle.Text != "" ||
+                mTxtBoxAuthorPreName.Text != "" ||
+                mTxtBoxAuthorSurName.Text != "" ||
+                mRadioBtnWOutSeries.Checked ||
+                mCmbBoxSeries.Text != "" ||
+                mCmbBoxFormat.Text != "" ||
+                mDtpFrom.Value.Year != DateTime.Now.Year ||
+                mDtpTo.Value.Year != DateTime.Now.Year ||
+                mChkBoxUseDates.Checked == true ||
+                mChkBoxShowLent.Checked == false ||
+                mChkBoxOnlyShowFirstAuthor.Checked == false ||
+                mDataGridViewSearch.SelectedCells.Count > 0)
+            {
+                mBtnClearFields.Enabled = true;
+            }
+            else
+            {
+                mBtnClearFields.Enabled = false;
+            }
+        }
 
         private string CreateSQLCmd()
         {
