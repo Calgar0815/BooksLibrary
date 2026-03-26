@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -18,6 +19,7 @@ namespace ISBNCaller_GUI.Correction
         internal Label mLabelSubTitle { get; set; }
         internal Label mLabelSeries { get; set; }
         internal Label mLabelCurrentSeries { get; set; }
+        internal Label mLabelCurrentSeriesNo { get; set; }
         internal Label mLabelNoInSeries { get; set; }
         internal Label mLabelPublished { get; set; }
         internal Label mLabelFormat { get; set; }
@@ -143,6 +145,7 @@ namespace ISBNCaller_GUI.Correction
                 case CmbBoxEnum.Series:
                     mForm1.FillCmbBoxSeries(cmbBox);
                     mLabelCurrentSeries.Text = $"{cCurrent}{mToCorrect.Series}";
+                    mLabelCurrentSeriesNo.Text = $"{cCurrent}{mToCorrect.NoInSeries}";
                     int seriesIndex = cmbBox.FindString(mToCorrect.Series);
                     cmbBox.SelectedIndex = seriesIndex;
                     break;
@@ -194,18 +197,26 @@ namespace ISBNCaller_GUI.Correction
                 msg += $"\r\nUntertitel:\r\n\t{mToCorrect.SubTitle}\r\n\t{newText}";
             } // if
             // Series
+            if (mCmbBoxSeries.Text != "" && mTxtBoxNoInSeries.Text == "")
+            {
+                MessageBox.Show("Eine Seriennummer muss angegeben werden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return false;
+            }
             if (mToCorrect.Series != mCmbBoxSeries.Text)
             {
                 changedItemsStruct.Series = mCmbBoxSeries.Text;
                 string newText = mCmbBoxSeries.Text != "" ? mCmbBoxSeries.Text : "{ohne}";
-                msg += $"\r\nSeries:\r\n\t{mToCorrect.Series}\r\n\t{newText}";
+                string oldText = mToCorrect.Series == "" ? "{ohne}" : mToCorrect.Series;
+                msg += $"\r\nSeries:\r\n\t{oldText}\r\n\t{newText}";
             } // if
             // NoInSeries
             if (mToCorrect.NoInSeries != mTxtBoxNoInSeries.Text && mTxtBoxNoInSeries.Enabled)
             {
                 string newNumber = mTxtBoxNoInSeries.Text != "" ? mTxtBoxNoInSeries.Text : "0";
                 dbBookStruct.NoInSeries = int.Parse(newNumber);
-                msg += $"\r\nNummer in Serie:\r\n\t{mToCorrect.NoInSeries}\r\n\t{newNumber}";
+                string oldNumber = mToCorrect.NoInSeries == "" ? "{ohne}" : mToCorrect.NoInSeries;
+                msg += $"\r\nNummer in Serie:\r\n\t{oldNumber}\r\n\t{newNumber}";
             } // if
             // PublishingDate
             if (mToCorrect.PublishingDate != mTxtBoxPublished.Text)
@@ -339,6 +350,26 @@ namespace ISBNCaller_GUI.Correction
             return needsToBeChanged;
         }
 
+        private DialogResult WriteCorrectionsToDB(ChangedItemsStruct changedItemsStruct)
+        {
+            // UPDATE-Command bauen
+            string cmd = CreateUpdateCommand(changedItemsStruct);
+            // Via DBWriter.WriteToDB() feuern
+            DBWriter dbWriter = new DBWriter();
+            bool ok = false;// dbWriter.WriteToDB(cmd);
+            if (ok)
+            {
+                MessageBox.Show("Das Buch wurde erfolgreich verändert.");
+                return DialogResult.OK;
+            }
+            else
+            {
+                MessageBox.Show("Das Buch konnte nicht erfolgreich verändert werden.");
+            }
+
+            return DialogResult.Cancel;
+        }
+
         private string CreateUpdateCommand(ChangedItemsStruct changedItemsStruct)
         {
             string cmd = "";
@@ -389,7 +420,7 @@ namespace ISBNCaller_GUI.Correction
             }
             #endregion
 
-            // Authors
+            #region Authors
             bool authorsChanged = false;
             List<string> changedAuthorsParameters = new List<string>();
             List<string> deletedAuthorsParameters = new List<string>();
@@ -445,13 +476,42 @@ namespace ISBNCaller_GUI.Correction
 
                 cmd += $"{authorsChangedCmd} {newAuthorsCmd} {newAuthorAlreadyInDBCmd} {deletedAuthorsCmd}";
             }
+            #endregion
 
-            // Series
-            // NoInSeries
+            #region Series
 
+            string seriesCmd = "";
+            bool seriesChanged = false;
+            if (changedItemsStruct.Book.NoInSeries != 0 && mToCorrect.NoInSeries != "")
+            {
+                seriesCmd += $"UPDATE BookSeries SET NoInSeries={changedItemsStruct.Book.NoInSeries} WHERE BookID={mToCorrect.BookID};";
+                seriesChanged = true;
+            }
 
+            if (changedItemsStruct.Series != null)
+            {
+                if (changedItemsStruct.Series == "")
+                {
+                    seriesCmd += $"DELETE FROM BookSeries WHERE BookID={mToCorrect.BookID} AND SeriesID=(SELECT SeriesID FROM Series WHERE Name='{mToCorrect.Series}');";
+                }
+                else if (mToCorrect.Series != "")
+                {
+                    seriesCmd += $"UPDATE BookSeries SET SeriesID=(SELECT SeriesID FROM Series WHERE Name='{changedItemsStruct.Series}') WHERE BookID={mToCorrect.BookID};";
+                }
+                else if (mToCorrect.Series == "")
+                {
+                    seriesCmd += $"INSERT INTO BookSeries (BookID, SeriesID, NoInSeries) VALUES ({mToCorrect.BookID}, (SELECT SeriesID FROM Series WHERE Name='{changedItemsStruct.Series}'), {changedItemsStruct.Book.NoInSeries});";
+                }
 
+                seriesChanged = true;
+            } // if
 
+            if (seriesChanged)
+            {
+                cmd += seriesCmd;
+            }
+
+            #endregion
 
             return cmd;
         }
@@ -465,25 +525,23 @@ namespace ISBNCaller_GUI.Correction
             mTxtBoxISBN10.Text = CalculateISBN(10, isbn13);
         }
 
-        internal void BtnCalculateISBN13_OnCLick()
+        internal void BtnCalculateISBN13_OnClick()
         {
             string isbn10 = mTxtBoxISBN10.Text;
             mTxtBoxISBN13.Text = CalculateISBN(13, isbn10);
         }
 
-        internal void BtnStartCorrection_OnClick(object sender, EventArgs e)
+        internal DialogResult BtnStartCorrection_OnClick()
         {
             ChangedItemsStruct changedItemsStruct;
             bool ok = CheckForChanges(out changedItemsStruct);
             if (ok)
             {
-                string cmd = CreateUpdateCommand(changedItemsStruct);
-                // WriteCorrectionsToDB()
-                // UPDATE-Command bauen
-                // Via DBWriter.WriteToDB() feuern
-                // MessageBox.Show(Erfolg");
-                // Close();
+                DialogResult res = WriteCorrectionsToDB(changedItemsStruct);
+                return res;
             }
+
+            return DialogResult.Cancel;
         }
 
         internal void TxtBoxISBN10_TextChanged()
@@ -521,7 +579,7 @@ namespace ISBNCaller_GUI.Correction
             } // if
         }
 
-        internal DialogResult btnDeleteBook_Click()
+        internal DialogResult BtnDeleteBook_OnClick()
         {
             DialogResult result = MessageBox.Show("Soll das Buch wirklich aus dem Bestand gelöscht werden?", "Frage", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)

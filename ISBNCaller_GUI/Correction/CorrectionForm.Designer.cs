@@ -52,6 +52,7 @@
             CorrectionForm_btnClose = new System.Windows.Forms.Button();
             CorrectionForm_labelCurrentSeries = new System.Windows.Forms.Label();
             CorrectionForm_btnDeleteBook = new System.Windows.Forms.Button();
+            CorrectionForm_labelCurrentSeriesNo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)CorrectionForm_dgvAuthors).BeginInit();
             SuspendLayout();
             // 
@@ -167,7 +168,7 @@
             CorrectionForm_txtBoxNoInSeries.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             CorrectionForm_txtBoxNoInSeries.Location = new System.Drawing.Point(121, 99);
             CorrectionForm_txtBoxNoInSeries.Name = "CorrectionForm_txtBoxNoInSeries";
-            CorrectionForm_txtBoxNoInSeries.Size = new System.Drawing.Size(667, 23);
+            CorrectionForm_txtBoxNoInSeries.Size = new System.Drawing.Size(371, 23);
             CorrectionForm_txtBoxNoInSeries.TabIndex = 12;
             // 
             // CorrectionForm_txtBoxPublished
@@ -213,7 +214,7 @@
             CorrectionForm_dgvAuthors.Location = new System.Drawing.Point(121, 244);
             CorrectionForm_dgvAuthors.Name = "CorrectionForm_dgvAuthors";
             CorrectionForm_dgvAuthors.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            CorrectionForm_dgvAuthors.Size = new System.Drawing.Size(667, 165);
+            CorrectionForm_dgvAuthors.Size = new System.Drawing.Size(667, 148);
             CorrectionForm_dgvAuthors.TabIndex = 17;
             CorrectionForm_dgvAuthors.RowsAdded += CorrectionForm_dgvAuthors_RowsAdded;
             // 
@@ -244,22 +245,22 @@
             // CorrectionForm_btnStartCorrection
             // 
             CorrectionForm_btnStartCorrection.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            CorrectionForm_btnStartCorrection.Location = new System.Drawing.Point(521, 415);
+            CorrectionForm_btnStartCorrection.Location = new System.Drawing.Point(521, 398);
             CorrectionForm_btnStartCorrection.Name = "CorrectionForm_btnStartCorrection";
-            CorrectionForm_btnStartCorrection.Size = new System.Drawing.Size(85, 23);
+            CorrectionForm_btnStartCorrection.Size = new System.Drawing.Size(85, 40);
             CorrectionForm_btnStartCorrection.TabIndex = 20;
-            CorrectionForm_btnStartCorrection.Text = "Korrigieren";
+            CorrectionForm_btnStartCorrection.Text = "Buch Korrigieren";
             CorrectionForm_btnStartCorrection.UseVisualStyleBackColor = true;
             CorrectionForm_btnStartCorrection.Click += CorrectionForm_btnStartCorrection_OnClick;
             // 
             // CorrectionForm_btnClose
             // 
             CorrectionForm_btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            CorrectionForm_btnClose.Location = new System.Drawing.Point(703, 415);
+            CorrectionForm_btnClose.Location = new System.Drawing.Point(703, 398);
             CorrectionForm_btnClose.Name = "CorrectionForm_btnClose";
-            CorrectionForm_btnClose.Size = new System.Drawing.Size(85, 23);
+            CorrectionForm_btnClose.Size = new System.Drawing.Size(85, 40);
             CorrectionForm_btnClose.TabIndex = 21;
-            CorrectionForm_btnClose.Text = "Schließen";
+            CorrectionForm_btnClose.Text = "Ansicht Schließen";
             CorrectionForm_btnClose.UseVisualStyleBackColor = true;
             CorrectionForm_btnClose.Click += CorrectionForm_btnClose_OnClick;
             // 
@@ -276,19 +277,30 @@
             // CorrectionForm_btnDeleteBook
             // 
             CorrectionForm_btnDeleteBook.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            CorrectionForm_btnDeleteBook.Location = new System.Drawing.Point(612, 415);
+            CorrectionForm_btnDeleteBook.Location = new System.Drawing.Point(612, 398);
             CorrectionForm_btnDeleteBook.Name = "CorrectionForm_btnDeleteBook";
-            CorrectionForm_btnDeleteBook.Size = new System.Drawing.Size(85, 23);
+            CorrectionForm_btnDeleteBook.Size = new System.Drawing.Size(85, 40);
             CorrectionForm_btnDeleteBook.TabIndex = 23;
-            CorrectionForm_btnDeleteBook.Text = "Löschen";
+            CorrectionForm_btnDeleteBook.Text = "Buch Löschen";
             CorrectionForm_btnDeleteBook.UseVisualStyleBackColor = true;
             CorrectionForm_btnDeleteBook.Click += CorrectionForm_btnDeleteBook_Click;
+            // 
+            // CorrectionForm_labelCurrentSeriesNo
+            // 
+            CorrectionForm_labelCurrentSeriesNo.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            CorrectionForm_labelCurrentSeriesNo.AutoSize = true;
+            CorrectionForm_labelCurrentSeriesNo.Location = new System.Drawing.Point(498, 102);
+            CorrectionForm_labelCurrentSeriesNo.Name = "CorrectionForm_labelCurrentSeriesNo";
+            CorrectionForm_labelCurrentSeriesNo.Size = new System.Drawing.Size(38, 15);
+            CorrectionForm_labelCurrentSeriesNo.TabIndex = 24;
+            CorrectionForm_labelCurrentSeriesNo.Text = "label1";
             // 
             // CorrectionForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(800, 450);
+            Controls.Add(CorrectionForm_labelCurrentSeriesNo);
             Controls.Add(CorrectionForm_btnDeleteBook);
             Controls.Add(CorrectionForm_labelCurrentSeries);
             Controls.Add(CorrectionForm_btnClose);
@@ -346,5 +358,6 @@
         private System.Windows.Forms.Button CorrectionForm_btnClose;
         private System.Windows.Forms.Label CorrectionForm_labelCurrentSeries;
         private System.Windows.Forms.Button CorrectionForm_btnDeleteBook;
+        private System.Windows.Forms.Label CorrectionForm_labelCurrentSeriesNo;
     }
 }

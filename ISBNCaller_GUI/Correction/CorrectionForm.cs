@@ -29,6 +29,7 @@ namespace ISBNCaller_GUI.Correction
             mCorrectionFormWorker.mLabelSubTitle = CorrectionForm_labelSubTitle;
             mCorrectionFormWorker.mLabelSeries = CorrectionForm_labelSeries;
             mCorrectionFormWorker.mLabelCurrentSeries = CorrectionForm_labelCurrentSeries;
+            mCorrectionFormWorker.mLabelCurrentSeriesNo = CorrectionForm_labelCurrentSeriesNo;
             mCorrectionFormWorker.mLabelNoInSeries = CorrectionForm_labelNoInSeries;
             mCorrectionFormWorker.mLabelPublished = CorrectionForm_labelPublished;
             mCorrectionFormWorker.mLabelFormat = CorrectionForm_labelFormat;
@@ -57,7 +58,7 @@ namespace ISBNCaller_GUI.Correction
 
         private void CorrectionForm_btnCalculateISBN13_OnClick(object sender, EventArgs e)
         {
-            mCorrectionFormWorker.BtnCalculateISBN13_OnCLick();
+            mCorrectionFormWorker.BtnCalculateISBN13_OnClick();
         }
 
         private void CorrectionForm_btnCalculateISBN10_OnClick(object sender, EventArgs e)
@@ -67,7 +68,11 @@ namespace ISBNCaller_GUI.Correction
 
         private void CorrectionForm_btnStartCorrection_OnClick(object sender, EventArgs e)
         {
-            mCorrectionFormWorker.BtnStartCorrection_OnClick(sender, e);
+            DialogResult result = mCorrectionFormWorker.BtnStartCorrection_OnClick();
+            if (result == DialogResult.OK)
+            {
+                Close();
+            }
         }
 
         private void CorrectionForm_txtBoxISBN13_TextChanged(object sender, EventArgs e)
@@ -100,7 +105,7 @@ namespace ISBNCaller_GUI.Correction
 
         private void CorrectionForm_btnDeleteBook_Click(object sender, EventArgs e)
         {
-            DialogResult result = mCorrectionFormWorker.btnDeleteBook_Click();
+            DialogResult result = mCorrectionFormWorker.BtnDeleteBook_OnClick();
             if(result == DialogResult.OK)
             {
                 Close();
