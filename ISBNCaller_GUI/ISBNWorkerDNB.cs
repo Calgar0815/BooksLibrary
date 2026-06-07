@@ -191,7 +191,7 @@ namespace ISBNCaller_Lib
 
         private string ReplaceEncodingErrors(string word)
         {
-            List<string> errorCases = new List<string>() { "AÌˆ", "aÌˆ", "OÌˆ", "oÌˆ", "UÌˆ", "uÌˆ" };
+            List<string> errorCases = new List<string>() { "AÌˆ", "aÌˆ", "OÌˆ", "oÌˆ", "UÌˆ", "uÌˆ", "eÌ€" };
             if (word == "" | !errorCases.Any(substring => word.Contains(substring)))
                 return word;
 
@@ -228,6 +228,11 @@ namespace ISBNCaller_Lib
             if(word.Contains("ÃŸ"))
             {
                 word = word.Replace("ÃŸ", "ß");
+            }
+
+            if(word.Contains("eÌ€"))
+            {
+                word = word.Replace("eÌ€", "è");
             }
 
             return word;
