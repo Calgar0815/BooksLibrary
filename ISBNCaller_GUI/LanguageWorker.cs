@@ -155,6 +155,7 @@ namespace ISBNCaller_GUI
             "\r\n\t<WriteTab_Book_labelMaxNo>\r\n\t\t<de>Max No.:</de>\r\n\t\t<en>Max no:</en>\r\n\t</WriteTab_Book_labelMaxNo>" +
             "\r\n\t<WriteTab_Book_chkBoxIsNewSeries>\r\n\t\t<de>Neue Serie</de>\r\n\t\t<en>New series</en>\r\n\t</WriteTab_Book_chkBoxIsNewSeries>" +
             "\r\n\t<WriteTab_btnOK>\r\n\t\t<de>Suchen</de>\r\n\t\t<en>Search</en>\r\n\t</WriteTab_btnOK>" +
+            "\r\n\t<WriteTab_btnWriteToDB>\r\n\t\t<de>Eintragen</de>\r\n\t\t<en>Save</en>\r\n\t</WriteTab_btnWriteToDB>" +
             "\r\n\t<WriteTab_btnCancel>\r\n\t\t<de>Abbrechen</de>\r\n\t\t<en>Cancel</en>\r\n\t</WriteTab_btnCancel>" +
             "\r\n\t<WriteTab_groupBoxAuthor>\r\n\t\t<de>Autor_in</de>\r\n\t\t<en>Author</en>\r\n\t</WriteTab_groupBoxAuthor>" +
             "\r\n\t<WriteTab_Author_dataGridViewAuthor_Col0>\r\n\t\t<de>Vorname</de>\r\n\t\t<en>Name</en>\r\n\t</WriteTab_Author_dataGridViewAuthor_Col0>" +

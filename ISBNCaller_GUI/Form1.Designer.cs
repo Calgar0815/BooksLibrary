@@ -66,6 +66,7 @@ namespace ISBNCaller_GUI
             WriteTab_WorkInProgressLabel = new Label();
             WriteTab_txtBoxISBN_1 = new TextBox();
             WriteTab_groupBoxAuthor = new GroupBox();
+            WriteTab_btnWriteToDB = new Button();
             WriteTab_Author_dataGridViewAuthor = new DataGridView();
             WriteTab_btnRegisterWOutISBN = new Button();
             WriteTab_groupBoxBook = new GroupBox();
@@ -156,7 +157,7 @@ namespace ISBNCaller_GUI
             // WriteTab_btnOK
             // 
             WriteTab_btnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            WriteTab_btnOK.Location = new System.Drawing.Point(716, 203);
+            WriteTab_btnOK.Location = new System.Drawing.Point(621, 203);
             WriteTab_btnOK.Margin = new Padding(4, 3, 4, 3);
             WriteTab_btnOK.Name = "WriteTab_btnOK";
             WriteTab_btnOK.Size = new System.Drawing.Size(88, 27);
@@ -173,7 +174,7 @@ namespace ISBNCaller_GUI
             WriteTab_btnCancel.Margin = new Padding(4, 3, 4, 3);
             WriteTab_btnCancel.Name = "WriteTab_btnCancel";
             WriteTab_btnCancel.Size = new System.Drawing.Size(88, 27);
-            WriteTab_btnCancel.TabIndex = 18;
+            WriteTab_btnCancel.TabIndex = 19;
             WriteTab_btnCancel.Text = "Abbrechen";
             WriteTab_btnCancel.UseVisualStyleBackColor = true;
             WriteTab_btnCancel.Click += WriteTab_btnCancel_Click;
@@ -568,6 +569,7 @@ namespace ISBNCaller_GUI
             // WriteTab_groupBoxAuthor
             // 
             WriteTab_groupBoxAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            WriteTab_groupBoxAuthor.Controls.Add(WriteTab_btnWriteToDB);
             WriteTab_groupBoxAuthor.Controls.Add(WriteTab_Author_dataGridViewAuthor);
             WriteTab_groupBoxAuthor.Controls.Add(WriteTab_btnOK);
             WriteTab_groupBoxAuthor.Controls.Add(WriteTab_btnCancel);
@@ -579,6 +581,19 @@ namespace ISBNCaller_GUI
             WriteTab_groupBoxAuthor.TabIndex = 5;
             WriteTab_groupBoxAuthor.TabStop = false;
             WriteTab_groupBoxAuthor.Text = "Autor_in";
+            // 
+            // WriteTab_btnWriteToDB
+            // 
+            WriteTab_btnWriteToDB.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            WriteTab_btnWriteToDB.Enabled = false;
+            WriteTab_btnWriteToDB.Location = new System.Drawing.Point(716, 203);
+            WriteTab_btnWriteToDB.Margin = new Padding(4, 3, 4, 3);
+            WriteTab_btnWriteToDB.Name = "WriteTab_btnWriteToDB";
+            WriteTab_btnWriteToDB.Size = new System.Drawing.Size(88, 27);
+            WriteTab_btnWriteToDB.TabIndex = 18;
+            WriteTab_btnWriteToDB.Text = "button1";
+            WriteTab_btnWriteToDB.UseVisualStyleBackColor = true;
+            WriteTab_btnWriteToDB.Click += WriteTab_btnWriteToDB_Click;
             // 
             // WriteTab_Author_dataGridViewAuthor
             // 
@@ -1506,6 +1521,7 @@ namespace ISBNCaller_GUI
 #endif
         private System.Windows.Forms.ComboBox cmbBoxColorMode;
         private CheckBox SearchTab_chkBoxUseDates;
+        private Button WriteTab_btnWriteToDB;
     }
 }
 

@@ -40,7 +40,7 @@ namespace ISBNCaller_GUI
             WriteTab_WorkInProgressLabel.Visible = false;
         }
 
-#endregion
+        #endregion
         #region Overall Settings
 
         enum mLanguagesEnum
@@ -341,7 +341,7 @@ namespace ISBNCaller_GUI
         }
 #endif
 
-#endregion
+        #endregion
         #region WriteTab
 
         WriteTab mWriteTab;
@@ -350,6 +350,7 @@ namespace ISBNCaller_GUI
         {
             mWriteTab.mTxtBoxISBN_1 = WriteTab_txtBoxISBN_1;
             mWriteTab.mBtnOK = WriteTab_btnOK;
+            mWriteTab.mBtnWriteToDB = WriteTab_btnWriteToDB;
             mWriteTab.mBtnCancel = WriteTab_btnCancel;
             mWriteTab.mDataGridViewAuthor = WriteTab_Author_dataGridViewAuthor;
             mWriteTab.mCmbBoxFormat = WriteTab_Book_cmbBoxFormat;
@@ -376,6 +377,11 @@ namespace ISBNCaller_GUI
             mWriteTab.btnOK_Click();
             ColorWorker colorWorker = new ColorWorker(mColorMode);
             colorWorker.ChangeDataGridViewColors(WriteTab_Author_dataGridViewAuthor);
+        }
+
+        private void WriteTab_btnWriteToDB_Click(object sender, EventArgs e)
+        {
+            mWriteTab.btnWriteToDB_Click();
         }
 
         private void WriteTab_btnCancel_Click(object sender, EventArgs e)
@@ -614,7 +620,7 @@ namespace ISBNCaller_GUI
             mSearchTab.btnCorrectionClick();
         }
 #endif
-#endregion
+        #endregion
 
         #region all
 
