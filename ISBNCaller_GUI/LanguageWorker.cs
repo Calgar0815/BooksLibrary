@@ -105,7 +105,7 @@ namespace ISBNCaller_GUI
 
         #endregion
 
-        #region Create Languages.xml
+        #region Create LabelTexts.xml
 
         private void CreateLanguagesXML()
         {
@@ -116,7 +116,7 @@ namespace ISBNCaller_GUI
             "\r\n\t<SearchTab_labelTitle>\r\n\t\t<de>Titel:</de>\r\n\t\t<en>Title:</en>\r\n\t</SearchTab_labelTitle>" +
             "\r\n\t<SearchTab_labelSubTitle>\r\n\t\t<de>Untertitel:</de>\r\n\t\t<en>Subtitle:</en>\r\n\t</SearchTab_labelSubTitle>" +
             "\r\n\t<SearchTab_labelAuthorPreName>\r\n\t\t<de>Autor_in Vorname:</de>\r\n\t\t<en>Authors first name:</en>\r\n\t</SearchTab_labelAuthorPreName>" +
-            "\r\n\t<SearchTab_labelAuthorSurName>\r\n\t\t<de>Autor_in Nachname:</de>\r\n\t\t<en>Authors surname:</en>\r\n\t</SearchTab_labelAuthorSurName>" +
+            "\r\n\t<SearchTab_labelAuthorSurName>\r\n\t\t<de>Autor_in Nachname:</de>\r\n\t\t<en>Authors family name:</en>\r\n\t</SearchTab_labelAuthorSurName>" +
             "\r\n\t<SearchTab_radioBtnWSeries>\r\n\t\t<de>Mit Serien</de>\r\n\t\t<en>Series included</en>\r\n\t</SearchTab_radioBtnWSeries>" +
             "\r\n\t<SearchTab_radioBtnWOutSeries>\r\n\t\t<de>Ohne Serien</de>\r\n\t\t<en>Without series</en>\r\n\t</SearchTab_radioBtnWOutSeries>" +
             "\r\n\t<SearchTab_labelSeries>\r\n\t\t<de>Serie:</de>\r\n\t\t<en>Series:</en>\r\n\t</SearchTab_labelSeries>" +
@@ -158,7 +158,7 @@ namespace ISBNCaller_GUI
             "\r\n\t<WriteTab_btnCancel>\r\n\t\t<de>Abbrechen</de>\r\n\t\t<en>Cancel</en>\r\n\t</WriteTab_btnCancel>" +
             "\r\n\t<WriteTab_groupBoxAuthor>\r\n\t\t<de>Autor_in</de>\r\n\t\t<en>Author</en>\r\n\t</WriteTab_groupBoxAuthor>" +
             "\r\n\t<WriteTab_Author_dataGridViewAuthor_Col0>\r\n\t\t<de>Vorname</de>\r\n\t\t<en>Name</en>\r\n\t</WriteTab_Author_dataGridViewAuthor_Col0>" +
-            "\r\n\t<WriteTab_Author_dataGridViewAuthor_Col1>\r\n\t\t<de>Name</de>\r\n\t\t<en>Surname</en>\r\n\t</WriteTab_Author_dataGridViewAuthor_Col1>" +
+            "\r\n\t<WriteTab_Author_dataGridViewAuthor_Col1>\r\n\t\t<de>Name</de>\r\n\t\t<en>Family name</en>\r\n\t</WriteTab_Author_dataGridViewAuthor_Col1>" +
             "\r\n\t<WriteTab_Author_dataGridViewAuthor_Col2>\r\n\t\t<de>In der DB</de>\r\n\t\t<en>Already in DB</en>\r\n\t</WriteTab_Author_dataGridViewAuthor_Col2>" +
             "\r\n<!-- LentTab -->" +
             "\r\n\t<tabPageLent>\r\n\t\t<de>Verleihen</de>\r\n\t\t<en>Lent</en>\r\n\t</tabPageLent>" +
@@ -166,7 +166,7 @@ namespace ISBNCaller_GUI
             "\r\n\t<LentTab_labelISBN>\r\n\t\t<de>ISBN:</de>\r\n\t\t<en>ISBN:</en>\r\n\t</LentTab_labelISBN>" +
             "\r\n\t<LentTab_labelSubTitle>\r\n\t\t<de>Untertitel:</de>\r\n\t\t<en>Subtitle:</en>\r\n\t</LentTab_labelSubTitle>" +
             "\r\n\t<LentTab_labelAuthorPreName>\r\n\t\t<de>Autor_in Vorname:</de>\r\n\t\t<en>Author first name:</en>\r\n\t</LentTab_labelAuthorPreName>" +
-            "\r\n\t<LentTab_labelAuthorSurName>\r\n\t\t<de>Nachname:</de>\r\n\t\t<en>Surname:</en>\r\n\t</LentTab_labelAuthorSurName>" +
+            "\r\n\t<LentTab_labelAuthorSurName>\r\n\t\t<de>Nachname:</de>\r\n\t\t<en>Family name:</en>\r\n\t</LentTab_labelAuthorSurName>" +
             "\r\n\t<LentTab_labelTitle>\r\n\t\t<de>Titel:</de>\r\n\t\t<en>Title:</en>\r\n\t</LentTab_labelTitle>" +
             "\r\n\t<LentTab_btnSearch>\r\n\t\t<de>Suche</de>\r\n\t\t<en>Search</en>\r\n\t</LentTab_btnSearch>" +
             "\r\n\t<LentTab_btnPull>\r\n\t\t<de>Übernehmen</de>\r\n\t\t<en>Pull</en>\r\n\t</LentTab_btnPull>" +
@@ -184,7 +184,7 @@ namespace ISBNCaller_GUI
             "\r\n\t<LentTab_dataGridViewLent_Col3>\r\n\t\t<de>Autor_in</de>\r\n\t\t<en>Author</en>\r\n\t</LentTab_dataGridViewLent_Col3>" +
             "\r\n\t<LentTab_dataGridViewLent_Col4>\r\n\t\t<de>Verleihdatum</de>\r\n\t\t<en>Lent Date</en>\r\n\t</LentTab_dataGridViewLent_Col4>" +
             "\r\n\t<LentTab_dataGridViewLent_Col5>\r\n\t\t<de>Vorname</de>\r\n\t\t<en>Name</en>\r\n\t</LentTab_dataGridViewLent_Col5>" +
-            "\r\n\t<LentTab_dataGridViewLent_Col6>\r\n\t\t<de>Name (optional)</de>\r\n\t\t<en>Surname (optional)</en>\r\n\t</LentTab_dataGridViewLent_Col6>" +
+            "\r\n\t<LentTab_dataGridViewLent_Col6>\r\n\t\t<de>Name (optional)</de>\r\n\t\t<en>Family name (optional)</en>\r\n\t</LentTab_dataGridViewLent_Col6>" +
             "\r\n<!-- ReturnTab -->" +
             "\r\n\t<tabPageReturn>\r\n\t\t<de>Zurücknehmen</de>\r\n\t\t<en>Return</en>\r\n\t</tabPageReturn>" +
             "\r\n\t<ReturnTab_btnShowAll>\r\n\t\t<de>Alle anzeigen</de>\r\n\t\t<en>Show all</en>\r\n\t</ReturnTab_btnShowAll>" +
@@ -194,7 +194,7 @@ namespace ISBNCaller_GUI
             "\r\n\t<ReturnTab_labelBookTitle>\r\n\t\t<de>Buchtitel:</de>\r\n\t\t<en>Book title:</en>\r\n\t</ReturnTab_labelBookTitle>" +
             "\r\n\t<ReturnTab_labelLentTo>\r\n\t\t<de>Verliehen an:</de>\r\n\t\t<en>Lent to:</en>\r\n\t</ReturnTab_labelLentTo>" +
             "\r\n\t<ReturnTab_labelPreName>\r\n\t\t<de>Vorname:</de>\r\n\t\t<en>First name:</en>\r\n\t</ReturnTab_labelPreName>" +
-            "\r\n\t<ReturnTab_labelSurName>\r\n\t\t<de>Nachname:</de>\r\n\t\t<en>Surname:</en>\r\n\t</ReturnTab_labelSurName>" +
+            "\r\n\t<ReturnTab_labelSurName>\r\n\t\t<de>Nachname:</de>\r\n\t\t<en>Family name:</en>\r\n\t</ReturnTab_labelSurName>" +
             "\r\n\t<ReturnTab_labelOptional>\r\n\t\t<de>(optional)</de>\r\n\t\t<en>(optional)</en>\r\n\t</ReturnTab_labelOptional>" +
             "\r\n\t<ReturnTab_GroupBoxGetBack>\r\n\t\t<de>Rückgabe</de>\r\n\t\t<en>Return</en>\r\n\t</ReturnTab_GroupBoxGetBack>" +
             "\r\n\t<ReturnTab_btnReturn>\r\n\t\t<de>Zurücknehmen</de>\r\n\t\t<en>Return</en>\r\n\t</ReturnTab_btnReturn>" +
@@ -206,7 +206,7 @@ namespace ISBNCaller_GUI
             "\r\n\t<ReturnTab_dataGridViewReturn_Col4>\r\n\t\t<de>Autor_in</de>\r\n\t\t<en>Author</en>\r\n\t</ReturnTab_dataGridViewReturn_Col4>" +
             "\r\n\t<ReturnTab_dataGridViewReturn_Col5>\r\n\t\t<de>Verleihdatum</de>\r\n\t\t<en>Lent Date</en>\r\n\t</ReturnTab_dataGridViewReturn_Col5>" +
             "\r\n\t<ReturnTab_dataGridViewReturn_Col6>\r\n\t\t<de>Vorname</de>\r\n\t\t<en>Name</en>\r\n\t</ReturnTab_dataGridViewReturn_Col6>" +
-            "\r\n\t<ReturnTab_dataGridViewReturn_Col7>\r\n\t\t<de>Nachname</de>\r\n\t\t<en>Surname</en>\r\n\t</ReturnTab_dataGridViewReturn_Col7>" +
+            "\r\n\t<ReturnTab_dataGridViewReturn_Col7>\r\n\t\t<de>Nachname</de>\r\n\t\t<en>Family name</en>\r\n\t</ReturnTab_dataGridViewReturn_Col7>" +
             "\r\n</Languages>";
             XmlWriter writer = new XmlWriter(mLanguagesFilePath);
             writer.CreateSettingsXML(mLanguagesFilePath, xmlText);
