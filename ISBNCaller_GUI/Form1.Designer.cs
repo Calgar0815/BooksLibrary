@@ -132,9 +132,7 @@ namespace ISBNCaller_GUI
             ReturnTab_labelISBN = new Label();
             ReturnTab_chkBoxIgnoreIsActive = new CheckBox();
             ReturnTab_btnShowAll = new Button();
-#if DEBUG || RELEASE
             cmbBoxLanguage = new ComboBox();
-#endif
             cmbBoxColorMode = new ComboBox();
             tabControl.SuspendLayout();
             tabPageSearch.SuspendLayout();
@@ -258,6 +256,7 @@ namespace ISBNCaller_GUI
             // 
             // SearchTab_chkBoxUseDates
             // 
+            SearchTab_chkBoxUseDates.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_chkBoxUseDates.AutoSize = true;
             SearchTab_chkBoxUseDates.Location = new System.Drawing.Point(758, 102);
             SearchTab_chkBoxUseDates.Name = "SearchTab_chkBoxUseDates";
@@ -283,7 +282,7 @@ namespace ISBNCaller_GUI
             SearchTab_chkBoxOnlyShowFirstAuthor.AutoSize = true;
             SearchTab_chkBoxOnlyShowFirstAuthor.Checked = true;
             SearchTab_chkBoxOnlyShowFirstAuthor.CheckState = CheckState.Checked;
-            SearchTab_chkBoxOnlyShowFirstAuthor.Location = new System.Drawing.Point(556, 133);
+            SearchTab_chkBoxOnlyShowFirstAuthor.Location = new System.Drawing.Point(567, 131);
             SearchTab_chkBoxOnlyShowFirstAuthor.Margin = new Padding(4, 3, 4, 3);
             SearchTab_chkBoxOnlyShowFirstAuthor.Name = "SearchTab_chkBoxOnlyShowFirstAuthor";
             SearchTab_chkBoxOnlyShowFirstAuthor.Size = new System.Drawing.Size(184, 19);
@@ -297,7 +296,7 @@ namespace ISBNCaller_GUI
             SearchTab_chkBoxShowLent.AutoSize = true;
             SearchTab_chkBoxShowLent.Checked = true;
             SearchTab_chkBoxShowLent.CheckState = CheckState.Checked;
-            SearchTab_chkBoxShowLent.Location = new System.Drawing.Point(391, 133);
+            SearchTab_chkBoxShowLent.Location = new System.Drawing.Point(389, 131);
             SearchTab_chkBoxShowLent.Margin = new Padding(4, 3, 4, 3);
             SearchTab_chkBoxShowLent.Name = "SearchTab_chkBoxShowLent";
             SearchTab_chkBoxShowLent.Size = new System.Drawing.Size(151, 19);
@@ -309,6 +308,7 @@ namespace ISBNCaller_GUI
             // 
             SearchTab_dtpTo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_dtpTo.CustomFormat = "yyyy";
+            SearchTab_dtpTo.Enabled = false;
             SearchTab_dtpTo.Format = DateTimePickerFormat.Custom;
             SearchTab_dtpTo.Location = new System.Drawing.Point(643, 100);
             SearchTab_dtpTo.Margin = new Padding(4, 3, 4, 3);
@@ -316,7 +316,6 @@ namespace ISBNCaller_GUI
             SearchTab_dtpTo.ShowUpDown = true;
             SearchTab_dtpTo.Size = new System.Drawing.Size(108, 23);
             SearchTab_dtpTo.TabIndex = 19;
-            SearchTab_dtpTo.Enabled = false;
             // 
             // SearchTab_labelPublishedTo
             // 
@@ -333,6 +332,7 @@ namespace ISBNCaller_GUI
             // 
             SearchTab_dtpFrom.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_dtpFrom.CustomFormat = "yyyy";
+            SearchTab_dtpFrom.Enabled = false;
             SearchTab_dtpFrom.Format = DateTimePickerFormat.Custom;
             SearchTab_dtpFrom.Location = new System.Drawing.Point(493, 100);
             SearchTab_dtpFrom.Margin = new Padding(4, 3, 4, 3);
@@ -340,7 +340,6 @@ namespace ISBNCaller_GUI
             SearchTab_dtpFrom.ShowUpDown = true;
             SearchTab_dtpFrom.Size = new System.Drawing.Size(108, 23);
             SearchTab_dtpFrom.TabIndex = 17;
-            SearchTab_dtpFrom.Enabled = false;
             // 
             // SearchTab_labelPublishedFrom
             // 
@@ -389,7 +388,7 @@ namespace ISBNCaller_GUI
             // 
             SearchTab_radioBtnWOutSeries.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_radioBtnWOutSeries.AutoSize = true;
-            SearchTab_radioBtnWOutSeries.Location = new System.Drawing.Point(482, 12);
+            SearchTab_radioBtnWOutSeries.Location = new System.Drawing.Point(512, 10);
             SearchTab_radioBtnWOutSeries.Margin = new Padding(4, 3, 4, 3);
             SearchTab_radioBtnWOutSeries.Name = "SearchTab_radioBtnWOutSeries";
             SearchTab_radioBtnWOutSeries.Size = new System.Drawing.Size(89, 19);
@@ -402,7 +401,7 @@ namespace ISBNCaller_GUI
             SearchTab_radioBtnWSeries.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_radioBtnWSeries.AutoSize = true;
             SearchTab_radioBtnWSeries.Checked = true;
-            SearchTab_radioBtnWSeries.Location = new System.Drawing.Point(387, 12);
+            SearchTab_radioBtnWSeries.Location = new System.Drawing.Point(389, 10);
             SearchTab_radioBtnWSeries.Margin = new Padding(4, 3, 4, 3);
             SearchTab_radioBtnWSeries.Name = "SearchTab_radioBtnWSeries";
             SearchTab_radioBtnWSeries.Size = new System.Drawing.Size(78, 19);
@@ -1333,7 +1332,6 @@ namespace ISBNCaller_GUI
             ReturnTab_btnShowAll.Text = "Alle anzeigen";
             ReturnTab_btnShowAll.UseVisualStyleBackColor = true;
             ReturnTab_btnShowAll.Click += ReturnTab_btnShowAll_Click;
-#if DEBUG || RELEASE
             // 
             // cmbBoxLanguage
             // 
@@ -1346,18 +1344,13 @@ namespace ISBNCaller_GUI
             cmbBoxLanguage.Size = new System.Drawing.Size(65, 23);
             cmbBoxLanguage.TabIndex = 1;
             cmbBoxLanguage.SelectedIndexChanged += LanguageChanged;
-#endif
             // 
             // cmbBoxColorMode
             // 
             cmbBoxColorMode.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cmbBoxColorMode.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBoxColorMode.FormattingEnabled = true;
-#if WITHOUTLANGUAGESELECTION_DEBUG || WITHOUTLANGUAGESELECTION_RELEASE
-            cmbBoxColorMode.Location = new System.Drawing.Point(852, -1);
-#else
             cmbBoxColorMode.Location = new System.Drawing.Point(779, -1);
-#endif
             cmbBoxColorMode.Margin = new Padding(4, 3, 4, 3);
             cmbBoxColorMode.Name = "cmbBoxColorMode";
             cmbBoxColorMode.Size = new System.Drawing.Size(82, 23);
@@ -1370,9 +1363,7 @@ namespace ISBNCaller_GUI
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(933, 519);
             Controls.Add(cmbBoxColorMode);
-#if DEBUG || RELEASE
             Controls.Add(cmbBoxLanguage);
-#endif
             Controls.Add(tabControl);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 3, 4, 3);
@@ -1407,7 +1398,7 @@ namespace ISBNCaller_GUI
 
         }
 
-#endregion
+        #endregion
         private System.Windows.Forms.Button WriteTab_btnOK;
         private System.Windows.Forms.Button WriteTab_btnCancel;
         private System.Windows.Forms.TabControl tabControl;
