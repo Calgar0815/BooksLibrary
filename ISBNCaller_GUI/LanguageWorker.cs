@@ -189,7 +189,7 @@ namespace ISBNCaller_GUI
             "\r\n<!-- ReturnTab -->" +
             "\r\n\t<tabPageReturn>\r\n\t\t<de>Zurücknehmen</de>\r\n\t\t<en>Return</en>\r\n\t</tabPageReturn>" +
             "\r\n\t<ReturnTab_btnShowAll>\r\n\t\t<de>Alle anzeigen</de>\r\n\t\t<en>Show all</en>\r\n\t</ReturnTab_btnShowAll>" +
-            "\r\n\t<ReturnTab_chkBoxIgnoreIsActive>\r\n\t\t<de>Aktive ignorieren</de>\r\n\t\t<en>Ignore active</en>\r\n\t</ReturnTab_chkBoxIgnoreIsActive>" +
+            "\r\n\t<ReturnTab_chkBoxIgnoreIsActive>\r\n\t\t<de>Auch frühere anzeigen</de>\r\n\t\t<en>Show also former</en>\r\n\t</ReturnTab_chkBoxIgnoreIsActive>" +
             "\r\n\t<ReturnTab_GroupBoxSearch>\r\n\t\t<de>Suchen</de>\r\n\t\t<en>Search</en>\r\n\t</ReturnTab_GroupBoxSearch>" +
             "\r\n\t<ReturnTab_labelISBN>\r\n\t\t<de>ISBN:</de>\r\n\t\t<en>ISBN:</en>\r\n\t</ReturnTab_labelISBN>" +
             "\r\n\t<ReturnTab_labelBookTitle>\r\n\t\t<de>Buchtitel:</de>\r\n\t\t<en>Book title:</en>\r\n\t</ReturnTab_labelBookTitle>" +
