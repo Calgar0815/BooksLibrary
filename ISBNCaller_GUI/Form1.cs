@@ -125,24 +125,24 @@ namespace ISBNCaller_GUI
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl.SelectedTab.Text == "Eintragen")
+            if (tabControl.SelectedTab.Name == tabPageWrite.Name)
             {
                 this.AcceptButton = WriteTab_btnOK;
                 WriteTab_txtBoxISBN_1.Focus();
             }
 
-            if (tabControl.SelectedTab.Text == "Verleihen")
+            if (tabControl.SelectedTab.Name == tabPageLent.Name)
             {
                 this.AcceptButton = LentTab_btnSearch;
                 LentTab_txtBoxISBN.Focus();
             }
 
-            if (tabControl.SelectedTab.Text == "Zurücknehmen")
+            if (tabControl.SelectedTab.Name == tabPageReturn.Name)
             {
                 ReturnTab_btnShowAll.Focus();
             }
 
-            if (tabControl.SelectedTab.Text == "Suchen")
+            if (tabControl.SelectedTab.Name == tabPageSearch.Name)
             {
                 this.AcceptButton = SearchTab_btnSearch;
                 SearchTab_txtBoxISBN.Focus();
