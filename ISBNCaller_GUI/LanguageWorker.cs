@@ -42,13 +42,26 @@ namespace ISBNCaller_GUI
                     for (int index = 0; index < dgv.ColumnCount; index++)
                     {
                         string replacement = $"_Col{index}";
-                        var matches = from val in allTexts where val.Key == dgv.Name+replacement select val.Value;
-                        foreach (var match in matches)
+                        var matches = from val in allTexts where val.Key == dgv.Name + replacement select val.Value;
+                        if (matches.Count() > 0)
                         {
-                            dgv.Columns[index].Name = match.ToString();
+                            dgv.Columns[index].Name = matches.FirstOrDefault();
+                        }
+                    } // if
+                } // if
+                else if (control.GetType() == typeof(ComboBox))
+                {
+                    ComboBox cmbBox = (ComboBox)control;
+                    for (int index = 0; index < cmbBox.Items.Count; index++)
+                    {
+                        string replacement = $"_Item{index}";
+                        var matches = from val in allTexts where val.Key == cmbBox.Name + replacement select val.Value;
+                        if (matches.Count() > 0)
+                        {
+                            cmbBox.Items[index] = matches.FirstOrDefault();
                         }
                     } // for
-                } // if
+                } // else if
                 else
                 {
                     var matches = from val in allTexts where val.Key == control.Name select val.Value;
@@ -174,6 +187,12 @@ namespace ISBNCaller_GUI
             "\r\n\t<LentTab_groupBoxVerleihen>\r\n\t\t<de>Verleihen</de>\r\n\t\t<en>Lent</en>\r\n\t</LentTab_groupBoxVerleihen>" +
             "\r\n\t<LentTab_btnLent>\r\n\t\t<de>Verleihen</de>\r\n\t\t<en>Lent</en>\r\n\t</LentTab_btnLent>" +
             "\r\n\t<LentTab_btnRemove>\r\n\t\t<de>Entfernen</de>\r\n\t\t<en>Remove</en>\r\n\t</LentTab_btnRemove>" +
+            "\r\n\t<LentTab_cmbBoxISBN_Item0>\r\n\t\t<de>und</de>\r\n\t\t<en>and</en></LentTab_cmbBoxISBN_Item0>" +
+            "\r\n\t<LentTab_cmbBoxISBN_Item1>\r\n\t\t<de>oder</de>\r\n\t\t<en>or</en></LentTab_cmbBoxISBN_Item1>" +
+            "\r\n\t<LentTab_cmbBoxSubTitle_Item0>\r\n\t\t<de>und</de>\r\n\t\t<en>and</en></LentTab_cmbBoxSubTitle_Item0>" +
+            "\r\n\t<LentTab_cmbBoxSubTitle_Item1>\r\n\t\t<de>oder</de>\r\n\t\t<en>or</en></LentTab_cmbBoxSubTitle_Item1>" +
+            "\r\n\t<LentTab_cmbBoxTitle_Item0>\r\n\t\t<de>und</de>\r\n\t\t<en>and</en></LentTab_cmbBoxTitle_Item0>" +
+            "\r\n\t<LentTab_cmbBoxTitle_Item1>\r\n\t\t<de>oder</de>\r\n\t\t<en>or</en></LentTab_cmbBoxTitle_Item1>" +
             "\r\n\t<LentTab_dataGridViewSearch_Col0>\r\n\t\t<de>BookID</de>\r\n\t\t<en>BookID</en>\r\n\t</LentTab_dataGridViewSearch_Col0>" +
             "\r\n\t<LentTab_dataGridViewSearch_Col1>\r\n\t\t<de>Titel</de>\r\n\t\t<en>Title</en>\r\n\t</LentTab_dataGridViewSearch_Col1>" +
             "\r\n\t<LentTab_dataGridViewSearch_Col2>\r\n\t\t<de>Untertitel</de>\r\n\t\t<en>Subtitle</en>\r\n\t</LentTab_dataGridViewSearch_Col2>" +
