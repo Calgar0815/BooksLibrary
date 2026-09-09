@@ -10,9 +10,10 @@ namespace ISBNCaller_GUI
     {
         #region Variables
 
-        internal bool mWriteSearch = true;
+        //internal bool mWriteSearch = true;
         internal TextBox mTxtBoxISBN_1 { get; set; }
         internal Button mBtnOK { get; set; }
+        internal Button mBtnWriteToDB { get; set; }
         internal Button mBtnCancel { get; set; }
         internal DataGridView mDataGridViewAuthor { get; set; }
         internal ComboBox mCmbBoxFormat { get; set; }
@@ -46,61 +47,55 @@ namespace ISBNCaller_GUI
         #endregion
         #region Methods
         #region Events
-                
+
         internal void btnOK_Click()
         {
-            if (mWriteSearch)
+            string isbn = mTxtBoxISBN_1.Text;
+            isbn = isbn.Replace("-", "");
+            if (isbn.Length != 10 && isbn.Length != 13)
             {
-                string isbn = mTxtBoxISBN_1.Text;
-                isbn = isbn.Replace("-", "");
-                if (isbn.Length != 10 && isbn.Length != 13)
-                {
-                    MessageBox.Show("Die ISBN muss 10 oder 13 Stellen lang sein.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                MessageBox.Show("Die ISBN muss 10 oder 13 Stellen lang sein.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-                mWorkInProgressLabel.Visible = true;
-                bool ok = WriteTab_ShowResult();
-                mWorkInProgressLabel.Visible = false;
-                if (!ok) return;
+            mWorkInProgressLabel.Visible = true;
+            bool ok = WriteTab_ShowResult();
+            mWorkInProgressLabel.Visible = false;
+            if (!ok) return;
 
-                // abfragen
-                mWriteSearch = false;
-                mBtnOK.Text = "Eintragen";
-                mBtnCancel.Enabled = true;
-            } // if
+            // abfragen
+            mBtnCancel.Enabled = true;
+            mBtnWriteToDB.Enabled = true;
+            mBtnOK.Enabled = false;
+        }
+
+        internal void btnWriteToDB_Click()
+        {
+            mChangeCmbFormat = true;
+            // in die DB schreiben
+            bool written = WriteToDB();
+            if (written)
+            {
+                MessageBox.Show("Erfolgreich gespeichert");
+                WriteTab_SetBack();
+            }
             else
             {
-                mChangeCmbFormat = true;
-                // in die DB schreiben
-                bool written = WriteToDB();
-                if (written)
-                {
-                    MessageBox.Show("Erfolgreich gespeichert");
-                    WriteTab_SetBack();
-                }
-                else
-                {
-                    MessageBox.Show("Daten konnten nicht geschrieben werden");
-                }
-            } // else
+                MessageBox.Show("Daten konnten nicht geschrieben werden");
+            }
         }
 
         internal void btnCancel_Click()
         {
-            if (!mWriteSearch)
-            {
-                WriteTab_SetBack();
-                mTxtBoxISBN_1.Focus();
-                mTxtBoxISBN_1.SelectAll();
-            } // if
-
+            WriteTab_SetBack();
+            mTxtBoxISBN_1.Focus();
+            mTxtBoxISBN_1.SelectAll();
             mChangeCmbFormat = true;
         }
 
         internal void txtBoxISBN_1_TextChanged()
         {
-            if (!mWriteSearch)
+            if (mBtnWriteToDB.Enabled)
             {
                 WriteTab_SetBack();
             }
@@ -156,7 +151,7 @@ namespace ISBNCaller_GUI
             if (mCmbBoxSeries.SelectedValue != null)
             {
                 int seriesID = (int)mCmbBoxSeries.SelectedValue;
-                DBReader dbReader = new DBReader();
+                DBReader dbReader = new DBReader(mForm1.mDBConnection);
                 int maxNoInSeries = dbReader.GetMaxNoInSeries(seriesID);
                 mLabelMaxNoCount.Text = $"{maxNoInSeries}";
             } // if
@@ -196,8 +191,8 @@ namespace ISBNCaller_GUI
             } // if
 
             // abfragen
-            mWriteSearch = false;
-            mBtnOK.Text = "Eintragen";
+            mBtnOK.Enabled = false;
+            mBtnWriteToDB.Enabled = true;
             mBtnCancel.Enabled = true;
             mBtnRegisterWOutISBN.Enabled = false;
         }
@@ -216,8 +211,8 @@ namespace ISBNCaller_GUI
 
         private void WriteTab_SetBack()
         {
-            mWriteSearch = true;
-            mBtnOK.Text = "Suchen";
+            mBtnOK.Enabled = true;
+            mBtnWriteToDB.Enabled = false;
             mBtnCancel.Enabled = false;
             mDataGridViewAuthor.RowCount = 1;
             mCmbBoxFormat.ResetText();
@@ -300,10 +295,10 @@ namespace ISBNCaller_GUI
                 mChkBoxIsPartOfSeries.Checked = true;
             }
 
-            if(book.Format != "")
+            if (book.Format != "")
             {
                 int index = mCmbBoxFormat.FindString(book.Format);
-                if(index > -1)
+                if (index > -1)
                 {
                     mCmbBoxFormat.SelectedIndex = index;
                     mChangeCmbFormat = false;
@@ -378,7 +373,7 @@ namespace ISBNCaller_GUI
 
         private bool WriteToDB()
         {
-            DBReader dbReader = new DBReader();
+            DBReader dbReader = new DBReader(mForm1.mDBConnection);
             List<ISBNWorker.DBAuthorStruct> returnedAuthors = new List<ISBNWorker.DBAuthorStruct>();
             if (!CheckAuthorsForDublettes(dbReader, ref returnedAuthors))
             {
@@ -390,7 +385,7 @@ namespace ISBNCaller_GUI
 
             if (ok)
             {
-                DBWriter dbWriter = new DBWriter();
+                DBWriter dbWriter = new DBWriter(mForm1.mDBConnection);
                 bool written = dbWriter.WriteBook(dbBook);
                 if (!written) return false;
 

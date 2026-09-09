@@ -67,6 +67,7 @@ namespace ISBNCaller_GUI
             WriteTab_WorkInProgressLabel = new Label();
             WriteTab_txtBoxISBN_1 = new TextBox();
             WriteTab_groupBoxAuthor = new GroupBox();
+            WriteTab_btnWriteToDB = new Button();
             WriteTab_Author_dataGridViewAuthor = new DataGridView();
             WriteTab_btnRegisterWOutISBN = new Button();
             WriteTab_groupBoxBook = new GroupBox();
@@ -157,7 +158,7 @@ namespace ISBNCaller_GUI
             // WriteTab_btnOK
             // 
             WriteTab_btnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            WriteTab_btnOK.Location = new System.Drawing.Point(716, 203);
+            WriteTab_btnOK.Location = new System.Drawing.Point(621, 203);
             WriteTab_btnOK.Margin = new Padding(4, 3, 4, 3);
             WriteTab_btnOK.Name = "WriteTab_btnOK";
             WriteTab_btnOK.Size = new System.Drawing.Size(88, 27);
@@ -174,7 +175,7 @@ namespace ISBNCaller_GUI
             WriteTab_btnCancel.Margin = new Padding(4, 3, 4, 3);
             WriteTab_btnCancel.Name = "WriteTab_btnCancel";
             WriteTab_btnCancel.Size = new System.Drawing.Size(88, 27);
-            WriteTab_btnCancel.TabIndex = 18;
+            WriteTab_btnCancel.TabIndex = 19;
             WriteTab_btnCancel.Text = "Abbrechen";
             WriteTab_btnCancel.UseVisualStyleBackColor = true;
             WriteTab_btnCancel.Click += WriteTab_btnCancel_Click;
@@ -272,6 +273,7 @@ namespace ISBNCaller_GUI
             // 
             // SearchTab_chkBoxUseDates
             // 
+            SearchTab_chkBoxUseDates.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_chkBoxUseDates.AutoSize = true;
             SearchTab_chkBoxUseDates.Location = new System.Drawing.Point(758, 102);
             SearchTab_chkBoxUseDates.Name = "SearchTab_chkBoxUseDates";
@@ -298,7 +300,7 @@ namespace ISBNCaller_GUI
             SearchTab_chkBoxOnlyShowFirstAuthor.AutoSize = true;
             SearchTab_chkBoxOnlyShowFirstAuthor.Checked = true;
             SearchTab_chkBoxOnlyShowFirstAuthor.CheckState = CheckState.Checked;
-            SearchTab_chkBoxOnlyShowFirstAuthor.Location = new System.Drawing.Point(556, 133);
+            SearchTab_chkBoxOnlyShowFirstAuthor.Location = new System.Drawing.Point(567, 131);
             SearchTab_chkBoxOnlyShowFirstAuthor.Margin = new Padding(4, 3, 4, 3);
             SearchTab_chkBoxOnlyShowFirstAuthor.Name = "SearchTab_chkBoxOnlyShowFirstAuthor";
             SearchTab_chkBoxOnlyShowFirstAuthor.Size = new System.Drawing.Size(184, 19);
@@ -313,7 +315,7 @@ namespace ISBNCaller_GUI
             SearchTab_chkBoxShowLent.AutoSize = true;
             SearchTab_chkBoxShowLent.Checked = true;
             SearchTab_chkBoxShowLent.CheckState = CheckState.Checked;
-            SearchTab_chkBoxShowLent.Location = new System.Drawing.Point(391, 133);
+            SearchTab_chkBoxShowLent.Location = new System.Drawing.Point(389, 131);
             SearchTab_chkBoxShowLent.Margin = new Padding(4, 3, 4, 3);
             SearchTab_chkBoxShowLent.Name = "SearchTab_chkBoxShowLent";
             SearchTab_chkBoxShowLent.Size = new System.Drawing.Size(151, 19);
@@ -409,7 +411,7 @@ namespace ISBNCaller_GUI
             // 
             SearchTab_radioBtnWOutSeries.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_radioBtnWOutSeries.AutoSize = true;
-            SearchTab_radioBtnWOutSeries.Location = new System.Drawing.Point(482, 12);
+            SearchTab_radioBtnWOutSeries.Location = new System.Drawing.Point(512, 10);
             SearchTab_radioBtnWOutSeries.Margin = new Padding(4, 3, 4, 3);
             SearchTab_radioBtnWOutSeries.Name = "SearchTab_radioBtnWOutSeries";
             SearchTab_radioBtnWOutSeries.Size = new System.Drawing.Size(89, 19);
@@ -423,7 +425,7 @@ namespace ISBNCaller_GUI
             SearchTab_radioBtnWSeries.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_radioBtnWSeries.AutoSize = true;
             SearchTab_radioBtnWSeries.Checked = true;
-            SearchTab_radioBtnWSeries.Location = new System.Drawing.Point(387, 12);
+            SearchTab_radioBtnWSeries.Location = new System.Drawing.Point(389, 10);
             SearchTab_radioBtnWSeries.Margin = new Padding(4, 3, 4, 3);
             SearchTab_radioBtnWSeries.Name = "SearchTab_radioBtnWSeries";
             SearchTab_radioBtnWSeries.Size = new System.Drawing.Size(78, 19);
@@ -595,6 +597,7 @@ namespace ISBNCaller_GUI
             // WriteTab_groupBoxAuthor
             // 
             WriteTab_groupBoxAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            WriteTab_groupBoxAuthor.Controls.Add(WriteTab_btnWriteToDB);
             WriteTab_groupBoxAuthor.Controls.Add(WriteTab_Author_dataGridViewAuthor);
             WriteTab_groupBoxAuthor.Controls.Add(WriteTab_btnOK);
             WriteTab_groupBoxAuthor.Controls.Add(WriteTab_btnCancel);
@@ -606,6 +609,19 @@ namespace ISBNCaller_GUI
             WriteTab_groupBoxAuthor.TabIndex = 5;
             WriteTab_groupBoxAuthor.TabStop = false;
             WriteTab_groupBoxAuthor.Text = "Autor_in";
+            // 
+            // WriteTab_btnWriteToDB
+            // 
+            WriteTab_btnWriteToDB.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            WriteTab_btnWriteToDB.Enabled = false;
+            WriteTab_btnWriteToDB.Location = new System.Drawing.Point(716, 203);
+            WriteTab_btnWriteToDB.Margin = new Padding(4, 3, 4, 3);
+            WriteTab_btnWriteToDB.Name = "WriteTab_btnWriteToDB";
+            WriteTab_btnWriteToDB.Size = new System.Drawing.Size(88, 27);
+            WriteTab_btnWriteToDB.TabIndex = 18;
+            WriteTab_btnWriteToDB.Text = "button1";
+            WriteTab_btnWriteToDB.UseVisualStyleBackColor = true;
+            WriteTab_btnWriteToDB.Click += WriteTab_btnWriteToDB_Click;
             // 
             // WriteTab_Author_dataGridViewAuthor
             // 
@@ -1533,6 +1549,7 @@ namespace ISBNCaller_GUI
 #endif
         private System.Windows.Forms.ComboBox cmbBoxColorMode;
         private CheckBox SearchTab_chkBoxUseDates;
+        private Button WriteTab_btnWriteToDB;
         private Button SearchTab_btnClearFields;
     }
 }

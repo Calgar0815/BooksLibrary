@@ -20,7 +20,8 @@ namespace ISBNCaller_GUI
         internal TextBox mTxtBoxSurName { get; set; }
         internal TextBox mTxtBoxTitle { get; set; }
         internal CheckBox mChkBoxIgnoreIsActive { get; set; }
-        private DBReader mDBReader = new DBReader();
+        private string mDBConnection { get; set; }
+        private DBReader mDBReader { get; set; }
 
         #endregion
         #region Structs
@@ -35,6 +36,15 @@ namespace ISBNCaller_GUI
             public string LentDate;
             public string PreName;
             public string SurName;
+        }
+
+        #endregion
+        #region Constructors
+
+        internal ReturnTab(string dbConnection)
+        {
+            mDBConnection = dbConnection;
+            mDBReader = new DBReader(dbConnection);
         }
 
         #endregion
@@ -99,7 +109,7 @@ namespace ISBNCaller_GUI
             DataGridViewCell dgvCellSurName = new DataGridViewTextBoxCell();
             dgvCellSurName.Value = lent.SurName;
             dgvRow.Cells.Add(dgvCellSurName);
-            
+
             return dgvRow;
         }
 
@@ -176,7 +186,7 @@ namespace ISBNCaller_GUI
             {
                 mBtnReturn.Enabled = false;
             }
-            else if(lents.Count > 0)
+            else if (lents.Count > 0)
             {
                 mBtnReturn.Enabled = true;
             }
@@ -190,19 +200,19 @@ namespace ISBNCaller_GUI
                 lents.AddRange(mDBReader.GetLentByBook(mTxtBoxTitle.Text));
             }
 
-            if(mTxtBoxISBN.Text != "")
+            if (mTxtBoxISBN.Text != "")
             {
                 List<ISBNWorker.DBLentStruct> nextLents = mDBReader.GetLentByISBN(mTxtBoxISBN.Text);
-                foreach(ISBNWorker.DBLentStruct nextLent in nextLents)
+                foreach (ISBNWorker.DBLentStruct nextLent in nextLents)
                 {
-                    if(!lents.Contains(nextLent))
+                    if (!lents.Contains(nextLent))
                     {
                         lents.Add(nextLent);
                     }
                 } // foreach
             } // if
 
-            if(mTxtBoxPreName.Text != "")
+            if (mTxtBoxPreName.Text != "")
             {
                 List<ISBNWorker.DBLentStruct> nextLents = mTxtBoxSurName.Text == "" ? mDBReader.GetLentByPreName(mTxtBoxPreName.Text) : mDBReader.GetLentByName(mTxtBoxPreName.Text, mTxtBoxSurName.Text);
                 foreach (ISBNWorker.DBLentStruct nextLent in nextLents)
@@ -215,7 +225,7 @@ namespace ISBNCaller_GUI
             } // if
 
             ShowLents(lents);
-            if(lents.Count > 0)
+            if (lents.Count > 0)
             {
                 mBtnReturn.Enabled = true;
             }
@@ -226,11 +236,11 @@ namespace ISBNCaller_GUI
             try
             {
                 bool ok = false;
-                DBWriter dbWriter = new DBWriter();
+                DBWriter dbWriter = new DBWriter(mDBConnection);
                 DataGridViewSelectedRowCollection rows = mDataGridViewReturn.SelectedRows;
                 bool allRowsSelected = rows.Count == mDataGridViewReturn.Rows.Count;
                 List<string> lentIDs = new List<string>();
-                foreach(DataGridViewRow row in rows)
+                foreach (DataGridViewRow row in rows)
                 {
                     lentIDs.Add(row.Cells[0].Value.ToString());
                 }
@@ -246,7 +256,7 @@ namespace ISBNCaller_GUI
                     MessageBox.Show("Die Rückgabe(n) war(en) nicht erfolgreich.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             } // try
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Fehler", MessageBoxButtons.OK);
             }
