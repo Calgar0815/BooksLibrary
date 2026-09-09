@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace ISBNCaller_GUI
 {
@@ -15,6 +16,7 @@ namespace ISBNCaller_GUI
         const string cLanguagesFilePath = @"..\LabelTexts.xml";
         internal string mLanguage { get; private set; }
         internal string mColorMode { get; private set; }
+        internal string mDBConnection { get; private set; }
 
         #endregion
         #region Constructor
@@ -23,9 +25,10 @@ namespace ISBNCaller_GUI
         {
             InitializeComponent();
             LoadColorMode();
+            LoadDBConnection();
             mWriteTab = new WriteTab(this);
-            mLentTab = new LentTab();
-            mReturnTab = new ReturnTab();
+            mLentTab = new LentTab(mDBConnection);
+            mReturnTab = new ReturnTab(mDBConnection);
             mSearchTab = new SearchTab(this);
             InitializeWriteTabObjects();
             InitializeLentTabObjects();
@@ -93,9 +96,8 @@ namespace ISBNCaller_GUI
         {
             if (!File.Exists(cSettingsPath))
             {
-                XmlWriter writer = new XmlWriter(cSettingsPath);
-                writer.CreateSettingsXML(cSettingsPath, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Settings>\r\n\t<Language>de</Language>\r\n\t<ColorMode>Dark</ColorMode>\r\n</Settings>");
-            } // if
+                CreateSettingsXML();
+            }
 
             XmlReader reader = new XmlReader(cSettingsPath);
             try
@@ -121,6 +123,37 @@ namespace ISBNCaller_GUI
             }
 
             ChangeColor();
+        }
+
+        private static void CreateSettingsXML()
+        {
+            XmlWriter writer = new XmlWriter(cSettingsPath);
+            writer.CreateSettingsXML(cSettingsPath, $"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Settings>\r\n\t<Language>de</Language>\r\n\t<ColorMode>Dark</ColorMode>\r\n\t<DBHost>localhost</DBHost>\r\n\t<DBUserName>username</DBUserName>\r\n\t<DBPW>pw</DBPW>\r\n\t<DBName>DBName</DBName>\r\n\t<TestDBHost>localhost</TestDBHost>\r\n\t<TestDBUserName>username</TestDBUserName>\r\n\t<TestDBPW>pw</TestDBPW>\r\n\t<TestDBName>DBName</TestDBName>\r\n</Settings>");
+        }
+
+        private void LoadDBConnection()
+        {
+            XmlReader reader = new XmlReader(cSettingsPath);
+            try
+            {
+#if DEBUG || WITHOUTLANGUAGESELECTION_DEBUG
+                string host = reader.Read($"/Settings/TestDBHost");
+                string username = reader.Read($"/Settings/TestDBUserName");
+                string password = reader.Read($"/Settings/TestDBPW");
+                string dbName = reader.Read($"/Settings/TestDBName");
+#else
+                string host = reader.Read($"/Settings/DBHost");
+                string username = reader.Read($"/Settings/DBUserName");
+                string password = reader.Read($"/Settings/DBPW");
+                string dbName = reader.Read($"/Settings/DBName");
+#endif
+                mDBConnection = $"Host={host}; Username={username}; Password={password}; Database={dbName}";
+                //mDBConnection = "Host = localhost; Username = postgres; Password = aur7eh; Database = BooksDB_Test";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not find database settings: {ex.ToString()}");
+            }
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -341,7 +374,7 @@ namespace ISBNCaller_GUI
         }
 #endif
 
-        #endregion
+#endregion
         #region WriteTab
 
         WriteTab mWriteTab;
@@ -620,13 +653,13 @@ namespace ISBNCaller_GUI
             mSearchTab.btnCorrectionClick();
         }
 #endif
-        #endregion
+#endregion
 
         #region all
 
         public void FillCmbBoxSeries(ComboBox cmbBoxSeries)
         {
-            DBReader dbReader = new DBReader();
+            DBReader dbReader = new DBReader(mDBConnection);
             Dictionary<int, string> series = new Dictionary<int, string>();
             series.Add(-2, "");
             series = dbReader.GetAllSeries(series);
@@ -638,7 +671,7 @@ namespace ISBNCaller_GUI
 
         public void FillCmbBoxFormat(ComboBox cmbBoxFormat)
         {
-            DBReader dbReader = new DBReader();
+            DBReader dbReader = new DBReader(mDBConnection);
             List<string> format = new List<string>();
             format = dbReader.GetAllFormats();
             cmbBoxFormat.Items.AddRange(format.ToArray());

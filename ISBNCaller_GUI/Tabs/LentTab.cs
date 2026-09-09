@@ -24,6 +24,7 @@ namespace ISBNCaller_GUI
         internal DataGridView mDataGridViewLent { get; set; }
         internal Button mBtnLent { get; set; }
         internal Button mBtnRemove { get; set; }
+        private string mDBConnection { get; set; }
 
         private DateTimePicker mDateTimePicker;
 
@@ -38,12 +39,20 @@ namespace ISBNCaller_GUI
         }
 
         #endregion
+        #region Constructors
+        
+        internal LentTab(string dbConnection)
+        {
+            mDBConnection = dbConnection;
+        }
+
+        #endregion
         #region Methods
         #region Events
 
         internal void btnSearch_Click()
         {
-            DBReader dbReader = new DBReader();
+            DBReader dbReader = new DBReader(mDBConnection);
             string cmd = CreateSQLCmd(dbReader);
             if (cmd == "")
             {
@@ -75,7 +84,7 @@ namespace ISBNCaller_GUI
             try
             {
                 bool ok = false;
-                DBWriter dbWriter = new DBWriter();
+                DBWriter dbWriter = new DBWriter(mDBConnection);
                 DataGridViewSelectedRowCollection rows = mDataGridViewLent.SelectedRows;
                 bool allRowsSelected = false;
                 if (rows.Count == 1 && mDataGridViewLent.Rows.Count == 1)

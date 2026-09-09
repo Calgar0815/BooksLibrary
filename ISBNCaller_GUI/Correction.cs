@@ -75,7 +75,7 @@ namespace ISBNCaller_GUI
         
         #endregion
         #endregion
-    #region Constructor
+        #region Constructor
 
         public Correction(Form1 form1, List<DBReader.SearchStruct> toCorrectList)
         {
@@ -274,7 +274,7 @@ namespace ISBNCaller_GUI
 
         private void FillDGVAuthors(DBReader.SearchStruct toCorrect, ref DataGridView dgvAuthors)
         {
-            DBReader dbReader = new DBReader();
+            DBReader dbReader = new DBReader(mForm1.mDBConnection);
             List<ISBNWorker.DBAuthorStruct> authorsList = dbReader.GetAuthorsByBookID(toCorrect.BookID);
             for (int index = 0; index < authorsList.Count; index++)
             {

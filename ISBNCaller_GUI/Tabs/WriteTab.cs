@@ -151,7 +151,7 @@ namespace ISBNCaller_GUI
             if (mCmbBoxSeries.SelectedValue != null)
             {
                 int seriesID = (int)mCmbBoxSeries.SelectedValue;
-                DBReader dbReader = new DBReader();
+                DBReader dbReader = new DBReader(mForm1.mDBConnection);
                 int maxNoInSeries = dbReader.GetMaxNoInSeries(seriesID);
                 mLabelMaxNoCount.Text = $"{maxNoInSeries}";
             } // if
@@ -373,7 +373,7 @@ namespace ISBNCaller_GUI
 
         private bool WriteToDB()
         {
-            DBReader dbReader = new DBReader();
+            DBReader dbReader = new DBReader(mForm1.mDBConnection);
             List<ISBNWorker.DBAuthorStruct> returnedAuthors = new List<ISBNWorker.DBAuthorStruct>();
             if (!CheckAuthorsForDublettes(dbReader, ref returnedAuthors))
             {
@@ -385,7 +385,7 @@ namespace ISBNCaller_GUI
 
             if (ok)
             {
-                DBWriter dbWriter = new DBWriter();
+                DBWriter dbWriter = new DBWriter(mForm1.mDBConnection);
                 bool written = dbWriter.WriteBook(dbBook);
                 if (!written) return false;
 

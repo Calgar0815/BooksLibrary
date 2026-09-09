@@ -6,12 +6,19 @@ namespace ISBNCaller_Lib
 {
     public class DBWriter
     {
-#if DEBUG || WITHOUTLANGUAGESELECTION_DEBUG
-        private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB_Test";
-#else
-        private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
-#endif
+        #region Variables
 
+        private string mConnection { get; set; }
+
+        #endregion
+        #region Constructors
+
+        internal DBWriter(string connection)
+        {
+            mConnection = connection;
+        }
+
+        #endregion
         #region Author
 
         public bool WriteAuthor(ISBNWorker.DBAuthorStruct author)
@@ -238,7 +245,7 @@ namespace ISBNCaller_Lib
         {
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -262,7 +269,7 @@ namespace ISBNCaller_Lib
         {
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))

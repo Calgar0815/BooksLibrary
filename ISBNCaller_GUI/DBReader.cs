@@ -6,12 +6,19 @@ namespace ISBNCaller_Lib
 {
     public class DBReader
     {
-#if DEBUG || WITHOUTLANGUAGESELECTION_DEBUG
-        private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB_Test";
-#else
-        private const string c_connection = "Host=localhost;Username=postgres;Password=aur7eh;Database=BooksDB";
-#endif
+        #region Variables
 
+        private string mConnection { get; set; }
+
+        #endregion
+        #region Constructors
+
+        internal DBReader(string connection)
+        {
+            mConnection = connection;
+        }
+
+        #endregion
         #region Search
 
         public struct SearchStruct
@@ -50,7 +57,7 @@ namespace ISBNCaller_Lib
             List<SearchStruct> searchStructs = new List<SearchStruct>();
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -79,7 +86,7 @@ namespace ISBNCaller_Lib
             List<string> bookIDs = new List<string>();
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -118,7 +125,7 @@ namespace ISBNCaller_Lib
             search.ISBN13 = reader.IsDBNull(9) ? "" : reader.GetFieldValue<string>(9);
             search.IsLent = reader.IsDBNull(10) ? false : reader.GetFieldValue<bool>(10);
             search.BookID = reader.GetFieldValue<int>(11);
-            
+
             return search;
         }
 
@@ -223,7 +230,7 @@ namespace ISBNCaller_Lib
             List<ISBNWorker.DBAuthorStruct> authorStructs = new List<ISBNWorker.DBAuthorStruct>();
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -339,7 +346,7 @@ namespace ISBNCaller_Lib
         {
             string cmd = "SELECT Format FROM Books WHERE Format IS NOT NULL GROUP BY Format";
             List<string> formats = ReadTextDBBook(cmd);
-            
+
             return formats;
         }
 
@@ -348,7 +355,7 @@ namespace ISBNCaller_Lib
             List<ISBNWorker.DBBookStruct> bookStructs = new List<ISBNWorker.DBBookStruct>();
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -377,7 +384,7 @@ namespace ISBNCaller_Lib
             List<string> books = new List<string>();
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -423,7 +430,7 @@ namespace ISBNCaller_Lib
         {
             string cmd = $"SELECT LentID, BookID, PreName, SurName, LentDate FROM Lent WHERE BookID IN (SELECT BookID FROM Books WHERE Title LIKE '%{title}%' AND Active IS TRUE)";
             List<ISBNWorker.DBLentStruct> lent = ReadDBLent(cmd);
-            
+
             return lent;
         }
 
@@ -438,7 +445,7 @@ namespace ISBNCaller_Lib
         public List<ISBNWorker.DBLentStruct> GetLentByISBN(string isbn)
         {
             string whereClause = "";
-            switch(isbn.Length)
+            switch (isbn.Length)
             {
                 case 10: whereClause = $"ISBN10 = '{isbn}'"; break;
                 case 13: whereClause = $"ISBN13 = '{isbn}'"; break;
@@ -473,7 +480,7 @@ namespace ISBNCaller_Lib
             List<ISBNWorker.DBLentStruct> lentStructs = new List<ISBNWorker.DBLentStruct>();
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -532,7 +539,7 @@ namespace ISBNCaller_Lib
             string cmd = $"SELECT SeriesID, Name FROM Series WHERE Name ='{name}';";
             series = ReadDBSeries(cmd, series);
             int seriesID = -1;
-            foreach(var serie in series)
+            foreach (var serie in series)
             {
                 seriesID = serie.Key;
             }
@@ -546,7 +553,7 @@ namespace ISBNCaller_Lib
             int maxNoInSeries = -1;
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
@@ -579,7 +586,7 @@ namespace ISBNCaller_Lib
 
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(c_connection))
+                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
                 {
                     conn.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
