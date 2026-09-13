@@ -1,6 +1,10 @@
-﻿using Npgsql;
+﻿using ISBNCaller.DBWorker;
+using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Windows.Forms;
 
 namespace ISBNCaller_Lib
 {
@@ -9,13 +13,15 @@ namespace ISBNCaller_Lib
         #region Variables
 
         private string mConnection { get; set; }
+        private BooksDB mBooksDB { get; set; }
 
         #endregion
         #region Constructors
 
-        internal DBWriter(string connection)
+        internal DBWriter(string connection, BooksDB booksDB)
         {
             mConnection = connection;
+            mBooksDB = booksDB;
         }
 
         #endregion
@@ -23,31 +29,53 @@ namespace ISBNCaller_Lib
 
         public bool WriteAuthor(ISBNWorker.DBAuthorStruct author)
         {
-            string columns = "Name";
-            string values = $"'{author.Name}'";
+            bool ok = false;
+            Authors auth = new Authors();
+            auth.Name = author.Name;
             if (author.PreName != null)
             {
-                columns += ", PreName";
-                values += $", '{author.PreName}'";
+                auth.Prename = author.PreName;
             }
 
-            string cmd = $"INSERT INTO Authors ({columns}) VALUES ({values})";
-            bool ok = WriteToDB(cmd);
+            try
+            {
+                mBooksDB.Authors.Add(auth);
+                mBooksDB.SaveChanges();
+                ok = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error wirtign new author to db: {ex.ToString()}");
+            }
+
 
             return ok;
         }
 
         public bool WriteAuthors(List<ISBNWorker.DBAuthorStruct> authors)
         {
-            string columns = "Name, PreName";
-            List<string> values = new List<string>();
-            foreach (ISBNWorker.DBAuthorStruct author in authors)
+            bool ok = false;
+            try
             {
-                values.Add(author.PreName == null ? $"('{author.Name}', null)" : $"('{author.Name}', '{author.PreName}')");
-            } // foreach
+                foreach (ISBNWorker.DBAuthorStruct author in authors)
+                {
+                    Authors auth = new Authors();
+                    auth.Name = author.Name;
+                    if (author.PreName != null)
+                    {
+                        auth.Prename = author.PreName;
+                    }
 
-            string cmd = $"INSERT INTO Authors ({columns}) VALUES {string.Join(", ", values)}";
-            bool ok = WriteToDB(cmd);
+                    mBooksDB.Authors.Add(auth);
+                } // foreach
+
+                mBooksDB.SaveChanges();
+                ok = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not write new authors to DB: {ex.ToString()}.");
+            }
 
             return ok;
         }
@@ -57,62 +85,74 @@ namespace ISBNCaller_Lib
 
         public bool WriteBook(ISBNWorker.DBBookStruct book)
         {
-            string columns = "Title, IsPartOfSeries";
-            string istPartOfSeries = book.IsPartOfSeries ? "true" : "false";
-            string values = $"'{book.Title}', {istPartOfSeries}";
-            if (book.SubTitle != null)
-            {
-                columns += ", SubTitle";
-                values += $", '{book.SubTitle}'";
-            }
+            bool ok = false;
+            Books b = FillNewBook(book);
 
-            if (book.PublishingDate != null)
+            try
             {
-                columns += ", PublishingDate";
-                values += $", '{book.PublishingDate}'";
+                mBooksDB.Books.Add(b);
+                mBooksDB.SaveChanges(true);
+                ok = true;
             }
-
-            if (book.Format != null)
+            catch (Exception ex)
             {
-                columns += ", Format";
-                values += $", '{book.Format}'";
+                MessageBox.Show($"Could not write new book to DB: {ex.ToString()}.");
             }
-
-            if (book.ISBN10 != null)
-            {
-                columns += ", ISBN10";
-                values += $", '{book.ISBN10}'";
-            }
-
-            if (book.ISBN13 != null)
-            {
-                columns += ", ISBN13";
-                values += $", '{book.ISBN13}'";
-            }
-
-            string cmd = $"INSERT INTO Books ({columns}) VALUES ({values})";
-            bool ok = WriteToDB(cmd);
 
             return ok;
         }
 
+        private static Books FillNewBook(ISBNWorker.DBBookStruct book)
+        {
+            Books b = new Books();
+            b.Ispartofseries = book.IsPartOfSeries;
+            b.Title = book.Title;
+            if (book.SubTitle != null)
+            {
+                b.Subtitle = book.SubTitle;
+            }
+
+            if (book.PublishingDate != null)
+            {
+                b.Publishingdate = book.PublishingDate;
+            }
+
+            if (book.Format != null)
+            {
+                b.Format = book.Format;
+            }
+
+            if (book.ISBN10 != null)
+            {
+                b.Isbn10 = book.ISBN10;
+            }
+
+            if (book.ISBN13 != null)
+            {
+                b.Isbn13 = book.ISBN13;
+            }
+
+            return b;
+        }
+
         public bool WriteBooks(List<ISBNWorker.DBBookStruct> books)
         {
-            string columns = "Title, SubTitle, PublishingDate, Format, ISBN10, ISBN13, IsPartOfSeries";
-            List<string> values = new List<string>();
-            foreach (ISBNWorker.DBBookStruct book in books)
+            bool ok = false;
+            try
             {
-                string subTitle = book.SubTitle != null ? $"'{book.SubTitle}'" : "null";
-                string publishingDate = book.PublishingDate != null ? $", '{book.PublishingDate}'" : "null";
-                string format = book.Format != null ? $", '{book.Format}'" : "null";
-                string isbn10 = book.ISBN10 != null ? $", '{book.ISBN10}'" : "null";
-                string isbn13 = book.ISBN13 != null ? $", '{book.ISBN13}'" : "null";
-                string isPartOfSeries = book.IsPartOfSeries ? "true" : "false";
-                values.Add($"('{book.Title}', {subTitle}, {publishingDate}, {format}, {isbn10}, {isbn13}, {isPartOfSeries})");
-            } // foreach
+                foreach (ISBNWorker.DBBookStruct book in books)
+                {
+                    Books b = FillNewBook(book);
+                    mBooksDB.Books.Add(b);
+                } // foreach
 
-            string cmd = $"INSERT INTO Books ({columns}) VALUES {string.Join(", ", values)}";
-            bool ok = WriteToDB(cmd);
+                mBooksDB.SaveChanges(true);
+                ok = true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Could not write new books to DB: {ex.ToString()}.");
+            }
 
             return ok;
         }
@@ -122,22 +162,44 @@ namespace ISBNCaller_Lib
 
         public bool WriteBookAuthor(int bookID, int authorID)
         {
-            string cmd = $"INSERT INTO BookAuthor (BookID, AuthorID) VALUES ({bookID}, {authorID})";
-            bool ok = WriteToDB(cmd);
+            bool ok = false;
+            Bookauthor bookauthor = new Bookauthor();
+            bookauthor.Bookid = bookID;
+            bookauthor.Authorid = authorID;
+            try
+            {
+                mBooksDB.Bookauthor.Add(bookauthor);
+                mBooksDB.SaveChanges(true);
+                ok = true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Could not write new bookauthor to DB: {ex.ToString()}.");
+            }
 
             return ok;
         }
 
         public bool WriteBookAuthors(int bookID, List<int> authorIDs)
         {
-            List<string> values = new List<string>();
-            foreach (int authorID in authorIDs)
+            bool ok = false;
+            try
             {
-                values.Add($"({bookID}, {authorID})");
-            }
+                foreach(int authorID in authorIDs)
+                {
+                    Bookauthor ba = new Bookauthor();
+                    ba.Bookid = bookID;
+                    ba.Authorid = authorID;
+                    mBooksDB.Bookauthor.Add(ba);
+                }
 
-            string cmd = $"INSERT INTO BookAuthor (BookID, AuthorID) VALUES {string.Join(", ", values)}";
-            bool ok = WriteToDB(cmd);
+                mBooksDB.SaveChanges(true);
+                ok = true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Could not write new bookauthors to DB: {ex.ToString()}.");
+            }
 
             return ok;
         }
@@ -147,63 +209,115 @@ namespace ISBNCaller_Lib
 
         public bool WriteLent(ISBNWorker.DBLentStruct lent)
         {
-            string columns = "BookID, PreName, LentDate";
-            string values = $"{lent.BookID}, '{lent.PreName}', '{lent.LentDate.ToString("yyyy-MM-dd")}'";
+            bool ok = false;
+            Lent l = new Lent();
+            l.Bookid = lent.BookID;
+            l.Prename = lent.PreName;
+            l.Lentdate = new DateTime(lent.LentDate.Year, lent.LentDate.Month, lent.LentDate.Day, lent.LentDate.Hour, lent.LentDate.Minute, lent.LentDate.Second, DateTimeKind.Utc);
+            l.Active = true;
             if (lent.SurName != null)
             {
-                columns += ", SurName";
-                values += $", '{lent.SurName}'";
+                l.Surname = lent.SurName;
             }
 
-            string cmd = $"INSERT INTO Lent ({columns}) VALUES ({values})";
-            bool ok = WriteToDB(cmd);
+            try
+            {
+                mBooksDB.Lent.Add(l);
+                mBooksDB.SaveChanges(true);
+                ok = true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Could not write new lent to DB: {ex.ToString()}.");
+            }
 
             return ok;
         }
 
         public bool WriteLents(List<ISBNWorker.DBLentStruct> lents)
         {
-            string columns = "BookID, PreName, SurName, LentDate";
-            List<string> values = new List<string>();
+            bool ok = false;
             foreach (ISBNWorker.DBLentStruct lent in lents)
             {
-                values.Add(lent.SurName != null ?
-                    $"({lent.BookID}, '{lent.PreName}', '{lent.SurName}', '{lent.LentDate.ToString("yyyy-MM-dd")}')" :
-                    $"({lent.BookID}, '{lent.PreName}', null, '{lent.LentDate.ToString("yyyy-MM-dd")}')");
+                Lent l = new Lent();
+                l.Bookid = lent.BookID;
+                l.Prename = lent.PreName;
+                l.Lentdate = new DateTime(lent.LentDate.Year, lent.LentDate.Month, lent.LentDate.Day, lent.LentDate.Hour, lent.LentDate.Minute, lent.LentDate.Second, DateTimeKind.Utc);
+                l.Active = true;
+                if (lent.SurName != null)
+                {
+                    l.Surname = lent.SurName;
+                }
+
+                mBooksDB.Lent.Add(l);
             } // foreach
 
-            string cmd = $"INSERT INTO Lent ({columns}) VALUES {string.Join(", ", values)}";
-            bool ok = WriteToDB(cmd);
+            try
+            {
+                mBooksDB.SaveChanges(true);
+                ok = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not write new lents to DB: {ex.ToString()}.");
+            }
 
             return ok;
         }
 
         public bool DeleteLent(ISBNWorker.DBLentStruct lent)
         {
-            string cmd = $"UPDATE Lent SET Active=FALSE WHERE LendID={lent.LentID}";
-            bool ok = DeleteFromDB(cmd);
+            bool ok = false;
+            mBooksDB.Lent.Where(x => x.Lentid == lent.LentID).ToList().ForEach(x => x.Active = false);
+            try
+            {
+                mBooksDB.SaveChanges(true);
+                ok = true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Could not update lent to DB: {ex.ToString()}.");
+            }
 
             return ok;
         }
 
         public bool DeleteLents(List<ISBNWorker.DBLentStruct> lents)
         {
+            bool ok = false;
             List<int> lentIDs = new List<int>();
             foreach (ISBNWorker.DBLentStruct lent in lents)
             {
                 lentIDs.Add(lent.LentID);
             }
 
-            string cmd = $"UPDATE Lent SET Active=FALSE WHERE LentID IN ({string.Join(",", lentIDs)})";
-            bool ok = DeleteFromDB(cmd);
+            mBooksDB.Lent.Where(x => lentIDs.Contains(x.Lentid)).ToList().ForEach(x => x.Active = false);
+            try
+            {
+                mBooksDB.SaveChanges(true);
+                ok = true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Could not update lents to DB: {ex.ToString()}.");
+            }
 
             return ok;
         }
 
-        public bool DeleteLents(List<string> lentIDs)
+        public bool DeleteLents(List<int> lentIDs)
         {
-            string cmd = $"UPDATE Lent SET Active=FALSE WHERE LentID IN ({string.Join(", ", lentIDs)})";
-            bool ok = DeleteFromDB(cmd);
+            bool ok = false;
+            mBooksDB.Lent.Where(x => lentIDs.Contains(x.Lentid)).ToList().ForEach(x => x.Active = false);
+            try
+            {
+                mBooksDB.SaveChanges(true);
+                ok = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not update lents to DB: {ex.ToString()}.");
+            }
 
             return ok;
         }
@@ -213,8 +327,19 @@ namespace ISBNCaller_Lib
 
         public bool WriteSeries(string name)
         {
-            string cmd = $"INSERT INTO Series (Name) VALUES ('{name}');";
-            bool ok = WriteToDB(cmd);
+            bool ok = false;
+            Series series = new Series();
+            series.Name = name;
+            try
+            {
+                mBooksDB.Series.Add(series);
+                mBooksDB.SaveChanges(true);
+                ok = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not write new series to DB: {ex.ToString()}.");
+            }
 
             return ok;
         }
@@ -224,66 +349,43 @@ namespace ISBNCaller_Lib
 
         public bool WriteBookSeries(int bookID, int seriesID)
         {
-            string cmd = $"INSERT INTO BookSeries (BookID, SeriesID) VALUES ({bookID}, {seriesID});";
-            bool ok = WriteToDB(cmd);
+            bool ok = false;
+            Bookseries bs = new Bookseries();
+            bs.Bookid = bookID;
+            bs.Seriesid = seriesID;
+            try
+            {
+                mBooksDB.Bookseries.Add(bs);
+                mBooksDB.SaveChanges(true);
+                ok = true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Could not write new bookseries to DB: {ex.ToString()}.");
+            }
 
             return ok;
         }
 
         public bool WriteBookSeries(int bookID, int seriesID, int noInSeries)
         {
-            string cmd = $"INSERT INTO BookSeries (BookID, SeriesID, NoInSeries) VALUES ({bookID}, {seriesID}, {noInSeries});";
-            bool ok = WriteToDB(cmd);
+            bool ok = false;
+            Bookseries bs = new Bookseries();
+            bs.Bookid = bookID;
+            bs.Seriesid = seriesID;
+            bs.Noinseries = noInSeries;
+            try
+            {
+                mBooksDB.Bookseries.Add(bs);
+                mBooksDB.SaveChanges(true);
+                ok = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not write new bookseries to DB: {ex.ToString()}.");
+            }
 
             return ok;
-        }
-
-        #endregion
-        #region Write to DB
-
-        private bool WriteToDB(string cmd)
-        {
-            try
-            {
-                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
-                {
-                    conn.Open();
-                    using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
-                    {
-                        command.ExecuteNonQuery();
-                    } // using
-                } // using
-            } // try
-            catch (Exception ex)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        #endregion
-        #region Delete from DB
-
-        private bool DeleteFromDB(string cmd)
-        {
-            try
-            {
-                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
-                {
-                    conn.Open();
-                    using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
-                    {
-                        command.ExecuteNonQuery();
-                    } // using
-                } // using
-            } // try
-            catch (Exception ex)
-            {
-                return false;
-            }
-
-            return true;
         }
 
         #endregion

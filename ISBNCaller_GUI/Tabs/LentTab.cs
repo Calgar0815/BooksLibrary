@@ -88,7 +88,7 @@ namespace ISBNCaller_GUI
             try
             {
                 bool ok = false;
-                DBWriter dbWriter = new DBWriter(mDBConnection);
+                DBWriter dbWriter = new DBWriter(mDBConnection, mBooksDB);
                 DataGridViewSelectedRowCollection rows = mDataGridViewLent.SelectedRows;
                 bool allRowsSelected = false;
                 if (rows.Count == 1 && mDataGridViewLent.Rows.Count == 1)

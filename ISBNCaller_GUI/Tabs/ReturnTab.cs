@@ -239,13 +239,13 @@ namespace ISBNCaller_GUI
             try
             {
                 bool ok = false;
-                DBWriter dbWriter = new DBWriter(mDBConnection);
+                DBWriter dbWriter = new DBWriter(mDBConnection, mBooksDB);
                 DataGridViewSelectedRowCollection rows = mDataGridViewReturn.SelectedRows;
                 bool allRowsSelected = rows.Count == mDataGridViewReturn.Rows.Count;
-                List<string> lentIDs = new List<string>();
+                List<int> lentIDs = new List<int>();
                 foreach (DataGridViewRow row in rows)
                 {
-                    lentIDs.Add(row.Cells[0].Value.ToString());
+                    lentIDs.Add(int.Parse(row.Cells[0].Value.ToString()));
                 }
 
                 ok = dbWriter.DeleteLents(lentIDs);

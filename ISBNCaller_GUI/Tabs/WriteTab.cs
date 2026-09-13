@@ -386,7 +386,7 @@ namespace ISBNCaller_GUI
 
             if (ok)
             {
-                DBWriter dbWriter = new DBWriter(mForm1.mDBConnection);
+                DBWriter dbWriter = new DBWriter(mForm1.mDBConnection, mForm1.mBooksDB);
                 bool written = dbWriter.WriteBook(dbBook);
                 if (!written) return false;
 
