@@ -1,21 +1,27 @@
-﻿using Npgsql;
+﻿using ISBNCaller_Lib;
+using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Xml.Linq;
 
-namespace ISBNCaller_Lib
+namespace ISBNCaller.DBWorker
 {
     public class DBReader
     {
         #region Variables
 
         private string mConnection { get; set; }
+        private BooksDB mBooksDB { get; set; }
 
         #endregion
         #region Constructors
 
-        internal DBReader(string connection)
+        internal DBReader(string connection, BooksDB booksDB)
         {
             mConnection = connection;
+            mBooksDB = booksDB;
         }
 
         #endregion
@@ -134,134 +140,178 @@ namespace ISBNCaller_Lib
 
         public ISBNWorker.DBAuthorStruct GetAuthor(int authorID)
         {
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE AuthorID={authorID}";
-            List<ISBNWorker.DBAuthorStruct> author = ReadDBAuthor(cmd);
-            if (author.Count > 0)
+            List<Authors> authors = mBooksDB.Authors.ToList();
+            List<ISBNWorker.DBAuthorStruct> resAuthors = authors.Where(a => a.Authorid == authorID)
+                .Select(x => new ISBNWorker.DBAuthorStruct()
+                {
+                    AuthorID = x.Authorid,
+                    Name = x.Name,
+                    PreName = x.Prename
+                }).ToList();
+            if (authors.Count > 0)
             {
-                return author[0];
-            }
+                return resAuthors.First();
+            } // if
 
             return new ISBNWorker.DBAuthorStruct();
         }
 
         public ISBNWorker.DBAuthorStruct GetAuthorByName(string name)
         {
-            string cmd = $"SELECT DISTINCT AuthorID, PreName, Name FROM Authors WHERE Name='{name}'";
-            List<ISBNWorker.DBAuthorStruct> author = ReadDBAuthor(cmd);
-            if (author.Count > 0)
+            List<Authors> authors = mBooksDB.Authors.ToList();
+            List<ISBNWorker.DBAuthorStruct> resAuthors = authors.Where(a => a.Name == name)
+                .Select(x => new ISBNWorker.DBAuthorStruct()
+                {
+                    AuthorID = x.Authorid,
+                    Name = x.Name,
+                    PreName = x.Prename
+                }).ToList();
+            if (resAuthors.Count > 0)
             {
-                return author[0];
-            }
+                return resAuthors.First();
+            } // if
 
             return new ISBNWorker.DBAuthorStruct();
         }
 
-        public ISBNWorker.DBAuthorStruct GetAuthorByPreName(string name)
+        public List<ISBNWorker.DBAuthorStruct> GetAuthorsByName(string name)
         {
-            string cmd = $"SELECT DISTINCT AuthorID, PreName, Name FROM Authors WHERE PreName='{name}'";
-            List<ISBNWorker.DBAuthorStruct> author = ReadDBAuthor(cmd);
-            if (author.Count > 0)
+            List<Authors> authors = mBooksDB.Authors.ToList();
+            List<ISBNWorker.DBAuthorStruct> resAuthors = authors.Where(a => a.Name == name)
+                .Select(x => new ISBNWorker.DBAuthorStruct()
+                {
+                    AuthorID = x.Authorid,
+                    Name = x.Name,
+                    PreName = x.Prename
+                }).ToList();
+            if (resAuthors.Count > 0)
             {
-                return author[0];
-            }
+                return resAuthors;
+            } // if
 
-            return new ISBNWorker.DBAuthorStruct();
+            return new List<ISBNWorker.DBAuthorStruct>();
+        }
+
+        public List<ISBNWorker.DBAuthorStruct> GetAuthorsByPreName(string name)
+        {
+            List<Authors> authors = mBooksDB.Authors.ToList();
+            List<ISBNWorker.DBAuthorStruct> resAuthors = authors.Where(a => a.Prename == name)
+                .Select(x => new ISBNWorker.DBAuthorStruct()
+                {
+                    AuthorID = x.Authorid,
+                    Name = x.Name,
+                    PreName = x.Prename
+                }).ToList();
+            if (resAuthors.Count > 0)
+            {
+                return resAuthors;
+            } // if
+
+            return new List<ISBNWorker.DBAuthorStruct>();
         }
 
         public ISBNWorker.DBAuthorStruct GetAuthor(string preName, string name)
         {
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE Name='{name}' AND PreName='{preName}'";
-            List<ISBNWorker.DBAuthorStruct> author = ReadDBAuthor(cmd);
-            if (author.Count > 0)
+            List<Authors> authors = mBooksDB.Authors.ToList();
+            List<ISBNWorker.DBAuthorStruct> resAuthors = authors.Where(a => a.Name == name && a.Prename == preName)
+                .Select(x => new ISBNWorker.DBAuthorStruct()
+                {
+                    AuthorID = x.Authorid,
+                    Name = x.Name,
+                    PreName = x.Prename
+                }).ToList();
+            if (resAuthors.Count > 0)
             {
-                return author[0];
-            }
+                return resAuthors.First();
+            } // if
 
             return new ISBNWorker.DBAuthorStruct();
         }
 
         public List<ISBNWorker.DBAuthorStruct> GetAuthors(List<int> authorIDs)
         {
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE AuthorID IN ({string.Join(",", authorIDs)})";
-            List<ISBNWorker.DBAuthorStruct> authors = ReadDBAuthor(cmd);
+            List<Authors> authors = mBooksDB.Authors.ToList();
+            List<ISBNWorker.DBAuthorStruct> resAuthors = authors.Where(a => authorIDs.Contains(a.Authorid))
+                .Select(x => new ISBNWorker.DBAuthorStruct()
+                {
+                    AuthorID = x.Authorid,
+                    Name = x.Name,
+                    PreName = x.Prename
+                }).ToList();
 
-            return authors;
+            return resAuthors;
         }
 
         public List<ISBNWorker.DBAuthorStruct> GetAuthors(List<string> names)
         {
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE Name IN ('{string.Join("','", names)}')";
-            List<ISBNWorker.DBAuthorStruct> authors = ReadDBAuthor(cmd);
+            List<Authors> authors = mBooksDB.Authors.ToList();
+            List<ISBNWorker.DBAuthorStruct> resAuthors = authors.Where(a => names.Contains(a.Name))
+                .Select(x => new ISBNWorker.DBAuthorStruct()
+                {
+                    AuthorID = x.Authorid,
+                    Name = x.Name,
+                    PreName = x.Prename
+                }).ToList();
 
-            return authors;
+            return resAuthors;
         }
 
         public List<ISBNWorker.DBAuthorStruct> GetAuthors(List<KeyValuePair<string, string>> authorNames)
         {
-            List<string> names = new List<string>();
-            foreach (KeyValuePair<string, string> authorName in authorNames)
+            List<Authors> authors = mBooksDB.Authors.ToList();
+            List<string> names = (from kvp in authorNames select kvp.Value).ToList();
+            authors = authors.Where(a => names.Contains(a.Name)).ToList();
+            List<ISBNWorker.DBAuthorStruct> auths = new List<ISBNWorker.DBAuthorStruct>();
+            foreach (Authors author in authors)
             {
-                if (authorName.Key == "")
+                List<KeyValuePair<string, string>> nameList = authorNames.Where(a => a.Value == author.Name).ToList();
+                foreach (KeyValuePair<string, string> name in nameList)
                 {
-                    names.Add($"(Name='{authorName.Value}')");
-                }
-                else
-                {
-                    names.Add($"(PreName='{authorName.Key}' AND Name='{authorName.Value}')");
-                }
-            }
+                    if (name.Key != "" && name.Key == author.Prename)
+                    {
+                        ISBNWorker.DBAuthorStruct auth = FillAuthor(author);
+                        auths.Add(auth);
+                    } // if
+                } // foreach
+            } // foreach
 
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE {string.Join(" OR ", names)}";
-            List<ISBNWorker.DBAuthorStruct> authors = ReadDBAuthor(cmd);
-
-            return authors;
+            return auths;
         }
 
         public List<ISBNWorker.DBAuthorStruct> GetAuthorsByBookID(int bookID)
         {
-            string cmd = $"SELECT AuthorID, PreName, Name FROM Authors WHERE AuthorID IN (SELECT AuthorID FROM BookAuthor WHERE BookID = {bookID} ORDER BY AuthorID ASC);";
-            List<ISBNWorker.DBAuthorStruct> authors = ReadDBAuthor(cmd);
+            List<ISBNWorker.DBAuthorStruct> authors = mBooksDB.Authors
+                .Join(
+                    mBooksDB.Bookauthor,
+                    a => a.Authorid,
+                    ba => ba.Authorid,
+                    (a, ba) => new
+                    {
+                        id = a.Authorid,
+                        prename = a.Prename,
+                        name = a.Name,
+                        deleted = a.Deleted,
+                        bookID = ba.Bookid
+                    })
+                .Where(x => x.bookID == bookID)
+                .Select(x => new ISBNWorker.DBAuthorStruct()
+                {
+                    AuthorID = x.id,
+                    Name = x.name,
+                    PreName = x.prename
+                })
+                .ToList();
 
             return authors;
         }
 
-        private List<ISBNWorker.DBAuthorStruct> ReadDBAuthor(string cmd)
+        private static ISBNWorker.DBAuthorStruct FillAuthor(Authors author)
         {
-            List<ISBNWorker.DBAuthorStruct> authorStructs = new List<ISBNWorker.DBAuthorStruct>();
-            try
-            {
-                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
-                {
-                    conn.Open();
-                    using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
-                    {
-                        NpgsqlDataReader reader = command.ExecuteReader();
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                authorStructs.Add(FillAuthorStruct(reader));
-                            }
-                        } // if
-                    } // using
-                } // using
-            } // try
-            catch (Exception ex)
-            {
-
-            }
-
-            return authorStructs;
-        }
-
-        private ISBNWorker.DBAuthorStruct FillAuthorStruct(NpgsqlDataReader reader)
-        {
-            ISBNWorker.DBAuthorStruct author = new ISBNWorker.DBAuthorStruct();
-            author.AuthorID = reader.GetFieldValue<int>(0);
-            author.PreName = reader.IsDBNull(1) ? null : reader.GetFieldValue<string>(1);
-            author.Name = reader.GetFieldValue<string>(2);
-
-            return author;
+            ISBNWorker.DBAuthorStruct auth = new ISBNWorker.DBAuthorStruct();
+            auth.AuthorID = author.Authorid;
+            auth.PreName = author.Prename;
+            auth.Name = author.Name;
+            return auth;
         }
 
         #endregion
@@ -269,68 +319,200 @@ namespace ISBNCaller_Lib
 
         public ISBNWorker.DBBookStruct GetBookByBookID(int bookID)
         {
-            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE BookID={bookID}";
-            List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
-            if (books.Count > 0)
+            List<Books> books = mBooksDB.Books.ToList();
+            List<ISBNWorker.DBBookStruct> resBooks = books.Where(b => b.Bookid == bookID)
+                .Select(x => new ISBNWorker.DBBookStruct()
+                {
+                    BookID = x.Bookid,
+                    PublishingDate = x.Publishingdate,
+                    ISBN13 = x.Isbn13,
+                    ISBN10 = x.Isbn10,
+                    Title = x.Title,
+                    Format = x.Format,
+                    SubTitle = x.Subtitle,
+                    IsPartOfSeries = x.Ispartofseries
+                }).ToList();
+            if (resBooks.Count > 0)
             {
-                return books[0];
-            }
+                ISBNWorker.DBBookStruct b = resBooks.First();
+                return b;
+            } // if
 
             return new ISBNWorker.DBBookStruct();
         }
 
-        public List<ISBNWorker.DBBookStruct> GetBookByBookIDs(List<int> bookIDs)
+        public List<ISBNWorker.DBBookStruct> GetBooksByBookIDs(List<int> bookIDs)
         {
-            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE BookID IN ({string.Join(",", bookIDs)})";
-            List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
+            List<Books> books = mBooksDB.Books.ToList();
+            List<ISBNWorker.DBBookStruct> resBooks = books.Where(b => bookIDs.Contains(b.Bookid))
+                .Select(x => new ISBNWorker.DBBookStruct()
+                {
+                    BookID = x.Bookid,
+                    PublishingDate = x.Publishingdate,
+                    ISBN13 = x.Isbn13,
+                    ISBN10 = x.Isbn10,
+                    Title = x.Title,
+                    Format = x.Format,
+                    SubTitle = x.Subtitle,
+                    IsPartOfSeries = x.Ispartofseries
+                }).ToList();
 
-            return books;
+            return resBooks;
         }
 
-        public List<ISBNWorker.DBBookStruct> GetBookByTitle(string title)
+        public List<ISBNWorker.DBBookStruct> GetBooksByTitle(string title)
         {
-            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE Title='{title}'";
-            List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
+            List<Books> books = mBooksDB.Books.ToList();
+            List<ISBNWorker.DBBookStruct> resBooks = books.Where(b => b.Title == title)
+                .Select(x => new ISBNWorker.DBBookStruct()
+                {
+                    BookID = x.Bookid,
+                    PublishingDate = x.Publishingdate,
+                    ISBN13 = x.Isbn13,
+                    ISBN10 = x.Isbn10,
+                    Title = x.Title,
+                    Format = x.Format,
+                    SubTitle = x.Subtitle,
+                    IsPartOfSeries = x.Ispartofseries
+                }).ToList();
 
-            return books;
-
+            return resBooks;
         }
 
-        public ISBNWorker.DBBookStruct GetBookByFormat(string format)
+        public List<ISBNWorker.DBBookStruct> GetBooksByFormat(string format)
         {
-            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE Format='{format}'";
-            List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
-            if (books.Count > 0)
-            {
-                return books[0];
-            }
+            List<Books> books = mBooksDB.Books.ToList();
+            List<ISBNWorker.DBBookStruct> resBooks = books.Where(b => b.Format == format)
+                .Select(x => new ISBNWorker.DBBookStruct()
+                {
+                    BookID = x.Bookid,
+                    PublishingDate = x.Publishingdate,
+                    ISBN13 = x.Isbn13,
+                    ISBN10 = x.Isbn10,
+                    Title = x.Title,
+                    Format = x.Format,
+                    SubTitle = x.Subtitle,
+                    IsPartOfSeries = x.Ispartofseries
+                }).ToList();
 
-            return new ISBNWorker.DBBookStruct();
+            return resBooks;
         }
 
         public ISBNWorker.DBBookStruct GetBookByISBN(string isbn)
         {
+            List<Books> books = mBooksDB.Books.ToList();
+            List<ISBNWorker.DBBookStruct> resBooks = new List<ISBNWorker.DBBookStruct>();
             switch (isbn.Length)
             {
-                case 10: isbn = $"ISBN10 = '{isbn}'"; break;
-                case 13: isbn = $"ISBN13 = '{isbn}'"; break;
+                case 10:
+                    resBooks = books.Where(b => b.Isbn10 == isbn)
+                .Select(x => new ISBNWorker.DBBookStruct()
+                {
+                    BookID = x.Bookid,
+                    PublishingDate = x.Publishingdate,
+                    ISBN13 = x.Isbn13,
+                    ISBN10 = x.Isbn10,
+                    Title = x.Title,
+                    Format = x.Format,
+                    SubTitle = x.Subtitle,
+                    IsPartOfSeries = x.Ispartofseries
+                }).ToList(); break;
+                case 13:
+                    resBooks = books.Where(b => b.Isbn13 == isbn)
+                .Select(x => new ISBNWorker.DBBookStruct()
+                {
+                    BookID = x.Bookid,
+                    PublishingDate = x.Publishingdate,
+                    ISBN13 = x.Isbn13,
+                    ISBN10 = x.Isbn10,
+                    Title = x.Title,
+                    Format = x.Format,
+                    SubTitle = x.Subtitle,
+                    IsPartOfSeries = x.Ispartofseries
+                }).ToList(); break;
                 default: throw new Exception($"Eine ISBN mit {isbn.Length.ToString()} Digits ist ungültig.");
             } // switch
 
-            string cmd = $"SELECT BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books WHERE {isbn}";
-            List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
-            if (books.Count > 0)
+            if (resBooks.Count > 0)
             {
-                return books[0];
+                return resBooks.First();
             }
 
             return new ISBNWorker.DBBookStruct();
         }
 
-        public List<ISBNWorker.DBBookStruct> GetBookByAuthorID(int authorID)
+        public List<ISBNWorker.DBBookStruct> GetBooksByAuthorID(int authorID)
         {
-            string cmd = $"SELECT b.BookID, Title, SubTitle, PublishingDate, Format, ISBN13, ISBN10, IsPartOfSeries FROM Books b INNER JOIN BookAuthor ba ON b.BookID=ba.BookID WHERE AuthorID={authorID}";
-            List<ISBNWorker.DBBookStruct> books = ReadDBBook(cmd);
+            List<ISBNWorker.DBBookStruct> books = mBooksDB.Books
+                .Join(
+                    mBooksDB.Bookauthor,
+                    b => b.Bookid,
+                    ba => ba.Bookid,
+                    (b, ba) => new
+                    {
+                        bookID = b.Bookid,
+                        publishingDate = b.Publishingdate,
+                        deleted = b.Deleted,
+                        isbn13 = b.Isbn13,
+                        isbn10 = b.Isbn10,
+                        title = b.Title,
+                        format = b.Format,
+                        subTitle = b.Subtitle,
+                        isPartOfSeries = b.Ispartofseries,
+                        authorID = ba.Authorid
+                    })
+                .Where(x => x.authorID == authorID)
+                .Select(x => new ISBNWorker.DBBookStruct()
+                {
+                    BookID = x.bookID,
+                    PublishingDate = x.publishingDate,
+                    ISBN13 = x.isbn13,
+                    ISBN10 = x.isbn10,
+                    Title = x.title,
+                    Format = x.format,
+                    SubTitle = x.subTitle,
+                    IsPartOfSeries = x.isPartOfSeries
+                })
+                .ToList();
+
+
+            return books;
+        }
+
+        public List<ISBNWorker.DBBookStruct> GetBooksByAuthorIDs(List<int> authorIDs)
+        {
+            List<ISBNWorker.DBBookStruct> books = mBooksDB.Books
+                .Join(
+                    mBooksDB.Bookauthor,
+                    b => b.Bookid,
+                    ba => ba.Bookid,
+                    (b, ba) => new
+                    {
+                        bookID = b.Bookid,
+                        publishingDate = b.Publishingdate,
+                        deleted = b.Deleted,
+                        isbn13 = b.Isbn13,
+                        isbn10 = b.Isbn10,
+                        title = b.Title,
+                        format = b.Format,
+                        subTitle = b.Subtitle,
+                        isPartOfSeries = b.Ispartofseries,
+                        authorID = ba.Authorid
+                    })
+                .Where(x => authorIDs.Contains(x.authorID))
+                .Select(x => new ISBNWorker.DBBookStruct()
+                {
+                    BookID = x.bookID,
+                    PublishingDate = x.publishingDate,
+                    ISBN13 = x.isbn13,
+                    ISBN10 = x.isbn10,
+                    Title = x.title,
+                    Format = x.format,
+                    SubTitle = x.subTitle,
+                    IsPartOfSeries = x.isPartOfSeries
+                })
+                .ToList();
+
 
             return books;
         }
@@ -344,8 +526,13 @@ namespace ISBNCaller_Lib
 
         public List<string> GetAllFormats()
         {
-            string cmd = "SELECT Format FROM Books WHERE Format IS NOT NULL GROUP BY Format";
-            List<string> formats = ReadTextDBBook(cmd);
+            List<Books> books = mBooksDB.Books.ToList();
+            List<IGrouping<string, Books>> resBooks = books.Where(b => b.Format != null).GroupBy(b => b.Format).ToList();
+            List<string> formats = new List<string>();
+            foreach (IGrouping<string, Books> resBook in resBooks)
+            {
+                formats.Add(resBook.Key);
+            }
 
             return formats;
         }
@@ -379,35 +566,6 @@ namespace ISBNCaller_Lib
             return bookStructs;
         }
 
-        private List<string> ReadTextDBBook(string cmd)
-        {
-            List<string> books = new List<string>();
-            try
-            {
-                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
-                {
-                    conn.Open();
-                    using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
-                    {
-                        NpgsqlDataReader reader = command.ExecuteReader();
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                books.Add(reader.GetFieldValue<string>(0));
-                            }
-                        } // if
-                    } // using
-                } // using
-            } // try
-            catch (Exception ex)
-            {
-
-            }
-
-            return books;
-        }
-
         private ISBNWorker.DBBookStruct FillBookStruct(NpgsqlDataReader reader)
         {
             ISBNWorker.DBBookStruct book = new ISBNWorker.DBBookStruct();
@@ -428,92 +586,164 @@ namespace ISBNCaller_Lib
 
         public List<ISBNWorker.DBLentStruct> GetLentByBook(string title)
         {
-            string cmd = $"SELECT LentID, BookID, PreName, SurName, LentDate FROM Lent WHERE BookID IN (SELECT BookID FROM Books WHERE Title LIKE '%{title}%' AND Active IS TRUE)";
-            List<ISBNWorker.DBLentStruct> lent = ReadDBLent(cmd);
+            List<ISBNWorker.DBLentStruct> lents = mBooksDB.Lent
+                .Join(
+                mBooksDB.Books,
+                l => l.Bookid,
+                b => b.Bookid,
+                (l, b) => new
+                {
+                    l.Lentid,
+                    l.Bookid,
+                    l.Prename,
+                    l.Surname,
+                    l.Lentdate,
+                    b.Title,
+                    l.Active
+                })
+                .Where(x => x.Title.Contains(title) && x.Active.Value)
+                .Select(x => new ISBNWorker.DBLentStruct()
+                {
+                    BookID = x.Bookid,
+                    LentID = x.Lentid,
+                    PreName = x.Prename,
+                    SurName = x.Surname,
+                    LentDate = x.Lentdate
+                })
+                .ToList();
 
-            return lent;
+            return lents;
         }
 
         public List<ISBNWorker.DBLentStruct> GetLentByPreName(string preName)
         {
-            string cmd = $"SELECT LentID, BookID, PreName, SurName, LentDate FROM Lent WHERE PreName = '{preName}' AND ACTIVE IS TRUE";
-            List<ISBNWorker.DBLentStruct> lents = ReadDBLent(cmd);
+            List<ISBNWorker.DBLentStruct> lents = mBooksDB.Lent
+                .Where(x => x.Prename == preName && x.Active.Value)
+                .Select(x => new ISBNWorker.DBLentStruct()
+                {
+                    BookID = x.Bookid,
+                    LentID = x.Lentid,
+                    PreName = x.Prename,
+                    SurName = x.Surname,
+                    LentDate = x.Lentdate
+                })
+                .ToList();
 
             return lents;
         }
 
         public List<ISBNWorker.DBLentStruct> GetLentByISBN(string isbn)
         {
-            string whereClause = "";
+            List<ISBNWorker.DBLentStruct> lents = new List<ISBNWorker.DBLentStruct>();
             switch (isbn.Length)
             {
-                case 10: whereClause = $"ISBN10 = '{isbn}'"; break;
-                case 13: whereClause = $"ISBN13 = '{isbn}'"; break;
+                case 10:
+                    lents = mBooksDB.Lent
+                        .Join(
+                        mBooksDB.Books,
+                        l => l.Bookid,
+                        b => b.Bookid,
+                        (l, b) => new
+                        {
+                            l.Lentid,
+                            l.Bookid,
+                            l.Prename,
+                            l.Surname,
+                            l.Lentdate,
+                            b.Isbn10,
+                            l.Active
+                        })
+                        .Where(x => x.Isbn10 == isbn && x.Active.Value)
+                        .Select(x => new ISBNWorker.DBLentStruct()
+                        {
+                            BookID = x.Bookid,
+                            LentID = x.Lentid,
+                            PreName = x.Prename,
+                            SurName = x.Surname,
+                            LentDate = x.Lentdate
+                        })
+                        .ToList(); break;
+                case 13:
+                    lents = mBooksDB.Lent
+                        .Join(
+                        mBooksDB.Books,
+                        l => l.Bookid,
+                        b => b.Bookid,
+                        (l, b) => new
+                        {
+                            l.Lentid,
+                            l.Bookid,
+                            l.Prename,
+                            l.Surname,
+                            l.Lentdate,
+                            b.Isbn13,
+                            l.Active
+                        })
+                        .Where(x => x.Isbn13 == isbn && x.Active.Value)
+                        .Select(x => new ISBNWorker.DBLentStruct()
+                        {
+                            BookID = x.Bookid,
+                            LentID = x.Lentid,
+                            PreName = x.Prename,
+                            SurName = x.Surname,
+                            LentDate = x.Lentdate
+                        })
+                        .ToList(); break;
                 default: throw new Exception("Die ISBN muss 10 oder 13 Stellen lang sein.");
             }
-
-            string cmd = $"SELECT LentID, BookID, PreName, SurName, LentDate FROM Lent WHERE BookID IN (SELECT BookID FROM Books WHERE {whereClause}) AND Active IS TRUE;";
-            List<ISBNWorker.DBLentStruct> lents = ReadDBLent(cmd);
 
             return lents;
         }
 
         public List<ISBNWorker.DBLentStruct> GetLentByName(string preName, string name)
         {
-            string cmd = $"SELECT LentID, BookID, PreName, SurName, LentDate FROM Lent WHERE PreName = '{preName}' AND SurName = '{name}' AND Active IS TRUE";
-            List<ISBNWorker.DBLentStruct> lents = ReadDBLent(cmd);
+            List<ISBNWorker.DBLentStruct> lents = mBooksDB.Lent
+                .Where(x => x.Prename == preName && x.Surname == name && x.Active.Value)
+                .Select(x => new ISBNWorker.DBLentStruct()
+                {
+                    BookID = x.Bookid,
+                    LentID = x.Lentid,
+                    PreName = x.Prename,
+                    SurName = x.Surname,
+                    LentDate = x.Lentdate
+                })
+                .ToList();
 
             return lents;
         }
 
         public List<ISBNWorker.DBLentStruct> GetAllLents(bool ignoreIsActive = true)
         {
-            string whereClause = ignoreIsActive ? "" : "WHERE Active IS TRUE";
-            string cmd = $"SELECT LentID, BookID, PreName, SurName, LentDate FROM Lent {whereClause}";
-            List<ISBNWorker.DBLentStruct> lents = ReadDBLent(cmd);
-
-            return lents;
-        }
-
-        private List<ISBNWorker.DBLentStruct> ReadDBLent(string cmd)
-        {
-            List<ISBNWorker.DBLentStruct> lentStructs = new List<ISBNWorker.DBLentStruct>();
-            try
+            List<ISBNWorker.DBLentStruct> lents = new List<ISBNWorker.DBLentStruct>();
+            if (ignoreIsActive)
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
-                {
-                    conn.Open();
-                    using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
+                 lents = mBooksDB.Lent
+                    .Select(x => new ISBNWorker.DBLentStruct()
                     {
-                        NpgsqlDataReader reader = command.ExecuteReader();
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                lentStructs.Add(FillLentStruct(reader));
-                            }
-                        } // if
-                    } // using
-                } // using
-            } // try
-            catch (Exception ex)
+                        BookID = x.Bookid,
+                        LentID = x.Lentid,
+                        PreName = x.Prename,
+                        SurName = x.Surname,
+                        LentDate = x.Lentdate
+                    })
+                    .ToList();
+            }
+            else
             {
-
+                lents = mBooksDB.Lent
+                    .Where(x => x.Active.Value)
+                    .Select(x => new ISBNWorker.DBLentStruct()
+                    {
+                        BookID = x.Bookid,
+                        LentID = x.Lentid,
+                        PreName = x.Prename,
+                        SurName = x.Surname,
+                        LentDate = x.Lentdate
+                    })
+                    .ToList();
             }
 
-            return lentStructs;
-        }
-
-        private ISBNWorker.DBLentStruct FillLentStruct(NpgsqlDataReader reader)
-        {
-            ISBNWorker.DBLentStruct lent = new ISBNWorker.DBLentStruct();
-            lent.LentID = reader.GetFieldValue<int>(0);
-            lent.BookID = reader.GetFieldValue<int>(1);
-            lent.PreName = reader.GetFieldValue<string>(2);
-            lent.SurName = reader.IsDBNull(3) ? null : reader.GetFieldValue<string>(3);
-            lent.LentDate = reader.GetFieldValue<DateTime>(4);
-
-            return lent;
+            return lents;
         }
 
         #endregion
@@ -521,27 +751,47 @@ namespace ISBNCaller_Lib
 
         public Dictionary<int, string> GetAllSeries(Dictionary<int, string> series)
         {
-            string cmd = "SELECT SeriesID, Name FROM Series ORDER BY Name ASC;";
-            series = ReadDBSeries(cmd, series);
-
-            return series;
-        }
-
-        public Dictionary<int, string> GetSeriesByBookID(int bookID, Dictionary<int, string> series)
-        {
-            string cmd = $"SELECT s.SeriesID, Name FROM Series s INNER JOIN BookSeries bs ON s.SeriesID=bs.SeriesID WHERE BookID={bookID}";
-            series = ReadDBSeries(cmd, series);
-            return series;
-        }
-
-        public int GetSeriesIDBySeriesName(string name, Dictionary<int, string> series)
-        {
-            string cmd = $"SELECT SeriesID, Name FROM Series WHERE Name ='{name}';";
-            series = ReadDBSeries(cmd, series);
-            int seriesID = -1;
-            foreach (var serie in series)
+            Dictionary<int, string> resSeries = mBooksDB.Series
+            .Select(x => new KeyValuePair<int, string>((int)x.Seriesid, x.Name))
+            .ToDictionary(x => x.Key, x => x.Value);
+            foreach (KeyValuePair<int, string> kvp in resSeries)
             {
-                seriesID = serie.Key;
+                series.Add(kvp.Key, kvp.Value);
+            }
+
+            return series;
+        }
+
+        public Dictionary<int, string> GetSeriesByBookID(int bookID)
+        {
+            Dictionary<int, string> series = mBooksDB.Series
+                .Join(mBooksDB.Bookseries,
+                s => s.Seriesid,
+                bs => bs.Seriesid,
+                (s, bs) => new
+                {
+                    bs.Bookid,
+                    SeriesID = s.Seriesid,
+                    s.Name
+                }
+                )
+                .Where(x => x.Bookid == bookID)
+                .Select(x => new KeyValuePair<int, string>((int)x.SeriesID, x.Name))
+                .ToDictionary(x => x.Key, x => x.Value);
+            
+            return series;
+        }
+
+        public int GetSeriesIDBySeriesName(string name)
+        {
+            Dictionary<int, string> resSeries = mBooksDB.Series
+                .Where(s => s.Name == name)
+                .Select(x => new KeyValuePair<int, string>((int)x.Seriesid, x.Name))
+                .ToDictionary(x => x.Key, x => x.Value);
+            int seriesID = -1;
+            if (resSeries.Count() > 0)
+            {
+                seriesID = resSeries.First().Key;
             }
 
             return seriesID;
@@ -549,68 +799,15 @@ namespace ISBNCaller_Lib
 
         public int GetMaxNoInSeries(int seriesID)
         {
-            string cmd = $"SELECT MAX(NoInSeries) FROM BookSeries WHERE SeriesID = {seriesID}";
-            int maxNoInSeries = -1;
-            try
+            if (seriesID < 0)
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
-                {
-                    conn.Open();
-                    using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
-                    {
-                        NpgsqlDataReader reader = command.ExecuteReader();
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                maxNoInSeries = reader.GetFieldValue<int>(0);
-                            } // while
-                        } // if
-                    } // using
-                } // using
-            } // try
-            catch (Exception ex)
-            {
-
+                return -1;
             }
+
+            int maxNoInSeries = (int)mBooksDB.Bookseries.Where(s => s.Seriesid == seriesID)
+                .OrderByDescending(s => s.Noinseries).First().Noinseries;
 
             return maxNoInSeries;
-        }
-
-        private Dictionary<int, string> ReadDBSeries(string cmd, Dictionary<int, string> series)
-        {
-            if (series == null)
-            {
-                series = new Dictionary<int, string>();
-            }
-
-            try
-            {
-                using (NpgsqlConnection conn = new NpgsqlConnection(mConnection))
-                {
-                    conn.Open();
-                    using (NpgsqlCommand command = new NpgsqlCommand(cmd, conn))
-                    {
-                        NpgsqlDataReader reader = command.ExecuteReader();
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                series.Add(
-                                    reader.GetFieldValue<int>(0),
-                                    reader.GetFieldValue<string>(1)
-                                );
-                            } // while
-                        } // if
-                    } // using
-                } // using
-            } // try
-            catch (Exception ex)
-            {
-
-            }
-
-            return series;
         }
 
         #endregion

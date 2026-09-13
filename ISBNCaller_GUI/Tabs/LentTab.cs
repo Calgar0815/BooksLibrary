@@ -1,7 +1,9 @@
-﻿using ISBNCaller_Lib;
+﻿using ISBNCaller.DBWorker;
+using ISBNCaller_Lib;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ISBNCaller_GUI
@@ -25,6 +27,7 @@ namespace ISBNCaller_GUI
         internal Button mBtnLent { get; set; }
         internal Button mBtnRemove { get; set; }
         private string mDBConnection { get; set; }
+        private BooksDB mBooksDB { get; set; }
 
         private DateTimePicker mDateTimePicker;
 
@@ -41,9 +44,10 @@ namespace ISBNCaller_GUI
         #endregion
         #region Constructors
         
-        internal LentTab(string dbConnection)
+        internal LentTab(string dbConnection, BooksDB booksDB)
         {
             mDBConnection = dbConnection;
+            mBooksDB = booksDB;
         }
 
         #endregion
@@ -52,7 +56,7 @@ namespace ISBNCaller_GUI
 
         internal void btnSearch_Click()
         {
-            DBReader dbReader = new DBReader(mDBConnection);
+            DBReader dbReader = new DBReader(mDBConnection, mBooksDB);
             string cmd = CreateSQLCmd(dbReader);
             if (cmd == "")
             {
@@ -286,17 +290,19 @@ namespace ISBNCaller_GUI
                 if (mTxtBoxAuthorPreName.Text != "" && mTxtBoxAuthorSurName.Text != "")
                 {
                     ISBNWorker.DBAuthorStruct author = dbReader.GetAuthor(mTxtBoxAuthorPreName.Text, mTxtBoxAuthorSurName.Text);
-                    authorBooks = dbReader.GetBookByAuthorID(author.AuthorID);
+                    authorBooks = dbReader.GetBooksByAuthorID(author.AuthorID);
                 }
                 else if (mTxtBoxAuthorPreName.Text != "")
                 {
-                    ISBNWorker.DBAuthorStruct author = dbReader.GetAuthorByPreName(mTxtBoxAuthorPreName.Text);
-                    authorBooks = dbReader.GetBookByAuthorID(author.AuthorID);
+                    List<ISBNWorker.DBAuthorStruct> authors = dbReader.GetAuthorsByPreName(mTxtBoxAuthorPreName.Text);
+                    List<int> authorIDs = authors.Select(x => x.AuthorID).ToList();
+                    authorBooks = dbReader.GetBooksByAuthorIDs(authorIDs);
                 }
                 else if (mTxtBoxAuthorSurName.Text != "")
                 {
-                    ISBNWorker.DBAuthorStruct author = dbReader.GetAuthorByName(mTxtBoxAuthorSurName.Text);
-                    authorBooks = dbReader.GetBookByAuthorID(author.AuthorID);
+                    List<ISBNWorker.DBAuthorStruct> authors = dbReader.GetAuthorsByName(mTxtBoxAuthorSurName.Text);
+                    List<int> authorIDs = authors.Select(x => x.AuthorID).ToList();
+                    authorBooks = dbReader.GetBooksByAuthorIDs(authorIDs);
                 }
 
                 string[] authorBookIDs = new string[authorBooks.Count];
@@ -382,7 +388,7 @@ namespace ISBNCaller_GUI
                 bookStruct.BookStruct = book;
                 if (book.IsPartOfSeries)
                 {
-                    Dictionary<int, string> series = dbReader.GetSeriesByBookID(book.BookID, null);
+                    Dictionary<int, string> series = dbReader.GetSeriesByBookID(book.BookID);
                     bookStruct.Series = series;
                 }
 

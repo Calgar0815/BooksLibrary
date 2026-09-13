@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
+using ISBNCaller.DBWorker;
 
 namespace ISBNCaller_GUI
 {
@@ -274,7 +275,7 @@ namespace ISBNCaller_GUI
 
         private void FillDGVAuthors(DBReader.SearchStruct toCorrect, ref DataGridView dgvAuthors)
         {
-            DBReader dbReader = new DBReader(mForm1.mDBConnection);
+            DBReader dbReader = new DBReader(mForm1.mDBConnection, mForm1.mBooksDB);
             List<ISBNWorker.DBAuthorStruct> authorsList = dbReader.GetAuthorsByBookID(toCorrect.BookID);
             for (int index = 0; index < authorsList.Count; index++)
             {

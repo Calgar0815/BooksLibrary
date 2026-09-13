@@ -1,11 +1,10 @@
-﻿using ISBNCaller_Lib;
+﻿using ISBNCaller.DBWorker;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace ISBNCaller_GUI
 {
@@ -17,6 +16,7 @@ namespace ISBNCaller_GUI
         internal string mLanguage { get; private set; }
         internal string mColorMode { get; private set; }
         internal string mDBConnection { get; private set; }
+        internal BooksDB mBooksDB { get; private set; }
 
         #endregion
         #region Constructor
@@ -26,9 +26,10 @@ namespace ISBNCaller_GUI
             InitializeComponent();
             LoadColorMode();
             LoadDBConnection();
+            mBooksDB = new BooksDB(mDBConnection);
             mWriteTab = new WriteTab(this);
-            mLentTab = new LentTab(mDBConnection);
-            mReturnTab = new ReturnTab(mDBConnection);
+            mLentTab = new LentTab(mDBConnection, mBooksDB);
+            mReturnTab = new ReturnTab(mDBConnection, mBooksDB);
             mSearchTab = new SearchTab(this);
             InitializeWriteTabObjects();
             InitializeLentTabObjects();
@@ -727,7 +728,7 @@ namespace ISBNCaller_GUI
 
         public void FillCmbBoxSeries(ComboBox cmbBoxSeries)
         {
-            DBReader dbReader = new DBReader(mDBConnection);
+            DBReader dbReader = new DBReader(mDBConnection, mBooksDB);
             Dictionary<int, string> series = new Dictionary<int, string>();
             series.Add(-2, "");
             series = dbReader.GetAllSeries(series);
@@ -739,7 +740,7 @@ namespace ISBNCaller_GUI
 
         public void FillCmbBoxFormat(ComboBox cmbBoxFormat)
         {
-            DBReader dbReader = new DBReader(mDBConnection);
+            DBReader dbReader = new DBReader(mDBConnection, mBooksDB);
             List<string> format = new List<string>();
             format = dbReader.GetAllFormats();
             cmbBoxFormat.Items.AddRange(format.ToArray());

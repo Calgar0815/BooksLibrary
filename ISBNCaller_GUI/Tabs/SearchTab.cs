@@ -1,4 +1,5 @@
-﻿using ISBNCaller_Lib;
+﻿using ISBNCaller.DBWorker;
+using ISBNCaller_Lib;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -51,7 +52,7 @@ namespace ISBNCaller_GUI
             try
             {
                 string cmd = CreateSQLCmd();
-                DBReader dbReader = new DBReader(mForm1.mDBConnection);
+                DBReader dbReader = new DBReader(mForm1.mDBConnection, mForm1.mBooksDB);
                 mSearched = dbReader.GetSearched(cmd);
                 FillDGV();
             }
@@ -287,7 +288,7 @@ namespace ISBNCaller_GUI
                 wheres2.Add($"b.Format = '{mCmbBoxFormat.Text}'");
             }
 
-            DBReader dbReader = new DBReader(mForm1.mDBConnection);
+            DBReader dbReader = new DBReader(mForm1.mDBConnection, mForm1.mBooksDB);
             if (mChkBoxUseDates.Checked)
             {
                 string from = $"{mDtpFrom.Value.Year}";
@@ -408,7 +409,7 @@ namespace ISBNCaller_GUI
 
         internal void InitializeCmbBoxFormat()
         {
-            DBReader dbReader = new DBReader(mForm1.mDBConnection);
+            DBReader dbReader = new DBReader(mForm1.mDBConnection, mForm1.mBooksDB);
             List<string> formats = dbReader.GetAllFormats();
             formats.Insert(0, "");
             mCmbBoxFormat.Items.AddRange(formats.ToArray());

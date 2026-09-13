@@ -1,5 +1,6 @@
 ﻿
 
+using ISBNCaller.DBWorker;
 using ISBNCaller_Lib;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace ISBNCaller_GUI
         internal TextBox mTxtBoxTitle { get; set; }
         internal CheckBox mChkBoxIgnoreIsActive { get; set; }
         private string mDBConnection { get; set; }
+        private BooksDB mBooksDB { get; set; }
         private DBReader mDBReader { get; set; }
 
         #endregion
@@ -41,10 +43,11 @@ namespace ISBNCaller_GUI
         #endregion
         #region Constructors
 
-        internal ReturnTab(string dbConnection)
+        internal ReturnTab(string dbConnection, BooksDB booksDB)
         {
             mDBConnection = dbConnection;
-            mDBReader = new DBReader(dbConnection);
+            mBooksDB = booksDB;
+            mDBReader = new DBReader(dbConnection, mBooksDB);
         }
 
         #endregion
@@ -130,7 +133,7 @@ namespace ISBNCaller_GUI
                 lented.Author = authors.Count == 0 ? "" : $"{authors[0].PreName} {authors[0].Name}";
                 if (book.IsPartOfSeries)
                 {
-                    Dictionary<int, string> seriesKVP = mDBReader.GetSeriesByBookID(lent.BookID, null);
+                    Dictionary<int, string> seriesKVP = mDBReader.GetSeriesByBookID(lent.BookID);
                     foreach (KeyValuePair<int, string> entry in seriesKVP)
                     {
                         lented.Series = entry.Value;
