@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -36,6 +36,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>barcode-scanners-qr-code-image-scanner-scanner-bf21d4399688c2978ee28486741ea2da.ico</ApplicationIcon>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="barcode-scanners-qr-code-image-scanner-scanner-bf21d4399688c2978ee28486741ea2da.ico" />
