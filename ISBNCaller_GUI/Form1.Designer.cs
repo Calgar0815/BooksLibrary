@@ -275,7 +275,7 @@ namespace ISBNCaller_GUI
             // 
             SearchTab_chkBoxUseDates.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchTab_chkBoxUseDates.AutoSize = true;
-            SearchTab_chkBoxUseDates.Location = new System.Drawing.Point(758, 102);
+            SearchTab_chkBoxUseDates.Location = new System.Drawing.Point(762, 103);
             SearchTab_chkBoxUseDates.Name = "SearchTab_chkBoxUseDates";
             SearchTab_chkBoxUseDates.Size = new System.Drawing.Size(96, 19);
             SearchTab_chkBoxUseDates.TabIndex = 23;
@@ -327,6 +327,8 @@ namespace ISBNCaller_GUI
             // SearchTab_dtpTo
             // 
             SearchTab_dtpTo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SearchTab_dtpTo.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
+            SearchTab_dtpTo.CalendarTitleForeColor = System.Drawing.SystemColors.HotTrack;
             SearchTab_dtpTo.CustomFormat = "yyyy";
             SearchTab_dtpTo.Enabled = false;
             SearchTab_dtpTo.Format = DateTimePickerFormat.Custom;
@@ -1010,7 +1012,7 @@ namespace ISBNCaller_GUI
             LentTab_cmbBoxSubTitle.DropDownStyle = ComboBoxStyle.DropDownList;
             LentTab_cmbBoxSubTitle.FormattingEnabled = true;
             LentTab_cmbBoxSubTitle.Items.AddRange(new object[] { "und", "oder" });
-            LentTab_cmbBoxSubTitle.Location = new System.Drawing.Point(320, 50);
+            LentTab_cmbBoxSubTitle.Location = new System.Drawing.Point(329, 50);
             LentTab_cmbBoxSubTitle.Margin = new Padding(4, 3, 4, 3);
             LentTab_cmbBoxSubTitle.Name = "LentTab_cmbBoxSubTitle";
             LentTab_cmbBoxSubTitle.Size = new System.Drawing.Size(89, 23);

@@ -237,11 +237,14 @@ namespace ISBNCaller_GUI
 
             #region Buttons
             colorWorker.ChangeButtonColors(SearchTab_btnSearch);
+            colorWorker.ChangeButtonColors(SearchTab_btnClearFields);
+            colorWorker.ChangeButtonColors(SearchTab_btnCorrection);
             colorWorker.ChangeButtonColors(WriteTab_btnCancel);
             colorWorker.ChangeButtonColors(WriteTab_btnOK);
             colorWorker.ChangeButtonColors(WriteTab_btnRegisterWOutISBN);
             colorWorker.ChangeButtonColors(WriteTab_Book_btnCalculateISBN10);
             colorWorker.ChangeButtonColors(WriteTab_Book_btnCalculateISBN13);
+            colorWorker.ChangeButtonColors(WriteTab_btnWriteToDB);
             colorWorker.ChangeButtonColors(LentTab_btnLent);
             colorWorker.ChangeButtonColors(LentTab_btnPull);
             colorWorker.ChangeButtonColors(LentTab_btnRemove);
@@ -331,6 +334,8 @@ namespace ISBNCaller_GUI
             colorWorker.ChangeTextBoxColors(WriteTab_Book_txtBoxTitle);
             colorWorker.ChangeTextBoxColors(WriteTab_Book_cmbBoxFormat);
             colorWorker.ChangeTextBoxColors(WriteTab_Book_cmbBoxSeries);
+            colorWorker.ChangeTextBoxColors(SearchTab_dtpFrom);
+            colorWorker.ChangeTextBoxColors(SearchTab_dtpTo);
             colorWorker.ChangeTextBoxColors(LentTab_txtBoxAuthorPreName);
             colorWorker.ChangeTextBoxColors(LentTab_txtBoxAuthorSurName);
             colorWorker.ChangeTextBoxColors(LentTab_txtBoxISBN);
