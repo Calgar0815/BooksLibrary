@@ -1,4 +1,5 @@
-﻿using ISBNCaller_Lib;
+﻿using ISBNCaller.DBWorker;
+using ISBNCaller_Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -151,7 +152,7 @@ namespace ISBNCaller_GUI
             if (mCmbBoxSeries.SelectedValue != null)
             {
                 int seriesID = (int)mCmbBoxSeries.SelectedValue;
-                DBReader dbReader = new DBReader(mForm1.mDBConnection);
+                DBReader dbReader = new DBReader(mForm1.mDBConnection, mForm1.mBooksDB);
                 int maxNoInSeries = dbReader.GetMaxNoInSeries(seriesID);
                 mLabelMaxNoCount.Text = $"{maxNoInSeries}";
             } // if
@@ -373,7 +374,7 @@ namespace ISBNCaller_GUI
 
         private bool WriteToDB()
         {
-            DBReader dbReader = new DBReader(mForm1.mDBConnection);
+            DBReader dbReader = new DBReader(mForm1.mDBConnection, mForm1.mBooksDB);
             List<ISBNWorker.DBAuthorStruct> returnedAuthors = new List<ISBNWorker.DBAuthorStruct>();
             if (!CheckAuthorsForDublettes(dbReader, ref returnedAuthors))
             {
@@ -389,7 +390,7 @@ namespace ISBNCaller_GUI
                 bool written = dbWriter.WriteBook(dbBook);
                 if (!written) return false;
 
-                List<ISBNWorker.DBBookStruct> books = dbReader.GetBookByTitle(dbBook.Title);
+                List<ISBNWorker.DBBookStruct> books = dbReader.GetBooksByTitle(dbBook.Title);
                 int bookID = books[books.Count - 1].BookID;
                 int authorID = -1;
                 if (written)
@@ -475,7 +476,7 @@ namespace ISBNCaller_GUI
                 if (mChkBoxIsNewSeries.Checked)
                 {
                     dbWriter.WriteSeries(mTxtBoxNewSeriesName.Text);
-                    seriesID = dbReader.GetSeriesIDBySeriesName(mTxtBoxNewSeriesName.Text, null);
+                    seriesID = dbReader.GetSeriesIDBySeriesName(mTxtBoxNewSeriesName.Text);
                 }
                 else
                 {
