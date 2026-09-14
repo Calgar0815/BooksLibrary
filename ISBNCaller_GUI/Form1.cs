@@ -292,6 +292,7 @@ namespace ISBNCaller_GUI
             colorWorker.ChangeLabelColors(SearchTab_chkBoxUseDates);
             colorWorker.ChangeLabelColors(SearchTab_chkBoxShowLent);
             colorWorker.ChangeLabelColors(WriteTab_WorkInProgressLabel);
+            colorWorker.ChangeLabelColors(WriteTab_ISBNLabel_1);
             colorWorker.ChangeLabelColors(WriteTab_Book_labelFormat);
             colorWorker.ChangeLabelColors(WriteTab_Book_labelISBN10);
             colorWorker.ChangeLabelColors(WriteTab_Book_labelISBN13);
@@ -318,6 +319,8 @@ namespace ISBNCaller_GUI
             #endregion
 
             #region TextBoxes & ComboBoxes
+            colorWorker.ChangeTextBoxColors(cmbBoxColorMode);
+            colorWorker.ChangeTextBoxColors(cmbBoxLanguage);
             colorWorker.ChangeTextBoxColors(SearchTab_txtBoxAuthorPreName);
             colorWorker.ChangeTextBoxColors(SearchTab_txtBoxAuthorSurName);
             colorWorker.ChangeTextBoxColors(SearchTab_txtBoxISBN);
