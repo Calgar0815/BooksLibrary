@@ -291,6 +291,8 @@ namespace ISBNCaller_GUI
             colorWorker.ChangeLabelColors(SearchTab_chkBoxOnlyShowFirstAuthor);
             colorWorker.ChangeLabelColors(SearchTab_chkBoxUseDates);
             colorWorker.ChangeLabelColors(SearchTab_chkBoxShowLent);
+            colorWorker.ChangeLabelColors(WriteTab_groupBoxAuthor);
+            colorWorker.ChangeLabelColors(WriteTab_groupBoxBook);
             colorWorker.ChangeLabelColors(WriteTab_WorkInProgressLabel);
             colorWorker.ChangeLabelColors(WriteTab_ISBNLabel_1);
             colorWorker.ChangeLabelColors(WriteTab_Book_labelFormat);
@@ -304,11 +306,15 @@ namespace ISBNCaller_GUI
             colorWorker.ChangeLabelColors(WriteTab_Book_labelTitle);
             colorWorker.ChangeLabelColors(WriteTab_Book_chkBoxIsNewSeries);
             colorWorker.ChangeLabelColors(WriteTab_Book_chkBoxIsPartOfSeries);
+            colorWorker.ChangeLabelColors(LentTab_groupBoxSuchen);
+            colorWorker.ChangeLabelColors(LentTab_groupBoxVerleihen);
             colorWorker.ChangeLabelColors(LentTab_labelAuthorPreName);
             colorWorker.ChangeLabelColors(LentTab_labelAuthorSurName);
             colorWorker.ChangeLabelColors(LentTab_labelISBN);
             colorWorker.ChangeLabelColors(LentTab_labelSubTitle);
             colorWorker.ChangeLabelColors(LentTab_labelTitle);
+            colorWorker.ChangeLabelColors(ReturnTab_GroupBoxGetBack);
+            colorWorker.ChangeLabelColors(ReturnTab_GroupBoxSearch);
             colorWorker.ChangeLabelColors(ReturnTab_labelBookTitle);
             colorWorker.ChangeLabelColors(ReturnTab_labelISBN);
             colorWorker.ChangeLabelColors(ReturnTab_labelLentTo);
